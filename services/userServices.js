@@ -3,29 +3,22 @@ const moment = require("moment");
 const crypto = require('crypto');
 const { generateCode, generateActivationToken } = require('../helper/userHelper');
 const { Registration, Userwallet, Importwallet, Tokensettings, Tokendetails, OrderDetails, RefCode, FAQ, ContactInfo, activationTokens } = require('../models/contact');
+const {  UserInfo } = require('../models/userModel');
+
 const { mail } = require('../helper/mailer');
 
-const addUser = async (userDetails, pass, created, fileName) => {
+const addUser = async (userDetails, pass, created) => {
   const userObject = {
     name: userDetails.name,
-    first_name: '',
-    last_name: '',
+    
     email: userDetails.email,
     password: pass,
     created_at: created,
-    email_verify_status: false,
-    mobile_no: userDetails.phone,
-    username: userDetails.username,
-    address: '',
-    user_address: '',
-    country: userDetails.country,
-    state: '',
-    city: '',
-    status: 'active',
-    profile_image: fileName
+    mobile: userDetails.mobile,
+    username: userDetails.username
   };
   try {
-    const user = new Registration(userObject);
+    const user = new UserInfo(userObject);
     await user.save();
     return userObject;
   } catch (error) {
@@ -64,14 +57,14 @@ const checkUserId = async (user_id) => {
 };
 
 const checkUser = async (email) => {
-  let user = await Registration.findOne({ 'email': email });
+  let user = await UserInfo.findOne({ 'email': email });
   if (user) {
     return user;
   }
 };
 
 const checkUserPass = async (email, password) => {
-  let user = await Registration.findOne({ 'email': email, 'password': password });
+  let user = await UserInfo.findOne({ 'email': email, 'password': password });
   if (user) {
     return user;
   }

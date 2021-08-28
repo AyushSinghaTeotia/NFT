@@ -1,18 +1,37 @@
 var createError = require('http-errors');
 var express = require('express');
+const flash = require('express-flash');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const session = require('./middleware/session');
+var fs = require('fs-extra');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+
+const cors = require('cors')
+
+var app = express();
+
+app.use(session);
+app.use(cors())
+
+
+mongoose.connect('mongodb://localhost:27017/NFT', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB Database Connected'))
+    .catch(err => console.log(err))
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,8 +39,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(flash())
+
+
+
 app.use(expressLayouts);
-app.set('layout', 'layouts/front/layout');
+app.set('layout', 'layouts/backend/adminLayout');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

@@ -81,48 +81,40 @@ const upload = multer({
     storage: Storage
 }).array('file',2);
 
-const submitContentCreater = async (req, res) => {
+
+const signup= async (req,res)=> {
+    res.render('users/register', { layout: 'layouts/front/layout' });
+
+}
+const submitSignup = async (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
-    let country = req.body.country;
+    let mobile = req.body.mobile;
     let username = req.body.username;
-    let bio = req.body.bio;
-    let genre = req.body.genre;
-    let current = req.body.current;
-    let date = req.body.birthday;
-    if(req.files){
-        let fileName= req.files;
-        // console.log(fileName,'---------',name,'---------',email,'---------',password,'---------',country,'---------',username,'---------',bio,'---------',genre,'---------',current,'---------',date);
-        if(fileName && name && email && password && country && username && bio && genre && current && date){
-            let user = await contentCreaterServices.checkContentCreater(req.body.email);
-            if (user) {
-                let wallet = { success: 0, msg: "Email already exists." };
-                let wallet_details = JSON.stringify(wallet);
-                res.send(wallet_details);
+    
+      console.log(req.body);
+        if(name && email && password && username && mobile){
+            let user = await userServices.checkUser(req.body.email);
+            console.log(user);
+            if (user) 
+             {
+                req.flash('err_msg', 'Email already exists. Please enter another email.');
+                res.redirect('/users/signup');
             }
             else {
                 let mystr = await contentCreaterServices.createCipher(req.body.password);
                 let created = await contentCreaterServices.createAtTimer();
-                let newuser = await contentCreaterServices.addcontentCreater(req.body, mystr, created, fileName, date);
-                let user = await contentCreaterServices.checkContentCreater(req.body.email);
-                let activationmail = await contentCreaterServices.sendActivationMail(user, req)
-                let wallet = { success: 1, msg: "Email registered, please check your inbox for activation mail." };
-                let wallet_details = JSON.stringify(wallet);
-                res.send(wallet_details);
+                let newuser = await userServices.addUser(req.body, mystr, created);
+                let user = await userServices.checkUser(req.body.email);
+                //let activationmail = await userServices.sendActivationMail(user, req)
+                console.log(user);
+                req.flash('success_msg', 'Content Creater registered. Please verify to continue.');
+              res.redirect('/users/login');
             }
+        
         }
-        else{
-            let wallet = { success: 0, msg: "Name, Email, Password, Country, Username, Bio, Genre, Current, Birth Date and Images are mandatory fields." };
-            let wallet_details = JSON.stringify(wallet);
-            res.send(wallet_details);
-        }
-    }
-    else{
-        let wallet = { success: 0, msg: "Images not found." };
-        let wallet_details = JSON.stringify(wallet);
-        res.send(wallet_details);
-    }
+   
 }
 
 const activateAccount = async (req, res) => {
@@ -290,11 +282,12 @@ const kycPost = async (req, res) => {
 module.exports = {
     login,
     upload,
-    submitContentCreater,
     activateAccount,
     activateContentCreater,
     forgetPassword,
     submitChange,
     updateContentCreaterProfile,
-    kycPost
+    kycPost,
+    signup,
+    submitSignup
 }

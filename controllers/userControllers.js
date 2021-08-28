@@ -43,6 +43,14 @@ const upload = multer({
     storage:Storage
 }).single('file');
 
+const loginPage = async (req, res) => {
+   // let err_msg = req.flash('err_msg');
+    //let success_msg = req.flash('success_msg');
+
+        res.render('users/login', { layout: 'layouts/front/layout' });
+    
+}
+
 const submitUser = async (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
@@ -88,7 +96,7 @@ const userLogin = async (req, res) => {
     let password = req.body.password.trim();
     let mystr = await userServices.createCipher(password);
     if (user) {
-        if (user.email_verify_status != true) {
+        if (user.email_verified == true) {
             let wallet = { success: 0, msg: "Account not activated please activate account before login" };
             let wallet_details = JSON.stringify(wallet);
             return res.send(wallet_details);
@@ -97,32 +105,29 @@ const userLogin = async (req, res) => {
             name: user.name,
             email: user.email,
             created_at: user.created_at,
-            email_verify_status: user.email_verify_status,
-            mobile_no: user.mobile_no,
-            address: user.address,
-            user_address: user.user_address,
-            country: user.country,
-            state: user.state,
-            city: user.city,
+            mobile: user.mobile,
+            role: user.user_role,
             status: user.status,
         }
         let userLogin = await userServices.checkUserPass(req.body.email.trim(), mystr);
         if (userLogin) {
-            const _token = jwt.sign({
-                success: true,
-                re_us_id: userLogin._id,
-                re_usr_name: userLogin.name,
-                re_usr_email: userLogin.email,
-                is_user_logged_in: true
-            }, JWT_SECRET_KEY, { expiresIn: '1h' });
-            let wallet = { success: 1, msg: "Login successful.", token: _token, user: userObject };
-            let wallet_details = JSON.stringify(wallet);
-            res.send(wallet_details);
+            if (userLogin.status == 'active' ) {
+                req.session.success = true;
+                req.session.re_us_id = userLogin._id;
+                req.session.re_usr_name = userLogin.name;
+                req.session.re_usr_email = userLogin.email;
+                req.session.is_user_logged_in = true;
+                console.log(req.session.is_user_logged_in);
+                res.redirect('/users/dashboard');
+            } else {
+                req.flash('err_msg', 'Your account is not verified.');
+                res.redirect('/login')
+            }
         }
         else {
-            let wallet = { success: 0, msg: "Incorrect credentials." };
-            let wallet_details = JSON.stringify(wallet);
-            res.send(wallet_details);
+            req.flash('err_msg', 'The username or password is incorrect.');
+            res.redirect('/login');
+           
         }
     }
     else {
@@ -130,6 +135,11 @@ const userLogin = async (req, res) => {
         let wallet_details = JSON.stringify(wallet);
         res.send(wallet_details);
     }
+}
+
+const logout = async (req, res) => {
+    req.session.destroy();
+    res.redirect('/users/login');
 }
 
 const submitChange = async (req, res) => {
@@ -274,5 +284,7 @@ module.exports = {
     updateProfile,
     activateAccount,
     activateUser,
-    forgetPassword
+    loginPage,
+    forgetPassword,
+    logout,
 };
