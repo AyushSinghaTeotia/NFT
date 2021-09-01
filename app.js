@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 //const session = require('./middleware/session');
 var session = require('express-session')
+require('dotenv').config()
 
 var fs = require('fs-extra');
 var logger = require('morgan');
@@ -70,6 +71,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.role=req.session.role;
+  res.locals.err_msg=req.flash('err_msg');
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page

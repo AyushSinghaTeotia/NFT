@@ -30,10 +30,10 @@ const upload = multer({
 }).single('file');
 
 const loginPage = async (req, res) => {
-   // let err_msg = req.flash('err_msg');
+       let err_msg = req.flash('err_msg');
     //let success_msg = req.flash('success_msg');
 
-        res.render('users/login', { layout: 'layouts/front/layout' });
+        res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg });
     
 }
 
@@ -90,9 +90,9 @@ const userLogin = async (req, res) => {
         }
     }
     else {
-        let wallet = { success: 0, msg: "Email address does not exist." };
-        let wallet_details = JSON.stringify(wallet);
-        res.send(wallet_details);
+        //let message = { success: 0, msg: "Email address does not exist." };
+        req.flash('err_msg', 'Email does not exist.');
+        res.redirect('users/login');
     }
 }
 

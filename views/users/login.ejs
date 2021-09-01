@@ -35,7 +35,16 @@
                                     <div class="clearfix"></div>
                                     
                                     <div class="spacer-single"></div>
+                                    <ul>
+                                        <li>
 
+                                            <% if(err_msg!=undefined){ %>
+                                                <span class="error_validate flash_msg"><%= err_msg %></span>
+                                              <% }%>
+
+                                        </li>
+                                    </ul>
+                                    
                                 <!-- social icons -->
                                 <ul class="list s3">
                                     <li>Don't Have an Account: <a href="/users/signup">Register</a></li>
