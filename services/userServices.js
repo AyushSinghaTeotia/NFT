@@ -63,6 +63,13 @@ const checkUser = async (email) => {
   }
 };
 
+const checkUserByID = async (user_id) => {
+  let user = await UserInfo.findOne({ '_id':user_id });
+  if (user) {
+    return user;
+  }
+};
+
 const checkUserPass = async (email, password) => {
   let user = await UserInfo.findOne({ 'email': email, 'password': password });
   if (user) {
@@ -103,6 +110,22 @@ const updateUserPasswordID = async (id, password) => {
   }
 };
 
+
+const updateCreater = async (id,userstatus) => {
+  try {
+    let user = await UserInfo.findOne({ '_id': id });
+    if (user) {
+      await UserInfo.updateOne({ '_id': id }, { $set: { isApproved:userstatus} });
+      }
+    let userUpdated = await UserInfo.findOne({ '_id': id });
+    return userUpdated;
+  } catch (error) {
+    return null;
+  }
+};
+
+
+
 const createCipher = async (text) => {
   let mykey1 = crypto.createCipher('aes-128-cbc', 'mypass');
   let mystr1 = mykey1.update(text, 'utf8', 'hex')
@@ -116,6 +139,16 @@ const createAtTimer = async () => {
   let created_at = indiaTime.toLocaleString();
   return created_at;
 };
+const creaters=async()=>{
+  let users= await UserInfo.find({user_role:"creater"}).then(users=>{
+    console.log(`Successfully found ${users.length} documents.`)
+    users.forEach(console.log)
+    return users;
+  }).catch(err => console.error(`Failed to find documents: ${err}`));
+  if(users){
+    return users;
+  }
+}
 
 const sendActivationMail = async function (newuser, req) {
   let activationTokenId = await generateActivationToken(newuser)
@@ -186,5 +219,8 @@ module.exports = {
   updateProfile,
   sendActivationMail,
   updateUserStatus,
-  sendNewPasswordMail
+  sendNewPasswordMail,
+  creaters,
+  checkUserByID,
+  updateCreater
 };

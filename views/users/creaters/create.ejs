@@ -1,0 +1,279 @@
+<style >
+    .ui-datepicker-calendar {
+          display: none;
+      }​
+  </style>
+    <div class="heading-row mb-20"style="margin-top: 69px;">
+      <div class="row align-item-center">
+         <div class="col-lg-6">
+            <h3 class="page-title"><span class="page-title-icon bg-gradient-primary text-white mr-2"><i class="mdi mdi-account-plus"></i></span> Add Content </h3>
+         </div>
+          <div class="col-lg-6">
+           <div class="text-right">
+             <div>
+               <a href="/users/dashboard" class="btn btn-common bg-gradient-primary">Go Back</a>
+             </div>
+           </div>
+         </div>
+    </div>
+    </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+             <div class="card-body">
+               <div class="row">
+                 <div class="col-md-11 m-auto">
+                   <div class="add-painting-form">
+                     <form  method="post" enctype="multipart/form-data" action="/users/add-painting">
+                     <div class="profile-form mt-20 view-banner-page">
+                         <div class="row">
+                            <div class="col-md-4">
+                               <div class="form-group">
+                                <label>Model Images(PNG, JPG, GIF, WEBP or MP4. Max 200mb.)</label>
+                                 <div id="attribute_section_add_main">
+                                   <div id="attribute_section_add" class="attribute_section-add-new">
+                                       <div class="border-gray document-upload-box artist-img">
+                                         <div class="text-left">
+                                            <div class="uploader-img">
+                                              <img id="user_profile_image_preview" src="/assets/images/other/demo-img.png" class="m-t-5 painting-main-img" >
+                                            </div>
+                                             <div class="input-group mb-3 mb-3 verification">
+                                                <input type="text" class="form-control" readonly="" id="text_img_name" data-rule-required="true" data-msg-required="Please select your Id.">
+                                                <span class="input-group-btn">
+                                                  <span class="btn btn-common bg-gradient-primary btn-file1">
+                                                  Upload <input type="file"id="imgInp6" value="" name="file" accept="image*" onchange="readURL(this);">
+                                                   <input type="hidden" name="old_image" value="">
+                                                  </span>   
+                                                </span>
+                                                <button class="btn btn-common bg-gradient-primary removie-icon ml-15">
+                                                  <i class="mdi mdi-delete-forever"></i>
+                                                </button>
+                                               </div>
+                                            </div>
+                                          </div>
+                                          <div class="mt-20 ml-15">
+                                              <a href="javascript:void(0);" class="btn-clone" title="Add" onclick="attribute_cloning_add();">
+                                                  <i class="fa fa-plus"></i>
+                                              </a>
+                                              <a  href="javascript:void(0);" id="attribute_cloning" class="btn-clone" title="Remove" onclick="remove_current_div_venues($(this));">
+                                                  <i class="fa fa-minus"></i>
+                                              </a>
+                                          </div>
+                                    </div>
+                                  </div>
+                              </div>
+                           </div>
+                          
+                           <div class="col-md-8">
+                              <h4>Basic Details</h4>
+                             
+                             
+  
+                            
+                              <div class="row">
+                              
+                               
+                                 <div class="col-md-4">
+                                   <div class="form-group">
+                                    <label>No of copies</label>
+                                    <input type="text"name="total_copy" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                   <div class="form-group">
+                                    <label>No of copies for Sale</label>
+                                    <input type="text" name="copy_for_sale" class="form-control">
+                                  </div>
+                                </div>
+                               
+                              </div>
+  
+                              <div class="row">
+                                 <div class="col-md-4">
+                                   <div class="form-group">
+                                    <label>Display Name</label>
+                                    <input type="text"name="title" class="form-control">
+                                  </div>
+                                </div>
+                                 <div class="col-md-4">
+                                   <div class="form-group">
+                                      <label>Categories</label>
+                                      <div class="box">
+                                          <select class="form-control"name="category">
+                                            <option>everyday life</option>
+                                            <option>stile life</option>
+                                            <option>street art</option>
+                                          </select>
+                                        </div>
+                                    </div>
+                                </div>
+  
+                                
+                              </div>
+  
+  
+                                 
+                              <h4>Pricing Details</h4>
+                              <div class="row">
+                                 <div class="col-md-4">
+                                    <div class="form-group for-flex-inline">
+                                      <label>For Sale</label>
+                                       <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" value="Yes"> Yes <i class="input-helper"></i></label>
+                                        </div>
+                                         <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" value="No"> No <i class="input-helper"></i></label>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+  
+                                <div class="row">
+                                   <div class="col-md-4">
+                                   <div class="form-group">
+                                      <label>Basic Price(Taboo)</label>
+                                      <input type="text"name="basic_price" class="form-control">
+                                    </div>
+                                </div>
+                                 <div class="col-md-4">
+                                   <div class="form-group">
+                                      <label>Plateform Fee(1%)</label>
+                                      <input type="text" name="plateform_fees"class="form-control">
+                                    </div>
+                                </div>
+                                 <div class="col-md-4">
+                                   <div class="form-group">
+                                      <label>You get (Taboo)</label>
+                                      <input type="text"name="total_taboo" class="form-control">
+                                    </div>
+                                </div>
+                                
+                              </div>
+  
+                               <h4>Accept Payment In</h4>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group for-flex-inline mt-3">
+                                       <div class="form-check ml-0">
+                                          <label class="form-check-label">
+                                            <input type="checkbox" checked="" name="payment_in" value="Taboo"class="form-check-input"> Taboo </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                              <input type="checkbox"name="payment_in" class="form-check-input"value="BNB"> BNB </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <label class="form-check-label">
+                                              <input type="checkbox"name="payment_in" class="form-check-input"value="ETH"> ETH</label>
+                                          </div>
+                                          <div class="form-check">
+                                            <label class="form-check-label">
+                                              <input type="checkbox"name="payment_in" class="form-check-input"value="USDT"> USDT </label>
+                                          </div>
+                                         
+                                          
+                                    </div>
+                                  </div>
+                                </div>
+  
+  
+                                <h4>This content available For</h4>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group for-flex-inline mt-3">
+                                       <div class="form-check ml-0">
+                                          <label class="form-check-label">
+                                            <input type="checkbox" checked="" name="available_to" value="All"class="form-check-input"> All </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                              <input type="checkbox"name="available_to"value="1 Tier" class="form-check-input"> 1 Tier </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <label class="form-check-label">
+                                              <input type="checkbox" name="available_to"value="2 Tier"class="form-check-input"> 2 Tier</label>
+                                          </div>
+                                          <div class="form-check">
+                                            <label class="form-check-label">
+                                              <input type="checkbox"name="available_to" value="3 Tier"class="form-check-input"> 3 Tier </label>
+                                          </div>
+                                         
+                                          
+                                    </div>
+                                  </div>
+                                </div>
+  
+                               
+  
+  
+                                          <h4 class="">Chose Contract Type</h4>
+                                            <div class="row">
+                                               <div class="col-md-12">
+                                                  <div class="form-group for-flex-inline">
+                                                     <div class="form-check ml-0">
+                                                        <label class="form-check-label">
+                                                          <input type="radio" class="form-check-input" name="contract_type" id="optionsRadios1" value="ERC 1155"> ERC 1155 <i class="input-helper"></i></label>
+                                                      </div>
+                                                       <div class="form-check">
+                                                        <label class="form-check-label">
+                                                          <input type="radio" class="form-check-input" name="contract_type" id="optionsRadios1" value=" ERC 721"> ERC 721  <i class="input-helper"></i></label>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+  
+  
+  
+  
+  
+                                 
+                                
+  
+  
+                                     
+  
+                                    <div class="row">
+                                       <div class="col-md-12">
+                                         <div class="form-group">
+                                            <label>Meta Tag</label>
+                                            <input type="text"name="meta_tag" class="form-control">
+                                          </div>
+                                      </div>
+                                       <div class="col-md-12">
+                                         <div class="form-group">
+                                            <label>Description(optional)</label>
+                                             <textarea class="form-control"name="description" rows="6"></textarea>
+                                          </div>
+                                      </div>
+                                    </div>
+  
+  
+  
+  
+  
+                               <div class="popup-btn text-center">
+                                <a href="" class="btn btn-common bg-gradient-primary">Preview</a>
+                                <a href="" class="btn btn-common bg-gradient-primary">Save as Draft</a>
+                                <button type="submit"  class="btn btn-common bg-gradient-primary">Submit</button>
+                              </div>
+                           </div>
+                         </div>
+                       
+                        
+                 
+  
+                     </div>
+                     </form>
+                   </div>
+                 </div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+ 

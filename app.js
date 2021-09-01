@@ -3,7 +3,9 @@ var express = require('express');
 const flash = require('express-flash');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const session = require('./middleware/session');
+//const session = require('./middleware/session');
+var session = require('express-session')
+
 var fs = require('fs-extra');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
@@ -13,19 +15,26 @@ const cors = require('cors')
 
 var app = express();
 
-app.use(session);
-app.use(cors())
+app.use(session({ 
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+
 
 
 mongoose.connect('mongodb://localhost:27017/NFT', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB Database Connected'))
     .catch(err => console.log(err))
 
+app.use(cors({
+  credentials: true
+}));
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 
 
 // view engine setup
@@ -41,8 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash())
 
-
-
 app.use(expressLayouts);
 app.set('layout', 'layouts/backend/adminLayout');
 app.use('/', indexRouter);
@@ -57,6 +64,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
+  res.locals.role=req.session.role;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page

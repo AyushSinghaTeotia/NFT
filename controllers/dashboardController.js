@@ -29,11 +29,32 @@ const upload = multer({
     storage:Storage
 }).single('file');
 
-const dashboard=async (req,res)=>{
-    console.log(req.session)
-    res.render('users/dashboard',{title:"Dashboard",session:req.session});
+const createCotent=async (req,res)=>{
+    
+    if(req.session.is_approved=="Approved")
+    {
+        console.log(req.session)
+        res.render('users/creaters/create',{title:"Dashboard",role:req.session.role});
+    }
+    else
+    {
+        res.render('users/creaters/NotAllow',{title:"Deny",role:req.session.role});
+    }
+   
+}
+
+const manageKYC=async (req,res)=>{
+    res.render('admin/kyc/',{role:req.session.role});
+
+}
+
+const manageTransaction=async (req,res)=>{
+    res.render('admin/transactions/',{role:req.session.role});
+    
 }
 
 module.exports = {
-    dashboard,
+    createCotent,
+    manageKYC,
+    manageTransaction
 };

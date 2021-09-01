@@ -65,15 +65,20 @@ const userLogin = async (req, res) => {
         }
         let userLogin = await userServices.checkUserPass(req.body.email.trim(), mystr);
         if (userLogin) {
-            if (userLogin.status == 'active' ) {
+            if (userLogin.status == 'active' ) 
+             {
                 req.session.success = true;
                 req.session.re_us_id = userLogin._id;
                 req.session.re_usr_name = userLogin.name;
                 req.session.re_usr_email = userLogin.email;
                 req.session.is_user_logged_in = true;
-                console.log(req.session.is_user_logged_in);
+                req.session.role=userLogin.user_role;
+                req.session.is_approved=userLogin.isApproved;
+                console.log(req.session);
                 res.redirect('/users/dashboard');
-            } else {
+            } 
+            else 
+            {
                 req.flash('err_msg', 'Your account is not verified.');
                 res.redirect('/login')
             }
@@ -173,6 +178,51 @@ const activateUser = async function (req, res) {
     }
 }
 
+const dashboard=async (req,res)=>{
+    
+    console.log(req.session)
+    res.render('users/dashboard',{title:"Dashboard",role:req.session.role});
+}
+const getCreaters=async(req,res)=>{
+    let users= await userServices.creaters();
+    console.log(users);
+    res.render('users/creaters/',{title:"Creaters",role:req.session.role,users:users});
+}
+const acceptUser=async (req,res)=>{
+     let id=req.query.id.trim();
+     console.log("user id",id);
+     let status="Approved";
+     let user=await userServices.checkUserByID(id);
+     console.log(user);
+     if(user){
+        let user= await userServices.updateCreater(id,status);
+        res.redirect('/users/creaters');
+     }
+     else
+     {
+         console.log("record not found");
+     }
+
+}
+
+
+const rejectUser=async (req,res)=>{
+    let id=req.query.id.trim();
+    console.log("user id",id);
+    let status="Rejected";
+    let user=await userServices.checkUserByID(id);
+    console.log(user);
+    if(user){
+       let user= await userServices.updateCreater(id,status);
+       res.redirect('/users/creaters');
+    }
+    else
+    {
+        console.log("record not found");
+    }
+
+}
+
 const forgetPassword = async (req, res) => {
     let user = await userServices.checkUser(req.body.email);
     if (!user) {
@@ -208,5 +258,9 @@ module.exports = {
     forgetPassword,
     logout,
     signup,
-    submitSignup
+    dashboard,
+    submitSignup,
+    getCreaters,
+    acceptUser,
+    rejectUser
 };

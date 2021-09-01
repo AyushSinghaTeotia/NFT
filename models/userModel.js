@@ -67,7 +67,7 @@ var UserSchema =  new moongoose.Schema({
    },
     isApproved: {
 		type: String,
-        default:"false"
+        default:"pending"
 	 },
 
     status:{

@@ -9,7 +9,7 @@ module.exports = session({
     store: new RedisStore({client: redisClient}),
     secret: 'mySecret',
     saveUninitialized: false,
-    resave: false, 
+    resave:true, 
     name: 'sessionId',
     cookie: {
         secure:false, // if true: only transmit cookie over https, in prod, always activate this
