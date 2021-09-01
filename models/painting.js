@@ -62,6 +62,14 @@ var PaintingSchema =  new moongoose.Schema({
         type:String,
         required:true
     },
+    meta_tag:{
+        type:String,
+         default:null
+    },
+    description:{
+        type:String,
+        default:null
+    },
     created_at: { 
                     type: String,
                     default: new Date()

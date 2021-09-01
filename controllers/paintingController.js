@@ -62,7 +62,7 @@ const savePainting = async (req, res) => {
                 //let activationmail = await userServices.sendActivationMail(user, req)
                 console.log(painting);
                 req.flash('success_msg', 'Content Creater registered. Please verify to continue.');
-              res.redirect('/users/create');
+              res.redirect('/users/paintings');
             }
         
         }

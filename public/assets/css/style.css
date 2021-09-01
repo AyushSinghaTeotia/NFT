@@ -12175,7 +12175,7 @@ code {
   font-size: 0.8125rem;
   background-color: transparent;
   height: 32px;
-color: #000;
+  color: #fff;
    }
 .form-control::placeholder{
   color: #000;

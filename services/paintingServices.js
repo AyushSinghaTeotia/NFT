@@ -19,6 +19,8 @@ const addPainting = async (paintingDetail,created,created_by,image) => {
     image:image,
     available_to:paintingDetail.available_to,
     contract_type:paintingDetail.contract_type,
+    meta_tag:paintingDetail.meta_tag,
+    description:paintingDetail.description,
     created_at: created,
     created_by: created_by,
     updated_at: '',
@@ -77,6 +79,8 @@ const paintingList = async (created_by)=>{
           image:image,
           available_to:paintingDetail.available_to,
           contract_type:paintingDetail.contract_type,
+          meta_tag:paintingDetail.meta_tag,
+          description:paintingDetail.description,
           updated_at:updated_at,
           updated_by:updated_by,
           status: "active"

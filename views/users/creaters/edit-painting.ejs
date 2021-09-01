@@ -121,11 +121,13 @@
                                       <label>For Sale</label>
                                        <div class="form-check">
                                           <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" value="Yes"> Yes <i class="input-helper"></i></label>
+                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1"<% if (painting.for_sale=="Yes") { %> checked
+<% } %> value="Yes"> Yes <i class="input-helper"></i></label>
                                         </div>
                                          <div class="form-check">
                                           <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" value="No"> No <i class="input-helper"></i></label>
+                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" <% if (painting.for_sale=="No") { %> checked
+<% } %> value="No"> No <i class="input-helper"></i></label>
                                         </div>
                                     </div>
                                   </div>
@@ -159,19 +161,26 @@
                                     <div class="form-group for-flex-inline mt-3">
                                        <div class="form-check ml-0">
                                           <label class="form-check-label">
-                                            <input type="checkbox" checked="" name="payment_in" class="form-check-input"> Taboo </label>
+                                            <input type="checkbox"  name="payment_in" class="form-check-input"<% if (painting.payment_in=="Taboo") { %>checked
+<% } %>value="Taboo"> Taboo </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="payment_in" class="form-check-input"value="BNB"> BNB </label>
+                                              <input type="checkbox"name="payment_in" class="form-check-input"
+                                              <% if (painting.payment_in=="BNB") { %> checked
+<% } %>value="BNB"> BNB </label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="payment_in" class="form-check-input"value="ETH"> ETH</label>
+                                              <input type="checkbox"name="payment_in" class="form-check-input" <% if (painting.payment_in=="ETH") { %>
+ checked
+<% } %>value="ETH"> ETH</label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="payment_in" class="form-check-input"value="USDT"> USDT </label>
+                                              <input type="checkbox"name="payment_in" class="form-check-input" <% if (painting.payment_in=="USDT") { %>
+ checked
+<% } %>value="USDT"> USDT </label>
                                           </div>
                                          
                                           
@@ -186,19 +195,27 @@
                                     <div class="form-group for-flex-inline mt-3">
                                        <div class="form-check ml-0">
                                           <label class="form-check-label">
-                                            <input type="checkbox" checked="" name="available_to" value="All"class="form-check-input"> All </label>
+                                            <input type="checkbox"  name="available_to" <% if (painting.available_to=="All") { %>
+ checked
+<% } %> value="All"class="form-check-input"> All </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to"value="1 Tier" class="form-check-input"> 1 Tier </label>
+                                              <input type="checkbox"name="available_to" <% if (painting.available_to=="1 Tier") { %>
+ checked
+<% } %> value="1 Tier" class="form-check-input"> 1 Tier </label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox" name="available_to"value="2 Tier"class="form-check-input"> 2 Tier</label>
+                                              <input type="checkbox" name="available_to" <% if (painting.available_to=="2 Tier") { %>
+ checked
+<% } %>value="2 Tier"class="form-check-input"> 2 Tier</label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to" value="3 Tier"class="form-check-input"> 3 Tier </label>
+                                              <input type="checkbox"name="available_to" <% if (painting.available_to=="3 Tier") { %>
+ checked
+<% } %> value="3 Tier"class="form-check-input"> 3 Tier </label>
                                           </div>
                                          
                                           
@@ -215,11 +232,15 @@
                                                   <div class="form-group for-flex-inline">
                                                      <div class="form-check ml-0">
                                                         <label class="form-check-label">
-                                                          <input type="radio" class="form-check-input" name="contract_type" id="optionsRadios1" value="ERC 1155"> ERC 1155 <i class="input-helper"></i></label>
+                                                          <input type="radio" class="form-check-input" name="contract_type" id="optionsRadios1" <% if (painting.contract_type=="ERC 1155") { %>
+ checked
+<% } %> value="ERC 1155"> ERC 1155 <i class="input-helper"></i></label>
                                                       </div>
                                                        <div class="form-check">
                                                         <label class="form-check-label">
-                                                          <input type="radio" class="form-check-input" name="contract_type" id="optionsRadios1" value=" ERC 721"> ERC 721  <i class="input-helper"></i></label>
+                                                          <input type="radio" class="form-check-input" name="contract_type" id="optionsRadios1" <% if (painting.contract_type=="ERC 721") { %>
+ checked
+<% } %> value=" ERC 721"> ERC 721  <i class="input-helper"></i></label>
                                                       </div>
                                                   </div>
                                                 </div>
@@ -245,7 +266,8 @@
                                        <div class="col-md-12">
                                          <div class="form-group">
                                             <label>Description(optional)</label>
-                                             <textarea class="form-control"name="description" rows="6"></textarea>
+                                             <textarea class="form-control"name="description" rows="6">
+                                              <%= painting.description %></textarea>
                                           </div>
                                       </div>
                                     </div>
