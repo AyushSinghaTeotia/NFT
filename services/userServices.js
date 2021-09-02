@@ -50,7 +50,7 @@ const updateProfile = async (userDetails, updated_at, re_us_id) => {
 
 
 const checkUserId = async (user_id) => {
-  let user = await Registration.findOne({ '_id': user_id });
+  let user = await UserInfo.findOne({ '_id': user_id });
   if (user) {
     return user;
   }

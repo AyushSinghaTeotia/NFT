@@ -179,9 +179,23 @@ const activateUser = async function (req, res) {
 }
 
 const dashboard=async (req,res)=>{
-    
+    let user_id=req.session.re_us_id;
+    let role=req.session.role;
+    let loginwallet = await blockchainServices.importWalletFindId(user_id);
+     console.log("login wallet",loginwallet)
     console.log(req.session)
-    res.render('users/dashboard',{title:"Dashboard",role:req.session.role});
+    if(role=="admin"){
+        res.render('users/dashboard',{title:"Dashboard",role:req.session.role});
+     }
+     else
+     {
+        if(loginwallet){
+            res.render('users/dashboard',{title:"Dashboard",role:req.session.role});
+
+        }else{
+            res.redirect('/users/create-wallet');
+        }
+     }
 }
 const getCreaters=async(req,res)=>{
     let users= await userServices.creaters();

@@ -88,6 +88,41 @@ const importWalletEntry = async (user_id, id, created) => {
     }
 };
 
+const addTransaction = async (user_id, wallet_id, sender_address, reciver_address, hash, get_amount, type) => {
+    let respcount = await Tokendetails.count();
+    let count_val = parseFloat(respcount) + parseFloat(1);
+    let created_at = moment().format('YYYY-MM-DD');
+    const TransactionDataObject = {
+        auto: count_val,
+        user_id: user_id,
+        wallet_id: wallet_id,
+        sender_wallet_address: sender_address,
+        receiver_wallet_address: reciver_address,
+        hash: hash,
+        amount: get_amount,
+        payment_status: 'pending',
+        created_at: created_at,
+        status: 'active',
+        token_type: type,
+        transaction_type: 'Send'
+    };
+    try {
+      const transactionData = new Tokendetails(TransactionDataObject);
+      await transactionData.save();
+      return TransactionDataObject;
+    } catch (error) {
+      console.log("Error", error.message);
+    }
+};
+
+const importWalletFindId = async (id) => {
+    let importwallet = await Importwallet.findOne({'user_id': id,'login_status':'login'});
+    console.log("iddd",id)
+    if(importwallet){
+        return importwallet;
+    }
+};
+
 module.exports = {
     getBalance,
     getCoinBalance,
@@ -96,6 +131,8 @@ module.exports = {
     checkWalletPrivate,
     userWalletEntry,
     userWalletFindWallet,
-    importWalletEntry
+    importWalletEntry,
+    addTransaction,
+    importWalletFindId
 };
   
