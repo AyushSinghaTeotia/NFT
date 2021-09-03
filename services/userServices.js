@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const { generateCode, generateActivationToken } = require('../helper/userHelper');
 const { Registration, Userwallet, Importwallet, Tokensettings, Tokendetails, OrderDetails, RefCode, FAQ, ContactInfo, activationTokens } = require('../models/contact');
 const {  UserInfo } = require('../models/userModel');
-
+const { KycInfo } =require('../models/kycModel');
 const { mail } = require('../helper/mailer');
 
 const addUser = async (userDetails, pass, created) => {
@@ -77,6 +77,27 @@ const checkUserPass = async (email, password) => {
   }
 };
 
+const saveKyc=async (filename,user_id)=>{
+    let kycData={user_id:user_id,image:filename};
+    try{
+      let kyc= new KycInfo(kycData);
+      await kyc.save();
+      return kycData;
+    }catch(error){
+      console.log(error);
+       return null;
+    }
+    
+    
+}
+
+
+const getKycBYId = async (user_id) => {
+  let kycData = await KycInfo.find({ 'user_id':user_id });
+  if (kycData) {
+    return kycData;
+  }
+};
 const checkUserPassID = async (id, password) => {
   let user = await Registration.findOne({ '_id': id, 'password': password });
   if (user) {
@@ -222,5 +243,7 @@ module.exports = {
   sendNewPasswordMail,
   creaters,
   checkUserByID,
-  updateCreater
+  updateCreater,
+  saveKyc,
+  getKycBYId
 };

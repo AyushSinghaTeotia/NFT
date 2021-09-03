@@ -44,11 +44,11 @@ const wallet=async (req,res)=>{
     if(loginwallet){
         let UserwalletData = await blockchainServices.findUserWallet(user_id);
          console.log(UserwalletData)
-        res.render('users/wallet/my-wallet',{role:req.session.role,UserwalletData});
+        res.render('users/wallet/my-wallet',{role:req.session.role,UserwalletData,session:req.session});
     }
     else
     {
-        res.render('users/wallet/',{role:req.session.role});
+        res.render('users/wallet/',{role:req.session.role,session:req.session});
 
 
     }
@@ -78,7 +78,7 @@ const createWallet=async (req,res)=>{
         }
         console.log(passphrase);
 
-       res.render('users/wallet/create',{role:req.session.role,passphrase});
+       res.render('users/wallet/create',{role:req.session.role,passphrase,session:req.session});
     }
 
 }
@@ -90,7 +90,7 @@ const verifyWallet  =async(req,res)=>{
         if (test != true) {
             res.redirect('/users/login');
         } else {
-            res.render('users/wallet/verify-private-key', { err_msg, success_msg, user_passphrase,role: req.session.role });
+            res.render('users/wallet/verify-private-key', { err_msg, success_msg, user_passphrase,role: req.session.role,session:req.session });
         }
     }
     
@@ -170,7 +170,7 @@ const walletSuccess = async (req, res) => {
             if (req.query.wallet) {
                 wallet_address = Buffer.from(req.query.wallet, 'base64').toString('ascii');
             }
-            res.render('users/wallet/wallet-success', { err_msg, success_msg, wallet_address,role: req.session.role });
+            res.render('users/wallet/wallet-success', { err_msg, success_msg, wallet_address,role: req.session.role ,session:req.session});
         }
     }
 

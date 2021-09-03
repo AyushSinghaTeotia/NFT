@@ -71,6 +71,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.role=req.session.role;
+  res.locals.name=req.session.re_usr_name;
   res.locals.err_msg=req.flash('err_msg');
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

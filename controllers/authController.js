@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const paintingServices = require("../services/paintingServices");
 const userServices = require("../services/userServices");
 const blockchainServices = require("../services/blockchainServices");
 const token = require('../helper/token');
@@ -185,12 +186,15 @@ const dashboard=async (req,res)=>{
      console.log("login wallet",loginwallet)
     console.log(req.session)
     if(role=="admin"){
-        res.render('users/dashboard',{title:"Dashboard",role:req.session.role});
+        res.render('admin/dashboard/',{title:"Dashboard",role:req.session.role,session:req.session});
      }
      else
      {
         if(loginwallet){
-            res.render('users/dashboard',{title:"Dashboard",role:req.session.role});
+
+            let contents=await paintingServices.paintingList(user_id);
+
+            res.render('users/dashboard',{title:"Dashboard",role:req.session.role,contents,session:req.session});
 
         }else{
             res.redirect('/users/create-wallet');
@@ -200,7 +204,7 @@ const dashboard=async (req,res)=>{
 const getCreaters=async(req,res)=>{
     let users= await userServices.creaters();
     console.log(users);
-    res.render('users/creaters/',{title:"Creaters",role:req.session.role,users:users});
+    res.render('users/creaters/',{title:"Creaters",role:req.session.role,users:users,session:req.session});
 }
 const acceptUser=async (req,res)=>{
      let id=req.query.id.trim();

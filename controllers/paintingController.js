@@ -32,7 +32,7 @@ const index=async (req,res)=>{
     let created_by=req.session.re_us_id;
     let painting=await paintingServices.paintingList(created_by);
     if(painting){
-        res.render('users/creaters/painting-list',{role:req.session.role,painting:painting})
+        res.render('users/creaters/painting-list',{role:req.session.role,painting:painting,session:req.session})
     }
 }
 const savePainting = async (req, res) => {
@@ -43,18 +43,19 @@ const savePainting = async (req, res) => {
          if(req.body.preview=="preview")
          { let pr_image= req.file.filename
            req.session.preview_image=pr_image; 
-           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image});
+           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image,session:req.session});
             
          }
          else
          {
             if(req.body.title && req.body.total_copy){
-                let painting = await paintingServices.checkPainting(req.body.title);
+                //let painting = await paintingServices.checkPainting(req.body.title);
                 console.log(req.body);
+                let painting=false;
                 if (painting) 
                  {
-                    req.flash('err_msg', 'Title already exists. Please enter another email.');
-                    res.redirect('/users/dashboard');
+                    req.flash('err_msg', 'Title already exists');
+                    res.redirect('/users/create');
                 }
                 else {
     
@@ -76,7 +77,7 @@ const savePainting = async (req, res) => {
                    // let user = await userServices.checkUser(req.body.email);
                     //let activationmail = await userServices.sendActivationMail(user, req)
                     console.log(painting);
-                    req.flash('success_msg', 'Content Creater registered. Please verify to continue.');
+                    req.flash('success_msg', 'Content Created Successfully.');
                   res.redirect('/users/paintings');
                 }
             
@@ -87,7 +88,7 @@ const savePainting = async (req, res) => {
 
 const preview=(req,res)=>{
 
-     res.render('users/creaters/preview',{title:"preview",data:req.body});
+     res.render('users/creaters/preview',{title:"preview",data:req.body,session:req.session});
 
 }
 const deletePainting=async (req,res)=>{
@@ -110,7 +111,7 @@ const editPainting=async (req,res)=>{
     let id=req.query.id.trim();
     let painting=await paintingServices.getPainting(id);
     if(painting){
-        res.render('users/creaters/edit-painting',{role:req.session.role,painting:painting});
+        res.render('users/creaters/edit-painting',{role:req.session.role,painting:painting,session:req.session});
     }else
     {
         console.log("There is no such record");

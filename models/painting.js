@@ -55,7 +55,7 @@ var PaintingSchema =  new moongoose.Schema({
 
     },
     available_to:{
-        type:String,
+        type:[],
         required:true
     },
     contract_type:{

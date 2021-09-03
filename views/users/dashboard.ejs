@@ -15,7 +15,7 @@
                   <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
                   <h4 class="font-weight-normal mb-3">Total Contents <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
                   </h4>
-                  <h2 class="">1500</h2>
+                  <h2 class="">0</h2>
                 </div>
              </a>
           </div>
@@ -26,7 +26,7 @@
               <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Content On Sale  <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="">30</h2>
+              <h2 class="">0</h2>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
               <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Pending Approval <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="">10</h2>
+              <h2 class="">0</h2>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
               <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Taboo Earned <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="">10</h2>
+              <h2 class="">0</h2>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
               <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Earned Amount In $ <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="">10</h2>
+              <h2 class="">0</h2>
             </div>
           </div>
         </div>
@@ -216,12 +216,14 @@
   <section>
       <div class="container-fluid p-0">
           <div class="row">
+            <% contents.forEach(function(content){ %>
               <div class="col-md-6">
+               
                    <div class="info-box-certify multiple-certify-inner">
                       <div class="row align-item-center">
                          <div class="col-xl-4 offset-xl-1 col-md-12">
                            <div>
-                             <img src="/assets/images/other/mod11.jpg" alt="artist img" class="img-fluid">
+                             <img src="/uploadFile/<%=content.image %>" alt="artist img" class="img-fluid">
                            </div>
                          </div>
                          <div class="col-xl-6 col-md-12">
@@ -230,23 +232,23 @@
                                <tr>
                                  <td width="40%">Category</td>
                                  <td width="10%">:</td>
-                                 <td width="40%">Orientation</td>
+                                 <td width="40%"><%= content.category %></td>
                                </tr>
                               <tr>
                                  <td>Cotent</td>
                                  <td>:</td>
-                                 <td>	Dummy Content</td>
+                                 <td>	<%=content.title %></td>
                                </tr>
                                
                                <tr>
                                  <td>Basic Price</td>
                                  <td>:</td>
-                                 <td>20,000</td>
+                                 <td><%=content.basic_price %></td>
                                </tr>
                                <tr>
                                  <td>For Sale</td>
                                  <td>:</td>
-                                 <td>Yes</td>
+                                 <td><%=content.for_sale %></td>
                                </tr>
                                <tr>
                                  <td>Image Type</td>
@@ -263,54 +265,14 @@
                        </div>
                    </div>
               </div>
-              <div class="col-md-6">
-                   <div class="info-box-certify multiple-certify-inner">
-                      <div class="row align-item-center">
-                         <div class="col-xl-4 offset-xl-1 col-md-12">
-                           <div>
-                             <img src="/assets/images/other/mod17.jpg" alt="artist img" class="img-fluid">
-                           </div>
-                         </div>
-                         <div class="col-xl-6 col-md-12">
-                           
-                           <table class="table">
-                             <tbody>
-                               <tr>
-                                 <td width="40%">Category</td>
-                                 <td width="10%">:</td>
-                                 <td width="40%">Specific Acts</td>
-                               </tr>
-                               <tr>
-                                 <td>Cotent</td>
-                                 <td>:</td>
-                                 <td>	Dummy Content</td>
-                               </tr>
-                               
-                               <tr>
-                                 <td>Basic Price</td>
-                                 <td>:</td>
-                                 <td>20,000</td>
-                               </tr>
-                               <tr>
-                                 <td>For Sale</td>
-                                 <td>:</td>
-                                 <td>Yes</td>
-                               </tr>
-                               <tr>
-                                 <td>Image Type</td>
-                                 <td>:</td>
-                                 <td>JPG</td>
-                               </tr>
-                             </tbody>
-                           </table>
-                           <div>
-                               
-                               <h6 class="pending-line"><b>approve</b> &nbsp; 08/Jan/2020 | 1:19 PM</h6>
-                           </div>
-                         </div>
-                       </div>
-                   </div>
-              </div>
+              <% }) %>
           </div>
+         
       </div>
   </section>
+  <style>
+    .dash-header {
+    margin-top: 65px;
+    margin-bottom: 0;
+}
+  </style>

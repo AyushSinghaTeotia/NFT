@@ -10,6 +10,7 @@ const dashboardController = require('../controllers/dashboardController');
 const paintingController=require('../controllers/paintingController');
 const authController = require('../controllers/authController');
 const walletController=require('../controllers/walletController');
+const kycController=require('../controllers/kycController');
 router.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -26,6 +27,8 @@ router.get('/signup',authController.signup);
 router.post('/submitSignup',authController.submitSignup);
 router.post('/login', authController.userLogin);
 router.get('/logout',authController.logout);
+
+router.use(flash());
 
 /* content creater  */
 router.post('/contentCreater-login', contentCreaterControllers.login);
@@ -55,6 +58,10 @@ router.get('/create-wallet',walletController.createWallet);
 router.post('/verify-wallet',walletController.verifyWallet);
 router.post('/submit-wallet',walletController.submitWallet);
 router.get('/wallet-success',walletController.walletSuccess);
-router.use(flash());
+
+/* KYC */
+
+router.get('/do-kyc',kycController.kyc);
+router.post('/save-kyc',kycController.upload,kycController.saveKyc);
 
 module.exports = router;
