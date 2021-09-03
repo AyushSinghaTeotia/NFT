@@ -46,6 +46,10 @@ const wallet=async (req,res)=>{
 const createWallet=async (req,res)=>{
     let passphrase = "";
     let is_login=req.session.is_user_logged_in;
+    let user_id=req.session.re_us_id;
+
+    let loginwallet = await blockchainServices.importWalletFindId(user_id);
+
     if(is_login){
 
         let passphraseNew = await blockchainServices.createWallet();
@@ -153,7 +157,7 @@ const walletSuccess = async (req, res) => {
             if (req.query.wallet) {
                 wallet_address = Buffer.from(req.query.wallet, 'base64').toString('ascii');
             }
-            res.render('/users/wallet-success', { err_msg, success_msg, wallet_address, layout: false, session: req.session, });
+            res.render('users/wallet/wallet-success', { err_msg, success_msg, wallet_address,role: req.session.role });
         }
     }
 
