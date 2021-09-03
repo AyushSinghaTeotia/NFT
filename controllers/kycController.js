@@ -43,11 +43,11 @@ const kyc=async (req,res)=>{
     if(userKyc)
       {
           console.log(userKyc);
-        res.render('users/kyc/',{title:"KYC",role:req.session.role,userKyc,session:req.session});
+        res.render('users/kyc/',{title:"KYC",role:req.session.role,userKyc,name:req.session.re_usr_name});
 
       }else{
 
-        res.render('users/kyc/create.ejs',{title:"KYC",role:req.session.role,session:req.session});
+        res.render('users/kyc/create.ejs',{title:"KYC",role:req.session.role,name:req.session.re_usr_name});
 
 
       }

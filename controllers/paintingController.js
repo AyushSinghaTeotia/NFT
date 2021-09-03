@@ -32,7 +32,7 @@ const index=async (req,res)=>{
     let created_by=req.session.re_us_id;
     let painting=await paintingServices.paintingList(created_by);
     if(painting){
-        res.render('users/creaters/painting-list',{role:req.session.role,painting:painting,session:req.session})
+        res.render('users/creaters/painting-list',{role:req.session.role,painting:painting,name:req.session.re_usr_name})
     }
 }
 const savePainting = async (req, res) => {
@@ -43,7 +43,7 @@ const savePainting = async (req, res) => {
          if(req.body.preview=="preview")
          { let pr_image= req.file.filename
            req.session.preview_image=pr_image; 
-           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image,session:req.session});
+           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image,name:req.session.re_usr_name});
             
          }
          else
@@ -88,7 +88,7 @@ const savePainting = async (req, res) => {
 
 const preview=(req,res)=>{
 
-     res.render('users/creaters/preview',{title:"preview",data:req.body,session:req.session});
+     res.render('users/creaters/preview',{title:"preview",data:req.body,name:req.session.re_usr_name});
 
 }
 const deletePainting=async (req,res)=>{
@@ -111,7 +111,7 @@ const editPainting=async (req,res)=>{
     let id=req.query.id.trim();
     let painting=await paintingServices.getPainting(id);
     if(painting){
-        res.render('users/creaters/edit-painting',{role:req.session.role,painting:painting,session:req.session});
+        res.render('users/creaters/edit-painting',{role:req.session.role,painting:painting,name:req.session.re_usr_name});
     }else
     {
         console.log("There is no such record");

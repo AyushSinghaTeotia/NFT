@@ -22,7 +22,7 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
-                  <div class="profile-leter"><%- session.re_us_name %></div>
+                  <div class="profile-leter"id="profile-name"></div>
                 </div>
                
               </a>
@@ -43,3 +43,24 @@
         </div>
       </nav>
 </header>
+<script>
+  window.onload = () => { console.log()
+    abbrev_name("<%=name %>");
+  };
+
+
+  abbrev_name = function (str1) { //alert(str1)
+    var split_names = str1.trim().split(" ");
+    if (split_names.length > 1) {
+        let str1=split_names[0].charAt(0);
+        let str2=split_names[1].charAt(0);
+        document.getElementById("profile-name").innerHTML=str1+ "" +str2;
+    }else
+    {
+      document.getElementById("profile-name").innerHTML=split_names[0].charAt(0);
+
+    }
+ };
+
+ 
+</script>

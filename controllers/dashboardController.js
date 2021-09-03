@@ -34,22 +34,22 @@ const createCotent=async (req,res)=>{
     if(req.session.is_approved=="Approved")
     {
         console.log(req.session)
-        res.render('users/creaters/create',{title:"Dashboard",role:req.session.role,session:req.session});
+        res.render('users/creaters/create',{title:"Dashboard",role:req.session.role,name:req.session.re_usr_name});
     }
     else
     {
-        res.render('users/creaters/NotAllow',{title:"Deny",role:req.session.role,session:req.session});
+        res.render('users/creaters/NotAllow',{title:"Deny",role:req.session.role,name:req.session.re_usr_name});
     }
    
 }
 
 const manageKYC=async (req,res)=>{
-    res.render('admin/kyc/',{role:req.session.role,session:req.session});
+    res.render('admin/kyc/',{role:req.session.role,name:req.session.re_usr_name});
 
 }
 
 const manageTransaction=async (req,res)=>{
-    res.render('admin/transactions/',{role:req.session.role,session:req.session});
+    res.render('admin/transactions/',{role:req.session.role,name:req.session.re_usr_name});
     
 }
 
