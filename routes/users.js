@@ -40,6 +40,8 @@ router.get('/reject',authController.rejectUser);
 router.get('/create',dashboardController.createCotent);
 router.post('/add-painting',paintingController.upload,paintingController.savePainting);
 router.get('/paintings',paintingController.index);
+router.post('/preview-content',paintingController.preview);
+
 router.get('/edit-painting',paintingController.editPainting);
 router.post('/update-painting',paintingController.upload,paintingController.updatePainting);
 router.get('/delete-painting',paintingController.deletePainting);

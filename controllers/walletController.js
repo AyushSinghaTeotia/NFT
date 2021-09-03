@@ -50,8 +50,13 @@ const createWallet=async (req,res)=>{
 
     let loginwallet = await blockchainServices.importWalletFindId(user_id);
 
-    if(is_login){
+    if(loginwallet){
 
+        res.redirect('/users/wallet/wallet-success');
+
+    }
+    else
+    {
         let passphraseNew = await blockchainServices.createWallet();
         if (passphraseNew) {
             console.log("system",passphrase)
@@ -59,13 +64,7 @@ const createWallet=async (req,res)=>{
         }
         console.log(passphrase);
 
-    res.render('users/wallet/create',{role:req.session.role,passphrase});
-
-
-    }
-    else
-    {
-        res.redirect('/users/login');
+       res.render('users/wallet/create',{role:req.session.role,passphrase});
     }
 
 }

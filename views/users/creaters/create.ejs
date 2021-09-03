@@ -51,14 +51,8 @@
                                                </div>
                                             </div>
                                           </div>
-                                          <div class="mt-20 ml-15">
-                                              <a href="javascript:void(0);" class="btn-clone" title="Add" onclick="attribute_cloning_add();">
-                                                  <i class="fa fa-plus"></i>
-                                              </a>
-                                              <a  href="javascript:void(0);" id="attribute_cloning" class="btn-clone" title="Remove" onclick="remove_current_div_venues($(this));">
-                                                  <i class="fa fa-minus"></i>
-                                              </a>
-                                          </div>
+                                         
+
                                     </div>
                                   </div>
                               </div>
@@ -100,9 +94,9 @@
                                       <label>Categories</label>
                                       <div class="box">
                                           <select class="form-control"name="category">
-                                            <option>everyday life</option>
-                                            <option>stile life</option>
-                                            <option>street art</option>
+                                            <option value="Art">Art</option>
+                                            <option value="Music">Music</option>
+                                            <option value="Virtual World">Virtaul World</option>
                                           </select>
                                         </div>
                                     </div>
@@ -134,19 +128,19 @@
                                    <div class="col-md-4">
                                    <div class="form-group">
                                       <label>Basic Price(Taboo)</label>
-                                      <input type="text"name="basic_price" class="form-control">
+                                      <input type="text"name="basic_price" onkeyup="calTaboo(value)"class="form-control">
                                     </div>
                                 </div>
                                  <div class="col-md-4">
                                    <div class="form-group">
-                                      <label>Plateform Fee(1%)</label>
-                                      <input type="text" name="plateform_fees"class="form-control">
+                                      <label>Plateform Fee(15%)</label>
+                                      <input type="text" name="plateform_fees"id="plateform_fees"class="form-control">
                                     </div>
                                 </div>
                                  <div class="col-md-4">
                                    <div class="form-group">
                                       <label>You get (Taboo)</label>
-                                      <input type="text"name="total_taboo" class="form-control">
+                                      <input type="text"name="total_taboo"id="total_taboo" class="form-control">
                                     </div>
                                 </div>
                                 
@@ -173,15 +167,15 @@
                                     <div class="form-group for-flex-inline mt-3">
                                        <div class="form-check ml-0">
                                           <label class="form-check-label">
-                                            <input type="checkbox" checked="" name="available_to" value="All"class="form-check-input"> All </label>
+                                            <input type="checkbox" checked="" name="available_to[]" value="All"class="form-check-input"> Free </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to"value="1 Tier" class="form-check-input"> 1 Tier </label>
+                                              <input type="checkbox"name="available_to[]"value="1 Tier" class="form-check-input"> 1 Tier </label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox" name="available_to"value="2 Tier"class="form-check-input"> 2 Tier</label>
+                                              <input type="checkbox" name="available_to[]"value="2 Tier"class="form-check-input"> 2 Tier</label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
@@ -242,8 +236,7 @@
   
   
                                <div class="popup-btn text-center">
-                                <a href="" class="btn btn-common bg-gradient-primary">Preview</a>
-                                <a href="" class="btn btn-common bg-gradient-primary">Save as Draft</a>
+                                <input type="submit" name="preview" value="preview" class="btn btn-common bg-gradient-primary">
                                 <button type="submit"  class="btn btn-common bg-gradient-primary">Submit</button>
                               </div>
                            </div>
@@ -262,6 +255,42 @@
         </div>
       </div>
   
+  <script>
+    
+    function calTaboo(basic_price){
+     // alert(basic_price)
+
+      let plateform_fees=(basic_price*15)/100
+      let total_taboo=basic_price-plateform_fees;
+      $("#plateform_fees").val(plateform_fees);
+      $("#total_taboo").val(total_taboo);
+    }
+    
+
+
+    
+  </script>
   
-  
- 
+  <script type="text/javascript" > 
+function readURL(input) {
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+reader.onload = function (e) {
+$('#user_profile_image_preview')
+.attr('src', e.target.result)
+.width(200)
+.height(150);
+};
+
+reader.readAsDataURL(input.files[0]);
+}
+var src = $('#imgInp6').val(); // "static/images/banner/blue.jpg"
+var tarr = src.split('/');      // ["static","images","banner","blue.jpg"]
+var file = tarr[tarr.length-1]; // "blue.jpg"
+var data = file.split('.')[0];  // "blue"
+
+//alert(data);
+$('#text_img_name').val(src);
+}
+
+</script>

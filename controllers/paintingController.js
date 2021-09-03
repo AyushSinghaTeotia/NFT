@@ -38,37 +38,58 @@ const index=async (req,res)=>{
 const savePainting = async (req, res) => {
    
     
-        console.log(req.body); console.log("body",req.body.title);
-        if(req.body.title && req.body.total_copy){
-            let painting = await paintingServices.checkPainting(req.body.title);
-            console.log(req.body);
-            if (painting) 
-             {
-                req.flash('err_msg', 'Title already exists. Please enter another email.');
-                res.redirect('/users/dashboard');
-            }
-            else {
-
-                let created="30-08-2021";
-                let created_by=req.session.re_us_id;
-                let image= req.file.filename;
-                console.log(created_by)
-                try{
-
-                    let painting = await paintingServices.addPainting(req.body,created,created_by,image);
-
-                }catch(err){ console.log(err)}
-               // let user = await userServices.checkUser(req.body.email);
-                //let activationmail = await userServices.sendActivationMail(user, req)
-                console.log(painting);
-                req.flash('success_msg', 'Content Creater registered. Please verify to continue.');
-              res.redirect('/users/paintings');
-            }
+        console.log(req.body); console.log("body",req.body.preview);
         
-        }
+         if(req.body.preview=="preview")
+         { let pr_image= req.file.filename
+           req.session.preview_image=pr_image; 
+           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image});
+            
+         }
+         else
+         {
+            if(req.body.title && req.body.total_copy){
+                let painting = await paintingServices.checkPainting(req.body.title);
+                console.log(req.body);
+                if (painting) 
+                 {
+                    req.flash('err_msg', 'Title already exists. Please enter another email.');
+                    res.redirect('/users/dashboard');
+                }
+                else {
+    
+                    let created="30-08-2021";
+                    let created_by=req.session.re_us_id;
+                    let image="";
+                    if(req.session.preview_image){
+                       image=req.session.preview_image;
+
+                      }else{
+                        image = req.file.filename;
+                      }
+                    console.log(created_by)
+                    try{
+    
+                        let painting = await paintingServices.addPainting(req.body,created,created_by,image);
+    
+                    }catch(err){ console.log(err)}
+                   // let user = await userServices.checkUser(req.body.email);
+                    //let activationmail = await userServices.sendActivationMail(user, req)
+                    console.log(painting);
+                    req.flash('success_msg', 'Content Creater registered. Please verify to continue.');
+                  res.redirect('/users/paintings');
+                }
+            
+            }
+         }
    
 }
 
+const preview=(req,res)=>{
+
+     res.render('users/creaters/preview',{title:"preview",data:req.body});
+
+}
 const deletePainting=async (req,res)=>{
     let id=req.query.id.trim();
      
@@ -126,5 +147,6 @@ module.exports = {
     index,
     deletePainting,
     editPainting,
-    updatePainting
+    updatePainting,
+    preview
 };
