@@ -70,6 +70,13 @@ const userWalletFindWallet = async (address) => {
     }
 };
 
+const findUserWallet = async (id) => {
+    let userwallet = await Userwallet.findOne({'user_id':id});
+    if(userwallet){
+        return userwallet;
+    }
+};
+
 const importWalletEntry = async (user_id, id, created) => {
     const importwalletDataObject = {
         user_id: user_id,
@@ -133,6 +140,7 @@ module.exports = {
     userWalletFindWallet,
     importWalletEntry,
     addTransaction,
-    importWalletFindId
+    importWalletFindId,
+    findUserWallet
 };
   

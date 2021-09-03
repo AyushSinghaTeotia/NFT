@@ -37,8 +37,22 @@ const upload = multer({
 
 
 const wallet=async (req,res)=>{
-    
-    res.render('users/wallet/',{role:req.session.role});
+    let user_id=req.session.re_us_id;
+
+    let loginwallet = await blockchainServices.importWalletFindId(user_id);
+
+    if(loginwallet){
+        let UserwalletData = await blockchainServices.findUserWallet(user_id);
+         console.log(UserwalletData)
+        res.render('users/wallet/my-wallet',{role:req.session.role,UserwalletData});
+    }
+    else
+    {
+        res.render('users/wallet/',{role:req.session.role});
+
+
+    }
+
 
 }
 
@@ -52,7 +66,7 @@ const createWallet=async (req,res)=>{
 
     if(loginwallet){
 
-        res.redirect('/users/wallet/wallet-success');
+        res.redirect('/users/dashboard');
 
     }
     else

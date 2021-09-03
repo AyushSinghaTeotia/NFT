@@ -52,14 +52,8 @@
                                                </div>
                                             </div>
                                           </div>
-                                          <div class="mt-20 ml-15">
-                                              <a href="javascript:void(0);" class="btn-clone" title="Add" onclick="attribute_cloning_add();">
-                                                  <i class="fa fa-plus"></i>
-                                              </a>
-                                              <a  href="javascript:void(0);" id="attribute_cloning" class="btn-clone" title="Remove" onclick="remove_current_div_venues($(this));">
-                                                  <i class="fa fa-minus"></i>
-                                              </a>
-                                          </div>
+                                         
+
                                     </div>
                                   </div>
                               </div>
@@ -101,9 +95,15 @@
                                       <label>Categories</label>
                                       <div class="box">
                                           <select class="form-control"name="category">
-                                            <option>everyday life</option>
-                                            <option>stile life</option>
-                                            <option>street art</option>
+                                           
+                                            <option  <% if(painting.category=="Age"){ %> selcted <% } %> value="Age">Age</option>
+                                            <option  <% if(painting.category=="Fetish"){ %> selcted <% } %> value="Fetish">Fetish</option>
+                                            <option  <% if(painting.category=="Orientaion"){ %> selcted <% } %> value="Orientaion">Orientaion</option>
+                                            <option  <% if(painting.category=="Specific Acts"){ %> selcted <% } %> value="Specific Acts">Specific Acts</option>
+                                            <option  <% if(painting.category=="Ethnicity"){ %> selcted <% } %> value="Ethnicity">Ethnicity</option>
+                                            <option  <% if(painting.category=="Collectibles"){ %> selcted <% } %> value="Collectibles">Collectibles</option>
+
+
                                           </select>
                                         </div>
                                     </div>
@@ -142,7 +142,7 @@
                                 </div>
                                  <div class="col-md-4">
                                    <div class="form-group">
-                                      <label>Plateform Fee(1%)</label>
+                                      <label>Plateform Fee(15%)</label>
                                       <input type="text" name="plateform_fees"value="<%=painting.plateform_fees %>" class="form-control">
                                     </div>
                                 </div>
@@ -178,25 +178,25 @@
                                     <div class="form-group for-flex-inline mt-3">
                                        <div class="form-check ml-0">
                                           <label class="form-check-label">
-                                            <input type="checkbox"  name="available_to" <% if (painting.available_to=="All") { %>
+                                            <input type="checkbox"  name="available_to" <% if (painting.available_to.includes("All")) { %>
  checked
-<% } %> value="All"class="form-check-input"> All </label>
+<% } %> value="All"class="form-check-input"> Free </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to" <% if (painting.available_to=="1 Tier") { %>
+                                              <input type="checkbox"name="available_to" <% if (painting.available_to.includes("1 Tier")) { %>
  checked
 <% } %> value="1 Tier" class="form-check-input"> 1 Tier </label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox" name="available_to" <% if (painting.available_to=="2 Tier") { %>
+                                              <input type="checkbox" name="available_to" <% if (painting.available_to.includes("2 Tier")) { %>
  checked
 <% } %>value="2 Tier"class="form-check-input"> 2 Tier</label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to" <% if (painting.available_to=="3 Tier") { %>
+                                              <input type="checkbox"name="available_to" <% if (painting.available_to.includes("3 Tier")) { %>
  checked
 <% } %> value="3 Tier"class="form-check-input"> 3 Tier </label>
                                           </div>
@@ -260,8 +260,7 @@
   
   
                                <div class="popup-btn text-center">
-                                <a href="" class="btn btn-common bg-gradient-primary">Preview</a>
-                                <a href="" class="btn btn-common bg-gradient-primary">Save as Draft</a>
+                                
                                 <button type="submit"  class="btn btn-common bg-gradient-primary">Submit</button>
                               </div>
                            </div>
