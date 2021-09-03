@@ -20,10 +20,10 @@
              <div class="col-md-2">
                   <div class="form-group">
                     <select id="select-new1" class="form-control">
-                        <option>All Content</option>
-                        <option>Dummy Content</option>
-                        <option>Dummy Content</option>
-                        <option>Dummy Content</option>
+                      <option>All Content</option>
+                      <% painting.forEach(function(painting){ %>
+                        <option><%= painting.title %></option>
+                        <% }) %>
                       </select>
                   </div>
             </div>

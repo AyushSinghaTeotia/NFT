@@ -40,7 +40,7 @@ const signup= async (req,res)=> {
 const kyc=async (req,res)=>{
     let user_id=req.session.re_us_id;
     let userKyc=await userServices.getKycBYId(user_id);
-    if(userKyc)
+    if(userKyc.length>0)
       {
           console.log(userKyc);
         res.render('users/kyc/',{title:"KYC",role:req.session.role,userKyc,name:req.session.re_usr_name});
