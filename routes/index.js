@@ -23,4 +23,10 @@ router.get('/contact', function(req, res, next) {
   res.render('contactus',{ layout: 'layouts/front/layout' });
 });
 
+
+router.get('/nft-detail',function(req,res){
+  res.render('nft-detail',{layout:'layouts/front/layout'});
+
+});
+
 module.exports = router;
