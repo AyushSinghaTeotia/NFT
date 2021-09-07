@@ -71,6 +71,33 @@ const saveKyc=async (req,res)=>{
      }
 }
 
+
+const kycList=async(req,res)=>{
+
+    let userKyc=await userServices.getKycList();
+
+    if(userKyc.length>0)
+      {
+          console.log(userKyc);
+          res.render('admin/kyc/',{title:"KYC",role:req.session.role,userKyc,name:req.session.re_usr_name});
+
+      }
+
+}
+
+const viewKyc=async(req,res)=>{
+
+  let id=req.query.id.trim();
+  let kyc =await userServices.getKycBYKycId(id);
+  let user=await userServices.checkUserId(id);
+  console.log(user);
+  console.log(kyc);
+  if(user)
+    {
+      res.render('admin/kyc/view',{title:'view kyc',user,kyc,role:req.session.role,name:req.session.re_usr_name});
+    }
+
+}
 const submitSignup = async (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
@@ -108,5 +135,7 @@ const submitSignup = async (req, res) => {
 module.exports = {
     upload,
     kyc,
-    saveKyc
+    saveKyc,
+    kycList,
+    viewKyc
 };

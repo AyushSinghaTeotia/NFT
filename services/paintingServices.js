@@ -25,7 +25,7 @@ const addPainting = async (paintingDetail,created,created_by,image) => {
     created_by: created_by,
     updated_at: '',
     updated_by: '',
-    status: "active"
+    status: "pending"
   };
   console.log(paintingObject);
   try {
@@ -45,12 +45,39 @@ const getPainting = async (id) => {
     }
   };
 
-const paintingList = async (created_by)=>{
-    let painting=await PaintingInfo.find({'created_by':created_by});
+const paintingList = async (created_by,query)=>{
+  let painting="";
+    if(query){
+      painting=await PaintingInfo.find({'created_by':created_by,'category':{$in:query }});
+    }
+    else
+    {
+       painting=await PaintingInfo.find({'created_by':created_by});
+     }
     if(painting){
       return painting;
     }
   }
+
+  const allpaintingList = async (query)=>{
+    let painting="";
+      if(query){
+
+        painting=await PaintingInfo.find({'category':{$in:query }});
+
+      }
+      else
+      {
+
+         painting=await PaintingInfo.find({});
+
+       }
+      if(painting){
+        return painting;
+      }
+    }
+
+
 
   const checkPainting=async (title)=>{
       let painting=await PaintingInfo.findOne({'title':title});
@@ -157,6 +184,23 @@ const paintingList = async (created_by)=>{
     }
   };
 
+  const totalContent=async (id,role)=>{
+    let total;
+    if(role=="admin"){
+       total=await PaintingInfo.count();
+
+    }else
+    {
+     total=await PaintingInfo.find({'created_by':id}).count();
+
+    }
+    return total;
+  }
+
+  const updateContentStatus=async(id,status)=>{
+    let content=await PaintingInfo.updateOne({ '_id': id }, { $set: { 'status':status} });
+    return content;
+  }
 
 module.exports = {
     addPainting,
@@ -164,6 +208,9 @@ module.exports = {
     checkPainting,
     paintingList,
     deletePainting,
-    updatePainting
+    updatePainting,
+    allpaintingList,
+    totalContent,
+    updateContentStatus
   
   };

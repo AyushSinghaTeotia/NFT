@@ -92,11 +92,15 @@ var PaintingSchema =  new moongoose.Schema({
             type:String,
             default:0
     },
-
+    approved_at:{
+        type:String,
+        default:null
+    }
+    ,
     status:{
 
         type:String,
-        default:'active'
+        default:'pending'
 
     },
 

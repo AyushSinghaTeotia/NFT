@@ -35,20 +35,40 @@ const index=async (req,res)=>{
         res.render('users/creaters/painting-list',{role:req.session.role,painting:painting,name:req.session.re_usr_name})
     }
 }
+const searchContent=async(req,res)=>{
+    let query=req.query.category;
+    console.log(query);
+    let created_by=req.session.re_us_id;
+    let painting="";
+    if(req.session.role=="creater"){
+        painting=await paintingServices.paintingList(created_by,query);
+    }
+    else
+     {
+        painting=await paintingServices.allpaintingList(query);
+
+     }
+    
+
+    res.send(painting);
+
+}
 const savePainting = async (req, res) => {
    
     
         console.log(req.body); console.log("body",req.body.preview);
         
          if(req.body.preview=="preview")
-         { let pr_image= req.file.filename
-           req.session.preview_image=pr_image; 
+          {
+           let pr_image= req.file.filename
+           req.session.preview_image=pr_image;
+           req.session.fordata=req.body; 
            res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image,name:req.session.re_usr_name});
             
-         }
+          }
          else
          {
-            if(req.body.title && req.body.total_copy){
+           
                 //let painting = await paintingServices.checkPainting(req.body.title);
                 console.log(req.body);
                 let painting=false;
@@ -62,16 +82,19 @@ const savePainting = async (req, res) => {
                     let created="30-08-2021";
                     let created_by=req.session.re_us_id;
                     let image="";
+                    let ContentData="";
                     if(req.session.preview_image){
                        image=req.session.preview_image;
+                       ContentData=req.session.fordata;
 
                       }else{
                         image = req.file.filename;
+                        ContentData=req.body;
                       }
                     console.log(created_by)
                     try{
     
-                        let painting = await paintingServices.addPainting(req.body,created,created_by,image);
+                        let painting = await paintingServices.addPainting(ContentData,created,created_by,image);
     
                     }catch(err){ console.log(err)}
                    // let user = await userServices.checkUser(req.body.email);
@@ -81,9 +104,19 @@ const savePainting = async (req, res) => {
                   res.redirect('/users/paintings');
                 }
             
-            }
+            
          }
    
+}
+
+const updateContentStatus=async (req,res)=>{
+    const id=req.query.id.trim();
+    let status="approved";
+    let content=await paintingServices.updateContentStatus(id,status);
+    if(content){
+         res.redirect('/users/dashboard');
+     }
+
 }
 
 const preview=(req,res)=>{
@@ -149,5 +182,7 @@ module.exports = {
     deletePainting,
     editPainting,
     updatePainting,
-    preview
+    preview,
+    searchContent,
+    updateContentStatus
 };

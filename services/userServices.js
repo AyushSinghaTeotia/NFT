@@ -92,12 +92,51 @@ const saveKyc=async (filename,user_id)=>{
 }
 
 
+const getKycBYKycId = async (user_id) => {
+  let kycData = await KycInfo.findOne({ 'user_id':user_id });
+  if (kycData) {
+    return kycData;
+  }
+};
 const getKycBYId = async (user_id) => {
   let kycData = await KycInfo.find({ 'user_id':user_id });
   if (kycData) {
     return kycData;
   }
 };
+
+const getKycList=async(req,res)=>{
+ 
+  let users= await UserInfo.aggregate([
+    { $lookup:
+       {
+         from: 'kycs',
+         localField:'_id',
+         foreignField:'user_id',
+         as: 'kyc_info'
+       }
+     },
+     {
+      $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$kyc_info", 0 ] }, "$$ROOT" ] } }
+   },
+   { $project: { kyc_info: 0 } }
+    ]);
+  console.log(users);
+    return users;
+    
+}
+
+
+const getKycDetails=async(id)=>{
+ 
+  let kyc=KycInfo.find({"user_id":id});
+  console.log(kyc);
+    return kyc;
+    
+}
+
+
+
 const checkUserPassID = async (id, password) => {
   let user = await Registration.findOne({ '_id': id, 'password': password });
   if (user) {
@@ -170,6 +209,8 @@ const creaters=async()=>{
     return users;
   }
 }
+
+
 
 const sendActivationMail = async function (newuser, req) {
   let activationTokenId = await generateActivationToken(newuser)
@@ -245,5 +286,8 @@ module.exports = {
   checkUserByID,
   updateCreater,
   saveKyc,
-  getKycBYId
+  getKycBYId,
+  getKycBYKycId,
+  getKycList,
+  getKycDetails
 };

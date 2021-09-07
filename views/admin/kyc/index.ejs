@@ -30,67 +30,33 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
+           <% userKyc.forEach(function(user,index){
+             
+              if(user.user_role!="admin"&& user.image){%>
                
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
+              <tr>
+                <td><%- index+1 %></td>
+               
+                <td><%- user.name %></td>
+                <td><%- user.email %></td>
+                <td></td>
+                <td></td>
 
-                <td class="success-color">Approved</td>
+                <td class="success-color"><%- user.status %></td>
                 
                  
                 <td>
                   <div class="edit-icons">
-                    <a href="view-KYC.php" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-eye"></i></a>
+                    <a href="/users/view-kyc?id=<%=user._id %>" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-eye"></i></a>
                    
                   </div>
                 </td>
                
               </tr>
 
-              <tr>
-                <td>2</td>
-               
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
+              <% } }) %>
 
-                <td class="reject-color">Rejected</td>
-                
-                 
-                <td>
-                  <div class="edit-icons">
-                    <a href="view-KYC.php" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-eye"></i></a>
-                   
-                  </div>
-                </td>
-               
-              </tr>
 
-              <tr>
-                <td>3</td>
-               
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-
-                <td class="pending-color">Pending</td>
-                
-                 
-                <td>
-                  <div class="edit-icons">
-                    <a href="view-KYC.php" data-toggle="tooltip" data-placement="top" title="Edit"><i class="mdi mdi-eye"></i></a>
-                   
-                  </div>
-                </td>
-               
-              </tr>
-
-              
             </tbody>
           </table>
         </div>

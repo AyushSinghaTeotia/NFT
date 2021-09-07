@@ -44,13 +44,15 @@ router.get('/create',dashboardController.createCotent);
 router.post('/add-painting',paintingController.upload,paintingController.savePainting);
 router.get('/paintings',paintingController.index);
 router.post('/preview-content',paintingController.preview);
+router.get('/serach-content',paintingController.searchContent);
+router.get('/update-content',paintingController.updateContentStatus);
+
 
 router.get('/edit-painting',paintingController.editPainting);
 router.post('/update-painting',paintingController.upload,paintingController.updatePainting);
 router.get('/delete-painting',paintingController.deletePainting);
 router.get('/manage-kyc',dashboardController.manageKYC);
 router.get('/manage-transactions',dashboardController.manageTransaction);
-
 
 /*  wallet routes*/
 router.get('/wallet',walletController.wallet);
@@ -63,5 +65,9 @@ router.get('/wallet-success',walletController.walletSuccess);
 
 router.get('/do-kyc',kycController.kyc);
 router.post('/save-kyc',kycController.upload,kycController.saveKyc);
+router.get('/kyc-list',kycController.kycList);
+
+router.get('/view-kyc',kycController.viewKyc);
+
 
 module.exports = router;

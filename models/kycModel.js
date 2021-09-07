@@ -8,10 +8,7 @@ const bcrypt = require('bcryptjs');
 
 var KycSchema =  new moongoose.Schema({
 
-    user_id:{
-        type:String,
-        required:true
-    },
+    user_id:[{ type: moongoose.Schema.Types.ObjectId, ref: 'users' }],
 
     image:{
         type:String,
