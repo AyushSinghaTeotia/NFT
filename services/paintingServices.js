@@ -197,6 +197,36 @@ const paintingList = async (created_by,query)=>{
     return total;
   }
 
+  const totalContentForSale=async (id,role)=>{
+    let total;
+    if(role=="admin"){
+       total=await PaintingInfo.count({'for_sale':'Yes'});
+
+    }else
+    {
+     total=await PaintingInfo.find({'created_by':id,'for_sale':'Yes'}).count();
+
+    }
+    return total;
+  } 
+
+
+  const totalPendingContent=async (id,role)=>{
+    let total;
+    if(role=="admin"){
+       total=await PaintingInfo.count({'status':'pending'});
+
+    }else
+    {
+     total=await PaintingInfo.find({'created_by':id,'status':'pending'}).count();
+
+    }
+    return total;
+  }
+
+
+
+
   const updateContentStatus=async(id,status)=>{
     let content=await PaintingInfo.updateOne({ '_id': id }, { $set: { 'status':status} });
     return content;
@@ -211,6 +241,9 @@ module.exports = {
     updatePainting,
     allpaintingList,
     totalContent,
-    updateContentStatus
+    updateContentStatus,
+    totalPendingContent,
+    totalContentForSale
+
   
   };

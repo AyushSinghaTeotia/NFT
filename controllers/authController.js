@@ -184,11 +184,13 @@ const dashboard=async (req,res)=>{
     let role=req.session.role;
     let loginwallet = await blockchainServices.importWalletFindId(user_id);
     console.log("login wallet",loginwallet)
-    total= await paintingServices.totalContent(user_id,role);
+    let total= await paintingServices.totalContent(user_id,role);
+    let total_for_sale=await paintingServices.totalContentForSale(user_id,role);
+    let total_pending=await paintingServices.totalPendingContent(user_id,role);
     console.log(req.session)
     if(role=="admin")
       {
-        res.render('admin/dashboard/',{title:"Dashboard",role:req.session.role,name:req.session.re_usr_name,total});
+        res.render('admin/dashboard/',{title:"Dashboard",role:req.session.role,name:req.session.re_usr_name,total,total_for_sale,total_pending});
       }
      else
      {
@@ -196,7 +198,7 @@ const dashboard=async (req,res)=>{
 
             let contents=await paintingServices.paintingList(user_id);
 
-            res.render('users/dashboard',{title:"Dashboard",role:req.session.role,contents,name:req.session.re_usr_name,total});
+            res.render('users/dashboard',{title:"Dashboard",role:req.session.role,contents,name:req.session.re_usr_name,total,total_for_sale,total_pending});
 
         }else{
             res.redirect('/users/create-wallet');

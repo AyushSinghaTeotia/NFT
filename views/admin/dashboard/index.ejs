@@ -26,7 +26,7 @@
             <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
             <h4 class="font-weight-normal mb-3">Content On Sale  <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
             </h4>
-            <h2 class="">0</h2>
+            <h2 class=""><%=total_for_sale %></h2>
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
             <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
             <h4 class="font-weight-normal mb-3">Pending Approval <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
             </h4>
-            <h2 class="">0</h2>
+            <h2 class=""><%=total_pending %></h2>
           </div>
         </div>
       </div>
@@ -249,8 +249,57 @@
 
                 res.forEach(function(content,index)
                  {
-                   
-                        let html='<div class="col-md-6">\
+                   let html="";
+                    if(content.status=="approved")
+                      {
+                         html='<div class="col-md-6">\
+                        <div class="info-box-certify multiple-certify-inner">\
+              <div class="row align-item-center">\
+                 <div class="col-xl-4 offset-xl-1 col-md-12">\
+                   <div>\
+                     <img src="/uploadFile/'+content.image+'" alt="artist img" class="img-fluid"/>\
+                   </div>\
+                 </div>\
+                 <div class="col-xl-6 col-md-12">\
+                   <table class="table">\
+                     <tbody>\
+                       <tr>\
+                         <td width="40%">Category</td>\
+                         <td width="10%">:</td>\
+                         <td width="40%">'+content.category+'</td>\
+                       </tr>\
+                      <tr>\
+                         <td>Cotent</td>\
+                         <td>:</td>\
+                         <td>'+content.title+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>Basic Price</td>\
+                         <td>:</td>\
+                         <td>'+content.basic_price+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>For Sale</td>\
+                         <td>:</td>\
+                         <td>'+content.for_sale+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>Image Type</td>\
+                         <td>:</td>\
+                         <td>JPG</td>\
+                       </tr>\
+                     </tbody>\
+                   </table>\
+                   <div>\
+                      <h6 class="pending-line"><b>'+content.status+'</b> &nbsp; '+content.created_at+'</h6>\
+                   </div>\
+                 </div>\
+               </div>\
+           </div>';
+                      }
+                      else
+                      {
+                         html='<div class="col-md-6">\
                         <div class="info-box-certify multiple-certify-inner">\
               <div class="row align-item-center">\
                  <div class="col-xl-4 offset-xl-1 col-md-12">\
@@ -294,6 +343,7 @@
                  </div>\
                </div>\
            </div>';
+             }
 
             document.getElementById('content-list').innerHTML+=html;  
               });

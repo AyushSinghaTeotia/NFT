@@ -10,7 +10,7 @@
        <div class="row">
         <div class="col-md-2 stretch-card grid-margin">
           <div class="card bg-gradient-danger card-img-holder text-white">
-             <a href="painting-list.php">
+             <a href="/users/paintings">
                   <div class="card-body">
                   <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
                   <h4 class="font-weight-normal mb-3">Total Contents <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
@@ -26,7 +26,7 @@
               <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Content On Sale  <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="">0</h2>
+              <h2 class=""><%=total_for_sale %></h2>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
               <img src="/assets/images/other/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Pending Approval <i class="mdi  mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="">0</h2>
+              <h2 class=""><%=total_pending %></h2>
             </div>
           </div>
         </div>
