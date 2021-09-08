@@ -232,6 +232,11 @@ const paintingList = async (created_by,query)=>{
     return content;
   }
 
+  const getContentDetail=async(id)=>{
+    let details=await PaintingInfo.findOne({'_id':id});
+    return details;
+  }
+
 module.exports = {
     addPainting,
     getPainting,
@@ -243,7 +248,8 @@ module.exports = {
     totalContent,
     updateContentStatus,
     totalPendingContent,
-    totalContentForSale
+    totalContentForSale,
+    getContentDetail
 
   
   };

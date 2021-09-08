@@ -68,7 +68,49 @@
                     </div>
                 </div>                     
                 <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+               <div class="row" id="explore-list">
+
+               </div>                
+
+                <div class="col-md-12 text-center">
+                    <a href="#" id="loadmore" class="btn-main wow fadeInUp lead">Load more</a>
+                </div>                                              
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+  window.onload = function() { //alert("hello")
+     
+    let category= searchFilter()
+     if(category){
+        fetchData(category);
+     }else
+     {
+        fetchData("");
+     }
+
+  };
+  function fetchData(query){   console.log(query)
+    $.ajax({type:"get",
+           url:"/search",
+           data:{category:query},
+           success:function(res)
+           {
+
+            if(res.length>0)
+              {               
+                
+                document.getElementById('explore-list').innerHTML="";  
+
+                res.forEach(function(content,index)
+                 {
+                
+                       let html=`<div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
                     <div class="nft__item">
                         <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
                         <div class="author_list_pp">
@@ -78,13 +120,13 @@
                             </a>
                         </div>
                         <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod1.png" class="lazy nft__item_preview" alt="">
+                            <a href="/item-details?id=`+content._id+`">
+                                <img src="/uploadFile/`+content.image+`" class="lazy nft__item_preview" alt="">
                             </a>
                         </div>
                         <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Pinky Ocean</h4>
+                            <a href="/item-details?id=`+content._id+`">
+                                <h4>`+content.title+`</h4>
                             </a>
                             <div class="nft__item_price">
                                 0.08 ETH<span>1/20</span>
@@ -97,468 +139,47 @@
                             </div>                            
                         </div> 
                     </div>
-                </div>                 
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-10.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="/nft-detail">
-                                <img src="/images/items/mod2.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Deep Sea Phantasy</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.06 ETH<span>1/22</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>80</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="de_countdown" data-year="2021" data-month="9" data-day="14" data-hour="8"></div>
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-11.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod3.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Rainbow Style</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.05 ETH<span>1/11</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>97</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-12.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod4.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Two Tigers</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.02 ETH<span>1/15</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>73</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-9.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod5.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>The Truth</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.06 ETH<span>1/20</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>26</span>
-                            </div>                                 
-                        </div>
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="de_countdown" data-year="2021" data-month="8" data-day="11" data-hour="8"></div>
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-2.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod6.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Running Puppets</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.03 ETH<span>1/24</span>
-                            </div>    
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>45</span>
-                            </div>                                  
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-3.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod7.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>USA Wordmation</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.09 ETH<span>1/25</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>76</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="de_countdown" data-year="2021" data-month="9" data-day="29" data-hour="8"></div>
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-4.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod8.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Loop Donut</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.09 ETH<span>1/14</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>94</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="de_countdown" data-year="2021" data-month="9" data-day="16" data-hour="8"></div>
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-5.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod9.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Lady Copter</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.08 ETH<span>1/21</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>75</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-7.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod10.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Purple Planet</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.02 ETH<span>1/18</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>93</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-6.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod1.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Oh Yeah!</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.025 ETH<span>1/12</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>6</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-8.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod2.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>This is Our Story</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.035 ETH<span>1/8</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>21</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-9.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod3.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Pixel World</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.015 ETH<span>1/25</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>46</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-12.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod4.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>I Believe I Can Fly</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.055 ETH<span>1/4</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>54</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-4.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod5.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Cute Astronout</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.005 ETH<span>1/30</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>32</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
-                <!-- nft item begin -->
-                <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="nft__item">
-                        <div class="author_list_pp">
-                            <a href="Author.php">                                    
-                                <img class="lazy" src="/images/author/author-1.jpg" alt="">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        </div>
-                        <div class="nft__item_wrap">
-                            <a href="item-details.php">
-                                <img src="/images/items/mod6.png" class="lazy nft__item_preview" alt="">
-                            </a>
-                        </div>
-                        <div class="nft__item_info">
-                            <a href="item-details.php">
-                                <h4>Teal Ocean</h4>
-                            </a>
-                            <div class="nft__item_price">
-                                0.025 ETH<span>1/12</span>
-                            </div>
-                            <div class="nft__item_action">
-                                <a href="#">Subscribe Now</a>
-                            </div>
-                            <div class="nft__item_like">
-                                <i class="fa fa-heart"></i><span>24</span>
-                            </div>                                 
-                        </div> 
-                    </div>
-                </div>
+                </div>`;
+                        
 
-                <div class="col-md-12 text-center">
-                    <a href="#" id="loadmore" class="btn-main wow fadeInUp lead">Load more</a>
-                </div>                                              
-            </div>
-        </div>
-    </section>
+                  document.getElementById('explore-list').innerHTML+=html;  
+                });
+              
+         //$("#content-list").html(html); 
+           }else{
+            document.getElementById('explore-list').innerHTML='<div class="col-md-6"> <h1>Not Found<h1> </div>';  
 
-</div>
+
+           } 
+                 
+
+
+           },
+       
+    });
+  }
+
+function CheckboxValues(name) {
+  const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+  let values = [];
+  checkboxes.forEach((checkbox) => { alert(checkbox.value)
+      values.push(checkbox.value);
+   });
+ 
+   console.log(values);
+   fetchData(values);
+ }   
+
+ function searchFilter(){
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+     const category = urlParams.get('category')
+     if(category!="undefine"||category!=null)
+      {
+         return category;
+      }
+    console.log(category);
+ }
+</script>

@@ -2,21 +2,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-center">
-                <img src="/images/items/mod5.png" class="img-fluid img-rounded mb-sm-30" alt="">
+                <img src="/uploadFile/<%=details.image %>" class="img-fluid img-rounded mb-sm-30" alt="">
             </div>
             <div class="col-md-6">
                 <div class="item_info">
 
-                    <h2>Pinky Ocean</h2>
+                    <h2><%=details.title %></h2>
                     <div class="item_info_counts">
-                        <div class="item_info_type"><i class="fa fa-image"></i>Art</div>
+                        <div class="item_info_type"><i class="fa fa-image"></i><%=details.category%></div>
                         <div class="item_info_views"><i class="fa fa-eye"></i>250</div>
                         <div class="item_info_like"><i class="fa fa-heart"></i>18</div>
                     </div>
-                    <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                        type and scrambled it to make a type specimen book. It has survived not only five centuries, but
-                        also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                    <p><%=details.description %>
+                    </p>
 
                     <h6>Creator</h6>
                     <div class="item_author">
@@ -27,7 +25,7 @@
                             </a>
                         </div>
                         <div class="author_list_info">
-                            <a href="author.html">Monica Lucas</a>
+                            <a href="author.html"><%=creater.name %></a>
                         </div>
                     </div>
 

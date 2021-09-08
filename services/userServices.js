@@ -247,6 +247,23 @@ const updateUserStatus = async function (user_id) {
   }
 }
 
+
+const updateKycStatus = async(id,status)=> {
+  try {
+    let kycdata= await KycInfo.findOne({ '_id':id });
+    if (kycdata) {
+      await KycInfo.update({ '_id':id }, { $set: {'status':status} });
+      return true;
+    }
+    else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+}
+
 const sendNewPasswordMail = async function (req, otp, user_id) {
   console.log(otp)
   let user = await Registration.findOne({ '_id': user_id });
@@ -289,5 +306,6 @@ module.exports = {
   getKycBYId,
   getKycBYKycId,
   getKycList,
-  getKycDetails
+  getKycDetails,
+  updateKycStatus
 };

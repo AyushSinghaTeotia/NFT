@@ -68,6 +68,7 @@ router.post('/save-kyc',kycController.upload,kycController.saveKyc);
 router.get('/kyc-list',kycController.kycList);
 
 router.get('/view-kyc',kycController.viewKyc);
+router.get('/approve-kyc',kycController.updateKycStatus);
 
 
 module.exports = router;

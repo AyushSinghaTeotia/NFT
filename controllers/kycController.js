@@ -129,7 +129,18 @@ const submitSignup = async (req, res) => {
    
 }
 
-
+const updateKycStatus=async (req,res)=>{
+   let id=req.query.id.trim();
+   let status="approved";
+   
+try{
+    let  kyc=await userServices.updateKycStatus(id,status);
+     res.redirect('/users/kyc-list');
+   }catch(err)
+    {
+      console.log(err);
+    }
+}
 
 
 module.exports = {
@@ -137,5 +148,6 @@ module.exports = {
     kyc,
     saveKyc,
     kycList,
-    viewKyc
+    viewKyc,
+    updateKycStatus
 };
