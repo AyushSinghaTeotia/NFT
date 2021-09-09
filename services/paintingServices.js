@@ -45,10 +45,15 @@ const getPainting = async (id) => {
     }
   };
 
-const paintingList = async (created_by,query)=>{
+const paintingList = async (created_by,category,basic_price)=>{
   let painting="";
-    if(query){
-      painting=await PaintingInfo.find({'created_by':created_by,'category':{$in:query }});
+  
+    if(category){
+      painting=await PaintingInfo.find({'created_by':created_by,'category':{$in:category }});
+    }
+    else if(basic_price){
+      painting=await PaintingInfo.find({'created_by':created_by,'basic_price':{$in:basic_price }});
+
     }
     else
     {
@@ -59,13 +64,16 @@ const paintingList = async (created_by,query)=>{
     }
   }
 
-  const allpaintingList = async (query)=>{
+  const allpaintingList = async (category,basic_price)=>{
     let painting="";
-      if(query){
+      if(category){
 
-        painting=await PaintingInfo.find({'category':{$in:query }});
+        painting=await PaintingInfo.find({'category':{$in:category }});
 
       }
+      else if(basic_price){
+        painting=await PaintingInfo.find({'basic_price':{$in:basic_price }});
+       }
       else
       {
 
@@ -77,6 +85,25 @@ const paintingList = async (created_by,query)=>{
       }
     }
 
+
+
+    const getpaintingList = async (query)=>{
+      let painting="";
+        if(query){
+  
+          painting=await PaintingInfo.find({'category':{$in:query }});
+  
+        }
+        else
+        {
+  
+           painting=await PaintingInfo.find({});
+  
+         }
+        if(painting){
+          return painting;
+        }
+      }
 
 
   const checkPainting=async (title)=>{
@@ -249,7 +276,8 @@ module.exports = {
     updateContentStatus,
     totalPendingContent,
     totalContentForSale,
-    getContentDetail
+    getContentDetail,
+    getpaintingList
 
   
   };

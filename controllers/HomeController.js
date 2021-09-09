@@ -36,7 +36,7 @@ const explore=async (req,res)=>{
 const exploreContent=async(req,res)=>{
     let query=req.query.category;
     console.log(query);
-    let content = await paintingServices.allpaintingList(query);
+    let content = await paintingServices.getpaintingList(query);
 
     res.send(content);
 

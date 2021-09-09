@@ -6,51 +6,15 @@
     
 
     <section aria-label="section" class="tier-banner" style="background-image: url(/images/items/mod5.png);">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                   <div class="d_profile de-flex">
-                        <div class="de-flex-col">
-                            <div class="profile_avatar">
-                                <img src="/images/items/mod5.png" alt="">
-                                <i class="fa fa-check"></i>
-                                <div class="profile_name">
-                                    <h4>
-                                        Monica Lucas                                                
-                                        <span class="profile_username">@monicaaa</span>
-                                        
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile_follow de-flex">
-                            <div class="de-flex-col">
-                                <div class="profile_follower">500 followers</div>
-                            </div>
-                            <div class="de-flex-col">
-                                <div class="profile_follower">50 Posts</div>
-                            </div>
-                            <div class="de-flex-col">
-                                <div class="profile_follower">5000 Likes</div>
-                            </div>
-                            <div class="de-flex-col">
-                                <a href="#" class="btn-main">Follow</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                </div>
-        </div>
+       
     </section>
                 <section class="pt-5 pb-5">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                                  <div class="text-center">
-                                    <h4>Ecstatic Wellness</h4>
-                                    <p class="m-auto mb-3" style="max-width: 500px;">Its simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                    <a href="Subscription-plan-2.php" class="btn-main btn-subscription wow fadeInUp lead animated mb-0"><img class="lazy" src="/images/padlock.png" alt="lock" width="24" height="24"> Subscribe to unlock content</a>
+                                    <h4>Choose Plan Type</h4>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -73,7 +37,7 @@
                                             <li><a href="#">0- Request during livestream*</a></li>
                                             <li><a href="#">0- Interactive live session</a></li>
                                             <li>
-                                                <a class="confirm-btn" href="">Confirm</a>
+                                                <a class="confirm-btn"  onclick="subscribe('0.0')" href="javascript::void(0)">Confirm</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -91,7 +55,7 @@
                                             <li><a href="#">1- Request during livestream*</a></li>
                                             <li><a href="#">1- Interactive live session</a></li>
                                             <li>
-                                                <a class="confirm-btn" href="">Confirm</a>
+                                                <a class="confirm-btn"  onclick="subscribe('0.1')" href="javascript::void(0)">Confirm</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -110,7 +74,7 @@
                                             <li><a href="#">2- Interactive live session</a></li>
                                             <li><a href="#">1- 20 minute voice call</a></li>
                                             <li>
-                                                <a class="confirm-btn" href="">Confirm</a>
+                                                <a class="confirm-btn" onclick="subscribe('0.2')" href="javascript::void(0)">Confirm</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -130,7 +94,7 @@
                                             <li><a href="#">1- 20 minute voice call</a></li>
                                             <li class="active"><a href="#">1- 20 minute video call</a></li>
                                             <li>
-                                                <a class="confirm-btn" href="">Confirm</a>
+                                                <a class="confirm-btn" onclick="subscribe('0.3')"href="javascript::void(0)">Confirm</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -307,3 +271,10 @@
     
 </div>
 <!-- content close -->
+<script>
+function subscribe(value){
+    subscribeByMetaMask(value)
+
+}
+
+</script>

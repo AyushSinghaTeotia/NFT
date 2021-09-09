@@ -36,16 +36,18 @@ const index=async (req,res)=>{
     }
 }
 const searchContent=async(req,res)=>{
-    let query=req.query.category;
-    console.log(query);
+    let category=req.query.category;
+    let basic_price=req.query.basic_price;
+
+    console.log(category);
     let created_by=req.session.re_us_id;
     let painting="";
     if(req.session.role=="creater"){
-        painting=await paintingServices.paintingList(created_by,query);
+        painting=await paintingServices.paintingList(created_by,category,basic_price);
     }
     else
      {
-        painting=await paintingServices.allpaintingList(query);
+        painting=await paintingServices.allpaintingList(category,basic_price);
 
      }
     

@@ -231,14 +231,14 @@
 
   <script>
     window.onload = function() { //alert("hello")
-       fetchData("");
+       fetchData("","");
        abbrev_name("<%=name %>");
 
     };
-    function fetchData(query){   console.log(query)
+    function fetchData(query,basic_price){   console.log(query)
       $.ajax({type:"get",
              url:"/users/serach-content",
-             data:{category:query},
+             data:{category:query,basic_price:basic_price},
              success:function(res)
              {
 
@@ -315,12 +315,21 @@
   function CheckboxValues(name) {
     const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
     let values = [];
+    let basic_price=[];
     checkboxes.forEach((checkbox) => { alert(checkbox.value)
-        values.push(checkbox.value);
+       
+      if(name="category"){
+          values.push(checkbox.value);
+         }else
+          {
+            basic_price.push(checkbox.value);
+          }
+      
      });
    
      console.log(values);
-     fetchData(values);
+     console.log(basic_price);
+     fetchData(values,basic_price);
    }   
 
    

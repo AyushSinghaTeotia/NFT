@@ -22,6 +22,10 @@ router.get('/subscriptions',function(req,res){
   res.render('subscription',{layout:'layouts/front/layout'});
 });
 
+router.get('/subscribed',function(req,res){
+   res.render('subscribed',{layout:'layouts/front/layout'});
+});
+
 router.get('/buy-plan',function(req,res){
   res.render('buy-plan',{layout:'layouts/front/layout'});
 });
