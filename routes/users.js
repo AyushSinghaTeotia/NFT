@@ -41,7 +41,7 @@ router.get('/creaters',authController.getCreaters);
 router.get('/accept',authController.acceptUser);
 router.get('/reject',authController.rejectUser);
 router.get('/create',dashboardController.createCotent);
-router.post('/add-painting',paintingController.upload,paintingController.savePainting);
+router.post('/add-painting',paintingController.uploadFiles,paintingController.savePainting);
 router.get('/paintings',paintingController.index);
 router.post('/preview-content',paintingController.preview);
 router.get('/serach-content',paintingController.searchContent);

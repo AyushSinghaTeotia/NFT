@@ -41,7 +41,7 @@
                                                 <input type="text" class="form-control" readonly="" id="text_img_name" data-rule-required="true" data-msg-required="Please select your Id.">
                                                 <span class="input-group-btn">
                                                   <span class="btn btn-common bg-gradient-primary btn-file1">
-                                                  Upload <input type="file"id="imgInp6" value="" name="file" accept="image*" onchange="readURL(this);" required>
+                                                  Upload <input type="file"id="imgInp6" value="" name="file" multiple  accept="image*" onchange="readURL(this);" required>
                                                    <input type="hidden" name="old_image" value="">
                                                   </span>   
                                                 </span>
@@ -51,7 +51,15 @@
                                                </div>
                                             </div>
                                           </div>
-                                         
+                                           
+                                          <div class="mt-20 ml-15">
+                                            <a href="javascript:void(0);" class="btn-clone" title="Add" onclick="attribute_cloning_add();">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                            <a  href="javascript:void(0);" id="attribute_cloning" class="btn-clone" title="Remove" onclick="remove_current_div_venues($(this));">
+                                                <i class="fa fa-minus"></i>
+                                            </a>
+                                        </div>
 
                                     </div>
                                   </div>
@@ -297,4 +305,36 @@ var data = file.split('.')[0];  // "blue"
 $('#text_img_name').val(src);
 }
 
+</script>
+
+<script>
+  $(document).on('click.bs.dropdown.data-api', '.dropdown.keep-inside-clicks-open', function (e) {
+    e.stopPropagation();
+  });
+</script>
+
+
+<script>
+var countval = 1; //for Increase id num  
+function attribute_cloning_add(){
+    var new_count = countval++; //for increase id number
+    // both for change id  
+    $clone1 = $("#attribute_section_add").clone();
+    $clone1.attr('id','attribute_section_add'+new_count);
+    $('#attribute_section_add_main').append($clone1); //for append Clone Data
+    re_arrange_qualification();
+    
+}
+
+</script>
+
+<!-- Remove Clone by Click Minus Button -->
+<script>
+    function remove_current_div_venues(obj){
+        var parent_id = obj.parent().parent().attr('id'); //for parent ID
+        if( parent_id != 'attribute_section_add'){
+            obj.parent().parent().remove();
+            re_arrange_qualification(); 
+        }    
+    }
 </script>

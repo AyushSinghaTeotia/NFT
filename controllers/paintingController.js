@@ -23,10 +23,18 @@ const Storage = multer.diskStorage({
     }
 })
 
+
+
+  
+
 //middleware
 const upload = multer({
     storage:Storage
 }).single('file');
+
+const uploadFiles = multer({ storage : Storage }).array('file',4);
+
+
 
 const index=async (req,res)=>{
     let created_by=req.session.re_us_id;
@@ -61,11 +69,12 @@ const savePainting = async (req, res) => {
         console.log(req.body); console.log("body",req.body.preview);
         
          if(req.body.preview=="preview")
-          {
-           let pr_image= req.file.filename
+          { console.log('uploaded files',req.files);
+           let pr_image= req.files[0].filename
            req.session.preview_image=pr_image;
+           req.session.files=req.files;
            req.session.fordata=req.body; 
-           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image,name:req.session.re_usr_name});
+           res.render('users/creaters/preview',{title:"preview",data:req.body,role:req.session.role,image:pr_image,name:req.session.re_usr_name,files:req.files});
             
           }
          else
@@ -90,14 +99,31 @@ const savePainting = async (req, res) => {
                        ContentData=req.session.fordata;
 
                       }else{
-                        image = req.file.filename;
+                        image = req.files[0].filename;
                         ContentData=req.body;
                       }
                     console.log(created_by)
                     try{
     
                         let painting = await paintingServices.addPainting(ContentData,created,created_by,image);
-    
+                         console.log("created successfully",painting);
+                         
+                         let files="";
+                         if(req.session.files){
+                             files=req.files;
+                         }else
+                         {
+                             files=req.files;
+                         }
+                         
+                         let content_id=painting._id;
+                         files.forEach( async function(file,index)
+                           {
+                             let content_media=await paintingServices.saveContentMedia(content_id,file.filename);
+                             console.log(content_media);
+                           });
+
+
                     }catch(err){ console.log(err)}
                    // let user = await userServices.checkUser(req.body.email);
                     //let activationmail = await userServices.sendActivationMail(user, req)
@@ -145,8 +171,12 @@ const deletePainting=async (req,res)=>{
 const editPainting=async (req,res)=>{
     let id=req.query.id.trim();
     let painting=await paintingServices.getPainting(id);
+    let files=await paintingServices.getContentMedia(painting._id);
+
+    console.log(files);
+    
     if(painting){
-        res.render('users/creaters/edit-painting',{role:req.session.role,painting:painting,name:req.session.re_usr_name});
+        res.render('users/creaters/edit-painting',{role:req.session.role,painting:painting,name:req.session.re_usr_name,files});
     }else
     {
         console.log("There is no such record");
@@ -186,5 +216,6 @@ module.exports = {
     updatePainting,
     preview,
     searchContent,
-    updateContentStatus
+    updateContentStatus,
+    uploadFiles
 };

@@ -2,6 +2,7 @@ const moment = require("moment");
 const { generateCode } = require('../helper/userHelper');
 const { UserInfo } = require('../models/userModel');
 const crypto = require('crypto');
+const { ContentMediaInfo } = require("../models/contentMedia");
 
 const { PaintingInfo } = require("../models/painting");
 
@@ -32,11 +33,29 @@ const addPainting = async (paintingDetail,created,created_by,image) => {
     const painting = new PaintingInfo(paintingObject);
     await painting.save();
     console.log("painting",painting);
-    return paintingObject;
+    return painting;
   } catch (error) {
       console.log(error);
   }
 };
+
+const saveContentMedia=async(content_id,filename)=>{
+
+    let media={
+            content_id:content_id,
+            media_name:filename  
+       }
+    try{
+
+     let  media_files= new ContentMediaInfo(media);
+     await media_files.save();
+     console.log(media_files);
+     return media_files;
+    }
+    catch(err){
+      console.log(err);
+    }
+}
 
 const getPainting = async (id) => {
     let paiting = await PaintingInfo.findOne({ '_id':id});
@@ -85,19 +104,23 @@ const paintingList = async (created_by,category,basic_price)=>{
       }
     }
 
+  const getContentMedia=async(id)=>{
+     let media=await ContentMediaInfo.find({'content_id':id});
+     return media;
 
+  }
 
     const getpaintingList = async (query)=>{
       let painting="";
         if(query){
   
-          painting=await PaintingInfo.find({'category':{$in:query }});
+          painting=await PaintingInfo.find({'status':'approved','category':{$in:query }});
   
         }
         else
         {
   
-           painting=await PaintingInfo.find({});
+           painting=await PaintingInfo.find({'status':'approved'});
   
          }
         if(painting){
@@ -137,7 +160,7 @@ const paintingList = async (created_by,category,basic_price)=>{
           description:paintingDetail.description,
           updated_at:updated_at,
           updated_by:updated_by,
-          status: "active"
+          status: "pending"
         };
        console.log('before updating',paintingObject);
         await PaintingInfo.updateOne({ '_id': id }, { $set:paintingObject });
@@ -277,7 +300,9 @@ module.exports = {
     totalPendingContent,
     totalContentForSale,
     getContentDetail,
-    getpaintingList
+    getpaintingList,
+    saveContentMedia,
+    getContentMedia
 
   
   };
