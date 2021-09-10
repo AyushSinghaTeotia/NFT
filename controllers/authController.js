@@ -34,12 +34,12 @@ const loginPage = async (req, res) => {
        let err_msg = req.flash('err_msg');
     //let success_msg = req.flash('success_msg');
 
-        res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg });
+        res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg ,name: req.session.re_usr_name});
     
 }
 
 const signup= async (req,res)=> {
-    res.render('users/register', { layout: 'layouts/front/layout' });
+    res.render('users/register', { layout: 'layouts/front/layout',name: req.session.re_usr_name});
 
 }
 
@@ -132,11 +132,56 @@ const submitSignup = async (req, res) => {
 
 const logout = async (req, res) => {
     req.session.destroy();
-    res.redirect('/users/login');
+    res.redirect('/');
 }
 
 
+const loginByWallet=async(req,res)=>{
+    let address=req.query.account;
+    console.log(address);
+    let user=await userServices.checkUserByWallet(address);
+    console.log("user account",user);
+    if(user){
 
+        req.session.success = true;
+        req.session.re_us_id = user._id;
+        req.session.re_usr_name = user.name;
+        req.session.re_usr_email = user.email;
+        req.session.is_user_logged_in = true;
+        req.session.role=user.user_role;
+        console.log(req.session);
+        res.send(user);
+    }else
+      {
+        let email=address+"@gmail.com";
+         let mystr = await contentCreaterServices.createCipher("123456");
+         let created = await contentCreaterServices.createAtTimer();
+          userOBJ={ name:address,
+                   email:re_usr_email,
+                   password:mystr,
+                   username:"metamask",
+                   mobile:"1234567898",
+                   wallet_address:address,
+                   user_role:"user",
+                   created_at:created  
+                   }
+                 
+         
+         let newuser = await userServices.addUserByWallet(userOBJ);
+         let user=await userServices.checkUserByWallet(address);
+
+
+         req.session.success = true;
+         req.session.re_us_id = user._id;
+         req.session.re_usr_name = user.name;
+         req.session.re_usr_email = user.email;
+         req.session.is_user_logged_in = true;
+         req.session.role=user.user_role;
+         console.log(req.session);
+
+         res.send(user);
+      }
+}
 
 
 const activateAccount = async (req, res) => {
@@ -284,5 +329,6 @@ module.exports = {
     submitSignup,
     getCreaters,
     acceptUser,
-    rejectUser
+    rejectUser,
+    loginByWallet
 };

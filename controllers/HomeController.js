@@ -31,7 +31,10 @@ const upload = multer({
 
 const explore=async (req,res)=>{
     
-        res.render('explore',{ layout: 'layouts/front/layout'});
+        res.render('explore',{ layout: 'layouts/front/layout',name:req.session.re_usr_name});
+}
+const index=async(req,res)=>{
+    res.render('index',{layout:'layouts/front/layout',name: req.session.re_usr_name})
 }
 const exploreContent=async(req,res)=>{
     let query=req.query.category;
@@ -44,19 +47,20 @@ const exploreContent=async(req,res)=>{
 
 const model=async (req,res)=>{
      
-    res.render('models',{ layout: 'layouts/front/layout' });
+    res.render('models',{ layout: 'layouts/front/layout',name:req.session.re_usr_name});
 
 }
 const contentDetail=async(req,res)=>{
     let id=req.query.id.trim();
     let details=await paintingServices.getContentDetail(id);
     let creater=await userServices.checkUserByID(details.created_by);
-    res.render('nft-detail',{layout:'layouts/front/layout',details,creater});
+    res.render('nft-detail',{layout:'layouts/front/layout',details,creater,name:req.session.re_usr_name});
 }
 
 module.exports = {
     explore,
     exploreContent,
     model,
-    contentDetail
+    contentDetail,
+    index
 };

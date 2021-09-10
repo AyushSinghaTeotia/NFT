@@ -27,6 +27,23 @@ const addUser = async (userDetails, pass, created) => {
   }
 };
 
+
+
+const addUserByWallet = async (userOBJ) => {
+ 
+  try {
+    const user = new UserInfo(userOBJ);
+    await user.save();
+    return user;
+  } catch (error) {
+    console.log(error)
+    return null;
+  }
+};
+
+
+
+
 const updateProfile = async (userDetails, updated_at, re_us_id) => {
   let user = await checkUserId(re_us_id);
   if (user) {
@@ -68,6 +85,13 @@ const checkUserByID = async (user_id) => {
   if (user) {
     return user;
   }
+};
+
+const checkUserByWallet = async (address) => {
+  let user = await UserInfo.findOne({ 'wallet_address':address});
+  if (user) {
+    return user;
+   }
 };
 
 const checkUserPass = async (email, password) => {
@@ -307,5 +331,7 @@ module.exports = {
   getKycBYKycId,
   getKycList,
   getKycDetails,
-  updateKycStatus
+  updateKycStatus,
+  checkUserByWallet,
+  addUserByWallet
 };

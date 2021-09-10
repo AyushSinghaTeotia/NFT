@@ -12,7 +12,6 @@ var UserSchema =  new moongoose.Schema({
         type:String,
         required:true
     },
-
     email:{
         type:String,
         required:true,
@@ -27,12 +26,18 @@ var UserSchema =  new moongoose.Schema({
     },
     mobile:{
 
-        type:String
+        type:String,
+        default:null
     },
     username:{
 
-        type:String
+        type:String,
+        default:null
     }, 
+    wallet_address:{
+        type:String,
+        default:null
+    },
     password:{
         type:String,
         required:true

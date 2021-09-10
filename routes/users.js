@@ -27,6 +27,7 @@ router.get('/signup',authController.signup);
 router.post('/submitSignup',authController.submitSignup);
 router.post('/login', authController.userLogin);
 router.get('/logout',authController.logout);
+router.get('/login-by-wallet',authController.loginByWallet);
 
 router.use(flash());
 

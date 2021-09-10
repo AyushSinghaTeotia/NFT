@@ -3,9 +3,7 @@ var router = express.Router();
 const HomeController=require('../controllers/HomeController');
 /* GET home page. */
 
-router.get('/', function(req, res, next) {
-  res.render('index',{ layout: 'layouts/front/layout' });
-});
+router.get('/',HomeController.index);
 
 router.get('/explore',HomeController.explore);
 router.get('/search',HomeController.exploreContent);

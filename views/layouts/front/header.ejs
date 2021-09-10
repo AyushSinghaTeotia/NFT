@@ -23,7 +23,7 @@
                     <!-- mainmenu begin -->
                     <ul id="mainmenu">
                         <li>
-                            <a href="/defi">Defi<span></span></a>
+                            <a href="https://taboo-token-123.netlify.app/">Defi<span></span></a>
                            
                         </li>
                         <li>
@@ -49,11 +49,21 @@
                       
                        
                     </ul>
-                    <div class="menu_side_area">
-                        <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login/Signup</a>
-                        <span id="menu-btn"></span>
-                         <a href="/users/login" class="btn-main">Login as Creater</a>
-                        
+                    <div class="menu_side_area"id="user">
+                       
+                            <div id="checkuser">
+                                <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login/Signup</a>
+                                <span id="menu-btn"></span>
+                                <a href="/users/login" class="btn-main">Login as Creater</a>
+                                
+                            </div>
+
+                            <div id="logout"style="display:none">
+                                <a href="/users/logout" class="btn-main">Logout</a>
+                                
+                            </div>
+                            
+                          
                     </div>
 
                 </div>
@@ -63,3 +73,27 @@
 </div>
 </header>
 <!-- header close -->
+
+<script>
+    window.onload = () => { console.log()
+        checkLogin("<%=name %>");
+  };
+
+    function checkLogin(name){ //alert(name);
+      
+      if(name){
+
+        document.getElementById("checkuser").style.display="none";
+        document.getElementById("logout").style.display="block";
+
+
+      }else
+       {
+        document.getElementById("logout").style.display="none";
+  
+        document.getElementById("checkuser").style.display="block";
+
+       }  
+
+    }
+</script>
