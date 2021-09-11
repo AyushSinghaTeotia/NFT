@@ -11,6 +11,7 @@ const paintingController=require('../controllers/paintingController');
 const authController = require('../controllers/authController');
 const walletController=require('../controllers/walletController');
 const kycController=require('../controllers/kycController');
+const orderController=require('../controllers/orderController');
 router.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -22,14 +23,16 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.use(flash());
+
+
 router.get('/login',authController.loginPage);
 router.get('/signup',authController.signup);
 router.post('/submitSignup',authController.submitSignup);
 router.post('/login', authController.userLogin);
 router.get('/logout',authController.logout);
 router.get('/login-by-wallet',authController.loginByWallet);
-
-router.use(flash());
+router.post('/save-order',orderController.saveOrder);
 
 /* content creater  */
 router.post('/contentCreater-login', contentCreaterControllers.login);

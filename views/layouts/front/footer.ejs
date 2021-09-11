@@ -107,6 +107,8 @@
     <script src="/javascripts/js/particles-settings-2.js"></script>
 
     <script src="/javascripts/js/jquery.nice-select.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
      <script>
     $(document).ready(function() {
       $('select').niceSelect();
@@ -125,7 +127,7 @@
         return accounts;
     }
     async function metanaskPopup(){
-        finalprice = "0.12";
+        finalprice = "0.0012";
         user_accounts = await getAccount();
         ethereum.request({
             method: 'eth_sendTransaction',
@@ -140,35 +142,36 @@
 
         .then((txHash) => {
             console.log(txHash);
-            // var obj = document.getElementById('tx_id1');
-            // // obj.value = txHash;
-            // $.ajax({
-            //     dataType: "json",
-            //     type: 'GET',
-            //     url: '/store-hash',
-            //     data: {
-            //         tx_id: txHash,
-            //         art_id: art_id,
-            //         address: user_accounts,
-            //         qty: document.getElementById("copies").value,
-            //         amount: finalprice,
+             var content_id = getContentId(); //document.getElementById('content_id').value;
+             console.log(content_id);
+             // // obj.value = txHash;
+             $.ajax({
+                dataType: "json",
+                type: 'post',
+                url: '/users/save-order',
+                 data: {
+                       tx_id: txHash,
+                       content_id:content_id,
+                       address: user_accounts,
+                      // qty: document.getElementById("copies").value,
+                         amount: finalprice,
             //         currency: currency,
             //         currencyRate: currencyRate
-            //     },
-            //     success: function(data) {
-            //         swal({
-            //             type: 'success',
-            //             text: 'Transaction completed successfully.',
-            //             timer: 3000,
-            //             onOpen: function() {
-            //                 swal.showLoading()
-            //             }
-            //         }).then(function() {
-            //             location.reload();
-            //         });
-            //         //               location.reload();
-            //     }
-            // });
+                      },
+                 success: function(data) {
+                     swal({
+                          type: 'success',
+                           text: 'Transaction completed successfully.',
+                           timer: 3000,
+                           onOpen: function() {
+                             swal.showLoading()
+                         }
+                     }).then(function() {
+                         location.reload();
+                    });
+                               location.reload();
+                }
+             });
         });
     }
    
@@ -228,6 +231,19 @@
     $('body').on("click",".buyNow",function(){
         metanaskPopup();
     });
+
+
+
+    function getContentId(){
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+     const content_id = urlParams.get('id')
+    
+      console.log(content_id);
+      return content_id;
+ }
   </script>
 </footer>
 
