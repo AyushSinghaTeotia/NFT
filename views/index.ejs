@@ -112,6 +112,8 @@
                                   </div>
                                   <div class="row wow fadeIn">                        
                                       <!-- nft item begin -->
+
+                                      <% content.forEach(function(content){%>
                                       <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                           <div class="nft__item">
                                              
@@ -122,13 +124,13 @@
                                                   </a>
                                               </div>
                                               <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod11.jpg" class="lazy nft__item_preview" alt="">
+                                                  <a href="/item-details?id=<%=content._id %>">
+                                                      <img src="/uploadFile/<%=content.image %>" class="lazy nft__item_preview" alt="">
                                                   </a>
                                               </div>
                                               <div class="nft__item_info">
                                                   <a href="/model">
-                                                      <h4>Pinky Ocean</h4>
+                                                      <h4><%=content.title %></h4>
                                                   </a>
                                                  
                                                   <div class="nft__item_action">
@@ -139,432 +141,12 @@
                                                   </div>                            
                                               </div> 
                                           </div>
-                                      </div>                 
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-10.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod12.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Deep Sea Phantasy</h4>
-                                                  </a>
-                                                  
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>80</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-11.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod13.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Rainbow Style</h4>
-                                                  </a>
-                                                  
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>97</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-12.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod14.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Two Tigers</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>73</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-9.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod15.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>The Truth</h4>
-                                                  </a>
-                                                  
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>26</span>
-                                                  </div>                                 
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                             
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-2.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod16.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Running Puppets</h4>
-                                                  </a>
-                                                    
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>45</span>
-                                                  </div>                                  
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-3.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod17.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>USA Wordmation</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>76</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-4.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod19.jpg" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Loop Donut</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>94</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                             
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-5.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod9.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Lady Copter</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>75</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-7.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod10.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Purple Planet</h4>
-                                                  </a>
-                                                
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>93</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-6.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod1.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Oh Yeah!</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>6</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-8.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod2.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>This is Our Story</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>21</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-9.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod3.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Pixel World</h4>
-                                                  </a>
-                                                
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>46</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-12.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod4.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>I Believe I Can Fly</h4>
-                                                  </a>
-                                                  
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>54</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-4.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod5.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Cute Astronout</h4>
-                                                  </a>
-                                                 
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>32</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
-                                      <!-- nft item begin -->
-                                      <div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                          <div class="nft__item">
-                                              <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-1.jpg" alt="">
-                                                      <i class="fa fa-check"></i>
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_wrap">
-                                                  <a href="/model">
-                                                      <img src="/images/items/mod6.png" class="lazy nft__item_preview" alt="">
-                                                  </a>
-                                              </div>
-                                              <div class="nft__item_info">
-                                                  <a href="/model">
-                                                      <h4>Teal Ocean</h4>
-                                                  </a>
-                                                  
-                                                  <div class="nft__item_action">
-                                                      <a href="#">Subscribe Now</a>
-                                                  </div>
-                                                  <div class="nft__item_like">
-                                                      <i class="fa fa-heart"></i><span>24</span>
-                                                  </div>                                 
-                                              </div> 
-                                          </div>
-                                      </div>
+                                      </div>  
+                                      <% }) %>               
+                                      
+                                    
+                                     
+                                     
               
                                       <div class="col-md-12 text-center">
                                           <a href="#" id="loadmore" class="btn-main wow fadeInUp lead">Load more</a>
@@ -583,90 +165,26 @@
                                           </div>
                                       </div>
                                       <div id="collection-carousel" class="owl-carousel wow fadeIn">
-              
+                                            
+                                        <% content.forEach(function(content){%>
                                               <div class="nft_coll">
                                                   <div class="nft_wrap">
-                                                      <a href="/model"><img src="/images/collections/coll15.jpg" class="lazy img-fluid" alt=""></a>
+                                                      <a href="/item-details?id=<%=content._id %>">
+                                                        <img src="/uploadFile/<%=content.image %>" class="lazy img-fluid" alt=""></a>
                                                   </div>
                                                   <div class="nft_coll_pp">
                                                       <a href="/model"><img class="lazy" src="/images/author/author-1.jpg" alt=""></a>
                                                       <i class="fa fa-check"></i>
                                                   </div>
                                                   <div class="nft_coll_info">
-                                                      <a href="/model"><h4>Abstraction</h4></a>
+                                                      <a href="/model"><h4><%=content.title %> </h4></a>
                                                       <span>ERC-192</span>
                                                   </div>
                                               </div>
+                                            <% }) %>
+                                              
                                           
-                                              <div class="nft_coll">
-                                                  <div class="nft_wrap">
-                                                      <a href="/model"><img src="/images/collections/coll16.jpg" class="lazy img-fluid" alt=""></a>
-                                                  </div>
-                                                  <div class="nft_coll_pp">
-                                                      <a href="/model"><img class="lazy" src="/images/author/author-2.jpg" alt=""></a>
-                                                      <i class="fa fa-check"></i>
-                                                  </div>
-                                                  <div class="nft_coll_info">
-                                                      <a href="/model"><h4>Patternlicious</h4></a>
-                                                      <span>ERC-61</span>
-                                                  </div>
-                                              </div>
-                                          
-                                              <div class="nft_coll">
-                                                  <div class="nft_wrap">
-                                                      <a href="/model"><img src="/images/collections/coll17.jpg" class="lazy img-fluid" alt=""></a>
-                                                  </div>
-                                                  <div class="nft_coll_pp">
-                                                      <a href="/model"><img class="lazy" src="/images/author/author-3.jpg" alt=""></a>
-                                                      <i class="fa fa-check"></i>
-                                                  </div>
-                                                  <div class="nft_coll_info">
-                                                      <a href="/model"><h4>Skecthify</h4></a>
-                                                      <span>ERC-126</span>
-                                                  </div>
-                                              </div>
-                                          
-                                              <div class="nft_coll">
-                                                  <div class="nft_wrap">
-                                                      <a href="/model"><img src="/images/collections/coll18.jpg" class="lazy img-fluid" alt=""></a>
-                                                  </div>
-                                                  <div class="nft_coll_pp">
-                                                      <a href="/model"><img class="lazy" src="/images/author/author-4.jpg" alt=""></a>
-                                                      <i class="fa fa-check"></i>
-                                                  </div>
-                                                  <div class="nft_coll_info">
-                                                      <a href="/model"><h4>Cartoonism</h4></a>
-                                                      <span>ERC-73</span>
-                                                  </div>
-                                              </div>
-                                          
-                                              <div class="nft_coll">
-                                                  <div class="nft_wrap">
-                                                      <a href="/model"><img src="/images/collections/coll19.jpg" class="lazy img-fluid" alt=""></a>
-                                                  </div>
-                                                  <div class="nft_coll_pp">
-                                                      <a href="/model"><img class="lazy" src="/images/author/author-5.jpg" alt=""></a>
-                                                      <i class="fa fa-check"></i>
-                                                  </div>
-                                                  <div class="nft_coll_info">
-                                                      <a href="/model"><h4>Virtuland</h4></a>
-                                                      <span>ERC-85</span>
-                                                  </div>
-                                              </div>
-                                          
-                                              <div class="nft_coll">
-                                                  <div class="nft_wrap">
-                                                      <a href="/model"><img src="/images/collections/coll20.jpg" class="lazy img-fluid" alt=""></a>
-                                                  </div>
-                                                  <div class="nft_coll_pp">
-                                                      <a href="/model"><img class="lazy" src="/images/author/author-6.jpg" alt=""></a>
-                                                      <i class="fa fa-check"></i>
-                                                  </div>
-                                                  <div class="nft_coll_info">
-                                                      <a href="/model"><h4>Papercut</h4></a>
-                                                      <span>ERC-42</span>
-                                                  </div>
-                                              </div>
+                                              
                                               
                                           </div>
                                       </div>

@@ -34,7 +34,9 @@ const explore=async (req,res)=>{
         res.render('explore',{ layout: 'layouts/front/layout',name:req.session.re_usr_name});
 }
 const index=async(req,res)=>{
-    res.render('index',{layout:'layouts/front/layout',name: req.session.re_usr_name})
+     let query="";
+    let content = await paintingServices.getpaintingList(query);
+    res.render('index',{layout:'layouts/front/layout',name: req.session.re_usr_name,content})
 }
 const exploreContent=async(req,res)=>{
     let query=req.query.category;
