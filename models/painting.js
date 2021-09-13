@@ -54,6 +54,10 @@ var PaintingSchema =  new moongoose.Schema({
         type: String
 
     },
+    media_type:{
+        type:[],
+        default:null
+    },
     available_to:{
         type:[],
         required:true

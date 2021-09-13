@@ -88,7 +88,14 @@
                 <td>1</td>
                 <td>
                   <div class="normal-img">
-                    <img src="/uploadFile/<%=painting.image %>">
+                    <% if(painting.media_type[0]=="image" || painting.media_type==""){%> 
+                      <img src="/uploadFile/<%=painting.image %>">
+                      <%} else {%>
+                      <video width="100" height="100"controls>
+                        <source src="/uploadFile/<%=painting.image %>" type="video/<%=painting.media_type[1] %>">
+                      </video>
+                        <% } %>
+                   
                   </div>
                 </td>
                 <td><%- painting.title %></td>

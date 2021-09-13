@@ -6,7 +6,7 @@ const { ContentMediaInfo } = require("../models/contentMedia");
 
 const { PaintingInfo } = require("../models/painting");
 
-const addPainting = async (paintingDetail,created,created_by,image) => {
+const addPainting = async (paintingDetail,created,created_by,image,media_type) => {
   const paintingObject = {
     total_copy:paintingDetail.total_copy,
     copy_for_sale:paintingDetail.copy_for_sale,
@@ -18,6 +18,7 @@ const addPainting = async (paintingDetail,created,created_by,image) => {
     total_taboo:paintingDetail.total_taboo,
     payment_in:paintingDetail.payment_in,
     image:image,
+    media_type:media_type,
     available_to:paintingDetail.available_to,
     contract_type:paintingDetail.contract_type,
     meta_tag:paintingDetail.meta_tag,
@@ -39,11 +40,12 @@ const addPainting = async (paintingDetail,created,created_by,image) => {
   }
 };
 
-const saveContentMedia=async(content_id,filename)=>{
+const saveContentMedia=async(content_id,filename,file_type)=>{
 
     let media={
             content_id:content_id,
-            media_name:filename  
+            media_name:filename,
+            media_type:file_type  
        }
     try{
 
@@ -136,32 +138,58 @@ const paintingList = async (created_by,category,basic_price)=>{
       }
   }
 
-  const updatePainting = async (id,paintingDetail,updated_at,updated_by,image) => {
+  const updatePainting = async (id,paintingDetail,updated_at,updated_by,image,media_type) => {
     try {
       let painting= await PaintingInfo.findOne({ '_id':id });
       console.log(painting); console.log(id);
       if (painting) 
-      {
+      {  
+        let paintingObject="";
        
-        const paintingObject = {
-          total_copy:paintingDetail.total_copy,
-          copy_for_sale:paintingDetail.copy_for_sale,
-          title:paintingDetail.title,
-          category: paintingDetail.category,
-          for_sale:paintingDetail.for_sale,
-          basic_price:paintingDetail.basic_price,
-          plateform_fees:paintingDetail.plateform_fees,
-          total_taboo:paintingDetail.total_taboo,
-          payment_in:paintingDetail.payment_in,
-          image:image,
-          available_to:paintingDetail.available_to,
-          contract_type:paintingDetail.contract_type,
-          meta_tag:paintingDetail.meta_tag,
-          description:paintingDetail.description,
-          updated_at:updated_at,
-          updated_by:updated_by,
-          status: "pending"
-        };
+        if(media_type==""){
+           paintingObject = {
+            total_copy:paintingDetail.total_copy,
+            copy_for_sale:paintingDetail.copy_for_sale,
+            title:paintingDetail.title,
+            category: paintingDetail.category,
+            for_sale:paintingDetail.for_sale,
+            basic_price:paintingDetail.basic_price,
+            plateform_fees:paintingDetail.plateform_fees,
+            total_taboo:paintingDetail.total_taboo,
+            payment_in:paintingDetail.payment_in,
+            image:image,
+            available_to:paintingDetail.available_to,
+            contract_type:paintingDetail.contract_type,
+            meta_tag:paintingDetail.meta_tag,
+            description:paintingDetail.description,
+            updated_at:updated_at,
+            updated_by:updated_by,
+            status: "pending"
+          };
+        }else
+         {
+           paintingObject = {
+            total_copy:paintingDetail.total_copy,
+            copy_for_sale:paintingDetail.copy_for_sale,
+            title:paintingDetail.title,
+            category: paintingDetail.category,
+            for_sale:paintingDetail.for_sale,
+            basic_price:paintingDetail.basic_price,
+            plateform_fees:paintingDetail.plateform_fees,
+            total_taboo:paintingDetail.total_taboo,
+            payment_in:paintingDetail.payment_in,
+            image:image,
+            media_type:media_type,
+            available_to:paintingDetail.available_to,
+            contract_type:paintingDetail.contract_type,
+            meta_tag:paintingDetail.meta_tag,
+            description:paintingDetail.description,
+            updated_at:updated_at,
+            updated_by:updated_by,
+            status: "pending"
+          };
+         }
+       
        console.log('before updating',paintingObject);
         await PaintingInfo.updateOne({ '_id': id }, { $set:paintingObject });
       }

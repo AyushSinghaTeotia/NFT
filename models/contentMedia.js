@@ -14,6 +14,10 @@ var ContentMediaSchema =  new moongoose.Schema({
         type:String,
         default:null
      },
+     media_type:{
+         type:[],
+         default:null
+     },
     created_at: { 
                     type: String,
                     default: new Date()
@@ -22,7 +26,7 @@ var ContentMediaSchema =  new moongoose.Schema({
 
             type: String,
             default: null
-    }
+         }
 
 });
 

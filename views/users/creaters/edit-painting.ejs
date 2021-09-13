@@ -36,15 +36,31 @@
                                        <div class="border-gray document-upload-box artist-img">
                                          <div class="text-left">
                                             <div class="uploader-img">
-                                              <img id="user_profile_image_preview" src="/uploadFile/<%=painting.image %>" class="m-t-5 painting-main-img" >
-                                            </div>
+                                              <% if(painting.media_type[0]=="video"){%>
+
+                                                <video video="260" height="200" controls>
+                                                    <source src="/uploadFile/<%=painting.image %>" type="video/<%=painting.media_type[1] %>">
+                                                </video>
+
+                                              <% } 
+                                               else{%>
+
+                                                <img id="user_profile_image_preview" src="/uploadFile/<%=painting.image %>" class="m-t-5 painting-main-img" >
+
+                                                
+                                        
+                                                <%}%>
+                                              </div>
                                              <div class="input-group mb-3 mb-3 verification">
                                                 <input type="text" class="form-control" readonly="" id="text_img_name" data-rule-required="true" data-msg-required="Please select your Id.">
                                                 <span class="input-group-btn">
                                                   <span class="btn btn-common bg-gradient-primary btn-file1">
                                                   Upload <input type="file"id="imgInp6" value="" name="file" accept="image*" onchange="readURL(this);">
                                                    <input type="hidden" name="old_image" value="<%=painting.image %>">
-                                                  </span>   
+                                                 
+                                                   <input type="hidden" name="media_type" value="<%=painting.media_type %>">
+
+                                                   </span>   
                                                 </span>
                                                 <button class="btn btn-common bg-gradient-primary removie-icon ml-15">
                                                   <i class="mdi mdi-delete-forever"></i>

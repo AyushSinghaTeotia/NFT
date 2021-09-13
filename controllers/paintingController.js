@@ -69,8 +69,12 @@ const savePainting = async (req, res) => {
         console.log(req.body); console.log("body",req.body.preview);
         
          if(req.body.preview=="preview")
-          { console.log('uploaded files',req.files);
-           let pr_image= req.files[0].filename
+          { 
+           console.log('uploaded files',req.files);
+           let media_type=req.files[0].mimetype.split("/","2");
+           console.log(media_type);
+           let pr_image= req.files[0].filename;
+           req.session.media_type=media_type;
            req.session.preview_image=pr_image;
            req.session.files=req.files;
            req.session.fordata=req.body; 
@@ -94,18 +98,21 @@ const savePainting = async (req, res) => {
                     let created_by=req.session.re_us_id;
                     let image="";
                     let ContentData="";
+                    let media_type="";
                     if(req.session.preview_image){
                        image=req.session.preview_image;
                        ContentData=req.session.fordata;
-
+                       media_type=req.session.media_type;
                       }else{
                         image = req.files[0].filename;
                         ContentData=req.body;
+                         media_type=req.files[0].mimetype.split("/","2");
+                        console.log(media_type);
                       }
                     console.log(created_by)
                     try{
     
-                        let painting = await paintingServices.addPainting(ContentData,created,created_by,image);
+                        let painting = await paintingServices.addPainting(ContentData,created,created_by,image,media_type);
                          console.log("created successfully",painting);
                          
                          let files="";
@@ -119,7 +126,10 @@ const savePainting = async (req, res) => {
                          let content_id=painting._id;
                          files.forEach( async function(file,index)
                            {
-                             let content_media=await paintingServices.saveContentMedia(content_id,file.filename);
+                            let media_type=file.mimetype.split("/","2");
+                            
+                            console.log(media_type);
+                             let content_media=await paintingServices.saveContentMedia(content_id,file.filename,media_type);
                              console.log(content_media);
                            });
 
@@ -191,16 +201,19 @@ const updatePainting=async (req,res)=>{
     if(req.body.title){
         let updated_at=new Date();
         let updated_by=req.session.re_us_id;
+        let media_type="";
         if(!req.file){
             
 
           var image=req.body.old_image;
-
+          media_type="";
         }else
         {
             var image= req.file.filename;
+             media_type=req.file.mimetype.split('/','2');
+             console.log(req.file);
         }
-        let painting=await paintingServices.updatePainting(id,req.body,updated_at,updated_by,image);
+        let painting=await paintingServices.updatePainting(id,req.body,updated_at,updated_by,image,media_type);
         console.log(painting);
         res.redirect('/users/paintings');
     }

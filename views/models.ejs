@@ -390,7 +390,43 @@
                 res.forEach(function(content,index)
                  {
                 
-                       let html=`<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        if(content.media_type[0]=="video"){
+
+                             html=`<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="nft__item">
+                                                <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
+                                                <div class="author_list_pp">
+                                                    <a href="Author.php">                                    
+                                                        <img class="lazy" src="/images/author/author-1.jpg" alt="">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="nft__item_wrap">
+                                                    <a href="item-details?id=`+content._id+`">
+                                                        <video width="250">
+                                                        <source src="/uploadFile/`+content.image+`" type="video/`+content.media_type[1]+`">
+                                                        </video>                                                     </a>
+                                                </div>
+                                                <div class="nft__item_info">
+                                                    <a href="item-details?id=`+content._id+`">
+                                                        <h4>`+content.title+` </h4>
+                                                    </a>
+                                                    <div class="nft__item_price">
+                                                        0.08 ETH<span>1/20</span>
+                                                    </div>
+                                                    <div class="nft__item_action">
+                                                        <a href="#">Subscribe Now</a>
+                                                    </div>
+                                                    <div class="nft__item_like">
+                                                        <i class="fa fa-heart"></i><span>50</span>
+                                                    </div>                            
+                                                </div> 
+                                            </div>
+                                        </div>`;
+
+                        }else
+                          {
+                             html=`<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                             <div class="nft__item">
                                                 <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
                                                 <div class="author_list_pp">
@@ -420,6 +456,7 @@
                                                 </div> 
                                             </div>
                                         </div>`;
+                          }
 
                    document.getElementById('model-list').innerHTML+=html;  
                  });

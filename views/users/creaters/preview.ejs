@@ -23,7 +23,14 @@
                <div class="col-md-3">
                  <% files.forEach(function(file,index){%>
                   <div>
+                    <% let file_type=file.mimetype.split('/','2');
+                    if(file_type[1]=="image"){%>
                     <img src="/uploadFile/<%=file.filename %>"class="img-fluid">
+                    <%} else {%>  
+                      <video width="260" height="200" controls>
+                        <source src="/uploadFile/<%=file.filename %>" type="<%=file.mimetype%>">
+                      </video>
+                    <%} %>
                   </div>
                  <% }) %> 
                </div>

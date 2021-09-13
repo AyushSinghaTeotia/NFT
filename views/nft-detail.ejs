@@ -2,11 +2,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-center">
-                <img src="/uploadFile/<%=details.image %>" class="img-fluid img-rounded mb-sm-30" alt="">
+                <% if(details.media_type[0]=="video"){%> 
+                    <video width="400" controls>
+                       <source src="/uploadFile/<%=details.image %>" type="video/<%=details.media_type[1] %>">
+                    </video> 
+                    <% } else {%>
+                        
+                        <img src="/uploadFile/<%=details.image %>" class="img-fluid img-rounded mb-sm-30" alt="">
+
+                        
+                        <%}%> )
             </div>
             <div class="col-md-6">
                 <div class="item_info">
-
+                 <input type="hidden"name="content_basic_price"id="content_basic_price" value="<%=details.basic_price %>"/>
                     <h2><%=details.title %></h2>
                     <div class="item_info_counts">
                         <div class="item_info_type"><i class="fa fa-image"></i><%=details.category%></div>

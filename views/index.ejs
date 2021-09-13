@@ -125,8 +125,18 @@
                                               </div>
                                               <div class="nft__item_wrap">
                                                   <a href="/item-details?id=<%=content._id %>">
-                                                      <img src="/uploadFile/<%=content.image %>" class="lazy nft__item_preview" alt="">
-                                                  </a>
+                                                    
+                                                    <% if(content.media_type[0]=="video"){%>
+                                                        <video width="200"height="300">
+                                                            <source src="/uploadFile/<%=content.image %>" type="video/<%=content.media_type[1]%>">
+                                                        </video>
+                                                     <%}else {%>
+                                                        <img src="/uploadFile/<%=content.image %>" class="lazy nft__item_preview" alt="">
+
+                                                     <%} %>
+                                                 
+                                                
+                                                </a>
                                               </div>
                                               <div class="nft__item_info">
                                                   <a href="/model">
@@ -170,7 +180,19 @@
                                               <div class="nft_coll">
                                                   <div class="nft_wrap">
                                                       <a href="/item-details?id=<%=content._id %>">
-                                                        <img src="/uploadFile/<%=content.image %>" class="lazy img-fluid" alt=""></a>
+                                                     <% if(content.media_type[0]=="video"){%> 
+
+                                                        <video width="200"height="320">
+                                                            <source src="/uploadFile/<%=content.image %>" type="video/<%=content.media_type[1]%>">
+                                                        </video>
+                                                            
+                                                            
+                                                            <%} 
+                                                        else {%> 
+                                                            <img src="/uploadFile/<%=content.image %>" class="lazy img-fluid" alt=""></a>
+
+                                                              
+                                                             <%} %>
                                                   </div>
                                                   <div class="nft_coll_pp">
                                                       <a href="/model"><img class="lazy" src="/images/author/author-1.jpg" alt=""></a>

@@ -88,7 +88,7 @@
                                                 <div class="checkbox"> 	
                                                     <label>
                                                           All
-                                                        <input type="checkbox" value="All"name="category"onclick="CheckboxValues('category')">
+                                                        <input type="checkbox" value=""name="category"onclick="CheckboxValues('category')">
                                                         <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                       </label>
                                                 </div>	
@@ -243,16 +243,69 @@
            {
 
             if(res.length>0)
-              {               
+            {               
                 
-                document.getElementById('content-list').innerHTML="";  
+               document.getElementById('content-list').innerHTML="";  
 
-                res.forEach(function(content,index)
-                 {
+               res.forEach(function(content,index)
+                {
                    let html="";
-                    if(content.status=="approved")
+                 if(content.status=="approved")
+                  { 
+                    if(content.media_type[0]=="video")
                       {
-                         html='<div class="col-md-6">\
+                             
+                            html='<div class="col-md-6">\
+                        <div class="info-box-certify multiple-certify-inner">\
+              <div class="row align-item-center">\
+                 <div class="col-xl-4 offset-xl-1 col-md-12">\
+                   <div>\
+                    <video width="200"height="200">\
+                        <source src="/uploadFile/'+content.image+'" type="video/'+content.media_type[1]+'">\
+                    </video>\
+                   </div>\
+                 </div>\
+                 <div class="col-xl-6 col-md-12">\
+                   <table class="table">\
+                     <tbody>\
+                       <tr>\
+                         <td width="40%">Category</td>\
+                         <td width="10%">:</td>\
+                         <td width="40%">'+content.category+'</td>\
+                       </tr>\
+                      <tr>\
+                         <td>Cotent</td>\
+                         <td>:</td>\
+                         <td>'+content.title+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>Basic Price</td>\
+                         <td>:</td>\
+                         <td>'+content.basic_price+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>For Sale</td>\
+                         <td>:</td>\
+                         <td>'+content.for_sale+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>Image Type</td>\
+                         <td>:</td>\
+                         <td>JPG</td>\
+                       </tr>\
+                     </tbody>\
+                   </table>\
+                   <div>\
+                      <h6 class="pending-line"><b>'+content.status+'</b> &nbsp; '+content.created_at+'</h6>\
+                   </div>\
+                 </div>\
+               </div>\
+           </div>';
+                          
+                          }
+                          else
+                          {
+                            html='<div class="col-md-6">\
                         <div class="info-box-certify multiple-certify-inner">\
               <div class="row align-item-center">\
                  <div class="col-xl-4 offset-xl-1 col-md-12">\
@@ -296,10 +349,67 @@
                  </div>\
                </div>\
            </div>';
+
+                          }
+                       
                       }
                       else
                       {
-                         html='<div class="col-md-6">\
+                         if(content.media_type[0]=="video")
+                          {
+
+                            html='<div class="col-md-6">\
+                        <div class="info-box-certify multiple-certify-inner">\
+              <div class="row align-item-center">\
+                 <div class="col-xl-4 offset-xl-1 col-md-12">\
+                   <div>\
+                    <video width="200"height="200">\
+                        <source src="/uploadFile/'+content.image+'" type="video/'+content.media_type[1]+'">\
+                      </video>\
+                   </div>\
+                 </div>\
+                 <div class="col-xl-6 col-md-12">\
+                   <table class="table">\
+                     <tbody>\
+                       <tr>\
+                         <td width="40%">Category</td>\
+                         <td width="10%">:</td>\
+                         <td width="40%">'+content.category+'</td>\
+                       </tr>\
+                      <tr>\
+                         <td>Cotent</td>\
+                         <td>:</td>\
+                         <td>'+content.title+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>Basic Price</td>\
+                         <td>:</td>\
+                         <td>'+content.basic_price+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>For Sale</td>\
+                         <td>:</td>\
+                         <td>'+content.for_sale+'</td>\
+                       </tr>\
+                       <tr>\
+                         <td>Image Type</td>\
+                         <td>:</td>\
+                         <td>JPG</td>\
+                       </tr>\
+                     </tbody>\
+                   </table>\
+                   <div>\
+                      <h6 class="pending-line"><b><a href="/users/update-content?id='+content._id+'">approve</></b> &nbsp; '+content.created_at+'</h6>\
+                   </div>\
+                 </div>\
+               </div>\
+           </div>';
+
+                          }
+                         else
+                          {
+
+                            html='<div class="col-md-6">\
                         <div class="info-box-certify multiple-certify-inner">\
               <div class="row align-item-center">\
                  <div class="col-xl-4 offset-xl-1 col-md-12">\
@@ -343,6 +453,9 @@
                  </div>\
                </div>\
            </div>';
+
+                          }
+                     
              }
 
             document.getElementById('content-list').innerHTML+=html;  
