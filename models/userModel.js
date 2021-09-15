@@ -38,6 +38,10 @@ var UserSchema =  new moongoose.Schema({
         type:String,
         default:null
     },
+    image:{
+        type:String,
+        default:null
+    },
     password:{
         type:String,
         required:true

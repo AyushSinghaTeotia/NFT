@@ -79,12 +79,7 @@ var PaintingSchema =  new moongoose.Schema({
                     default: new Date()
                 },
     
-    created_by: {
-
-            type:String,
-            default:null
-    },
-
+    created_by:[{ type: moongoose.Schema.Types.ObjectId, ref: 'users' }],
     updated_at: {
 
             type: String,

@@ -44,17 +44,10 @@ const addUserByWallet = async (userOBJ) => {
 
 
 
-const updateProfile = async (userDetails, updated_at, re_us_id) => {
+const updateProfile = async (image,re_us_id) => {
   let user = await checkUserId(re_us_id);
   if (user) {
-    user.name = userDetails.name;
-    user.mobile_no = userDetails.phone;
-    user.country = userDetails.country;
-    user.address = userDetails.address;
-    user.state = userDetails.state;
-    user.city = userDetails.city;
-    user.dob = userDetails.dob
-    user.updated_at = updated_at
+     user.image=image;
     try {
       await user.save();
       return user;

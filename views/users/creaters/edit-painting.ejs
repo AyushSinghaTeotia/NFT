@@ -137,19 +137,19 @@
                                       <label>For Sale</label>
                                        <div class="form-check">
                                           <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1"<% if (painting.for_sale=="Yes") { %> checked
+                                            <input type="radio" onclick="displayRadioValue(value)" class="form-check-input" name="for_sale" id="optionsRadios1"<% if (painting.for_sale=="Yes") { %> checked
 <% } %> value="Yes"> Yes <i class="input-helper"></i></label>
                                         </div>
                                          <div class="form-check">
                                           <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" <% if (painting.for_sale=="No") { %> checked
+                                            <input type="radio" onclick="displayRadioValue(value)" class="form-check-input" name="for_sale" id="optionsRadios1" <% if (painting.for_sale=="No") { %> checked
 <% } %> value="No"> No <i class="input-helper"></i></label>
                                         </div>
                                     </div>
                                   </div>
                                 </div>
   
-                                <div class="row">
+                                <div class="row"id="price-detail-tab">
                                    <div class="col-md-4">
                                    <div class="form-group">
                                       <label>Basic Price(Taboo)</label>
@@ -328,5 +328,19 @@ function calTaboo(basic_price){
       $("#total_taboo").val(total_taboo);
     }
     
+    function displayRadioValue(value) {
+           
+           if(value=="No"){
+              
+              $("#price-detail-tab").css("display","none")
+           }
+           else
+           {
+             $("#price-detail-tab").css("display","")
+           }
+       }
 
+ window.onload = function() {
+  displayRadioValue("<%=painting.for_sale%>");
+};
 </script>  

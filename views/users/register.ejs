@@ -25,10 +25,19 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <h3>Don't have an account? Register now.</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    <p>
+                        Please note that this process is for creators only, members can simply login by Metamask/Trust Wallet
+                    </p>
                     
                     <div class="spacer-10"></div>
-                    
+                    <ul style="list-style: none;">
+                        <% if(err_msg!=undefined){ %>
+                           <li>
+                             <span class="error_validate flash_msg"><%= err_msg %></span>
+                                
+                           </li>
+                        <% }%>
+                       </ul>
                     <form name="contactForm" id='contact_form' class="form-border" method="post" action='/users/submitSignup'>
 
                         <div class="row">

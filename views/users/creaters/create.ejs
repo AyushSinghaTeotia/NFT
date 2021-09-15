@@ -78,13 +78,13 @@
                                  <div class="col-md-4">
                                    <div class="form-group">
                                     <label>No of copies</label>
-                                    <input type="text"name="total_copy" class="form-control">
+                                    <input type="text"name="total_copy" id="total_copy" class="form-control">
                                   </div>
                                 </div>
                                 <div class="col-md-4">
                                    <div class="form-group">
                                     <label>No of copies for Sale</label>
-                                    <input type="text" name="copy_for_sale" class="form-control">
+                                    <input type="text" name="copy_for_sale" id="copy_for_sale" onkeyup ="checkForSale(value)" class="form-control">
                                   </div>
                                 </div>
                                
@@ -119,24 +119,23 @@
   
   
                                  
-                              <h4>Pricing Details</h4>
                               <div class="row">
                                  <div class="col-md-4">
                                     <div class="form-group for-flex-inline">
                                       <label>For Sale</label>
                                        <div class="form-check">
                                           <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" value="Yes"> Yes <i class="input-helper"></i></label>
+                                            <input type="radio" onclick="displayRadioValue(value)" class="form-check-input" name="for_sale" id="optionsRadios1" value="Yes"> Yes <i class="input-helper"></i></label>
                                         </div>
                                          <div class="form-check">
                                           <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="for_sale" id="optionsRadios1" value="No"> No <i class="input-helper"></i></label>
+                                            <input type="radio" onclick="displayRadioValue(value)" class="form-check-input" name="for_sale" id="optionsRadios1" value="No"> No <i class="input-helper"></i></label>
                                         </div>
                                     </div>
                                   </div>
                                 </div>
   
-                                <div class="row">
+                                <div class="row" id="price-detail-tab">
                                    <div class="col-md-4">
                                    <div class="form-group">
                                       <label>Basic Price(Taboo)</label>
@@ -164,7 +163,7 @@
                                     <div class="form-group for-flex-inline mt-3">
                                        <div class="form-check ml-0">
                                           <label class="form-check-label">
-                                            <input type="checkbox" checked="" name="payment_in" value="Taboo"class="form-check-input"> Taboo </label>
+                                            <input type="checkbox" checked="" name="payment_in" value="Taboo"class="form-check-input" onclick="this.checked = true;" > Taboo </label>
                                         </div>
                                      
                                           
@@ -173,25 +172,25 @@
                                 </div>
   
   
-                                <h4>This content available For</h4>
+                                <h4>This content available For(Comming Soon)</h4>
                               <div class="row">
                                  <div class="col-md-12">
                                     <div class="form-group for-flex-inline mt-3">
                                        <div class="form-check ml-0">
                                           <label class="form-check-label">
-                                            <input type="checkbox" checked="" name="available_to[]" value="All"class="form-check-input"> Free </label>
+                                            <input type="checkbox" checked="" onclick="this.checked =true;"  name="available_to[]" value="All"class="form-check-input"> Free </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to[]"value="1 Tier" class="form-check-input"> 1 Tier </label>
+                                              <input type="checkbox"  onclick="this.checked =true;"  name="available_to[]"value="1 Tier" class="form-check-input" checked> 1 Tier </label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox" name="available_to[]"value="2 Tier"class="form-check-input"> 2 Tier</label>
+                                              <input type="checkbox" checked onclick="this.checked =true;"  name="available_to[]"value="2 Tier"class="form-check-input"> 2 Tier</label>
                                           </div>
                                           <div class="form-check">
                                             <label class="form-check-label">
-                                              <input type="checkbox"name="available_to" value="3 Tier"class="form-check-input"> 3 Tier </label>
+                                              <input type="checkbox" checked name="available_to"  onclick="this.checked =true;" value="3 Tier"class="form-check-input"> 3 Tier </label>
                                           </div>
                                          
                                           
@@ -200,10 +199,11 @@
                                 </div>
   
                                
+                                <input type="hidden" class="form-check-input" name="contract_type"  value=" ERC 721">
+
   
-  
-                                          <h4 class="">Chose Contract Type</h4>
-                                            <div class="row">
+                                          <h4 class="" style="display: none;">Chose Contract Type</h4>
+                                            <div class="row"style="display:none">
                                                <div class="col-md-12">
                                                   <div class="form-group for-flex-inline">
                                                      <div class="form-check ml-0">
@@ -337,4 +337,26 @@ function attribute_cloning_add(){
             re_arrange_qualification(); 
         }    
     }
+
+    function displayRadioValue(value) {
+           
+            if(value=="No"){
+               
+               $("#price-detail-tab").css("display","none")
+            }
+            else
+            {
+              $("#price-detail-tab").css("display","")
+            }
+        }
+  
+        function checkForSale(value){
+
+           let  total_copy=$("#total_copy").val();
+           if(value>total_copy){
+             alert("No.Of copy For Sale Should not be greater then Total Copy");
+             $("#copy_for_sale").val("");
+           }
+
+        }
 </script>

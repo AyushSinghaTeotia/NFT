@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const { ContentMediaInfo } = require("../models/contentMedia");
 
 const { PaintingInfo } = require("../models/painting");
+const { userInfo } = require("os");
 
 const addPainting = async (paintingDetail,created,created_by,image,media_type) => {
   const paintingObject = {
@@ -116,17 +117,18 @@ const paintingList = async (created_by,category,basic_price)=>{
       let painting="";
         if(query){
              
-          if(sortby=="lh"){
-
-            painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }}]}).sort( {basic_price:1 } );
-
-          }else
+          if(sortby=="lh")
             {
 
-              painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }}]}).sort( {basic_price:-1 } );
+            painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:1 } );
 
-           
-            }
+           }
+           else
+            {
+
+              painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:-1 } );
+
+           }
   
         }
         else
@@ -154,7 +156,7 @@ const paintingList = async (created_by,category,basic_price)=>{
     let content="";
      if(query)
       {
-        content=PaintingInfo.find({$or:[{title:{$regex:query}},{basic_price:query},{status:query}]});
+        content=PaintingInfo.find({$or:[{title:{$regex:query}},{meta_tag:{$regex:query}},{basic_price:query},{status:query}]});
       }
       else
       {

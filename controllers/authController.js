@@ -39,7 +39,9 @@ const loginPage = async (req, res) => {
 }
 
 const signup= async (req,res)=> {
-    res.render('users/register', { layout: 'layouts/front/layout',name: req.session.re_usr_name});
+    let err_msg = req.flash('err_msg');
+
+    res.render('users/register', { layout: 'layouts/front/layout',name: req.session.re_usr_name,err_msg});
 
 }
 
@@ -183,6 +185,37 @@ const loginByWallet=async(req,res)=>{
       }
 }
 
+const updateProfile=async(req,res)=>{
+    let image="";
+    let user_id=req.session.re_us_id;
+      if(!req.file){
+            
+        image=req.body.old_image;
+    
+      }
+      else
+      {
+         image= req.file.filename;
+
+      }
+
+     let user=await userServices.updateProfile(image,user_id);
+      console.log(user);
+      res.redirect('/users/profile');
+
+}
+
+const userProfile=async(req,res)=>{
+
+    let id=req.session.re_us_id;
+
+    let user= await userServices.checkUserId(id);
+
+    console.log("user profile",user);
+
+    res.render('users/creaters/update-profile',{title:"profile",user:user,role:req.session.role,name:req.session.re_usr_name});
+
+}
 
 const activateAccount = async (req, res) => {
     let email = req.body.email;
@@ -330,5 +363,7 @@ module.exports = {
     getCreaters,
     acceptUser,
     rejectUser,
-    loginByWallet
+    loginByWallet,
+    userProfile,
+    updateProfile
 };

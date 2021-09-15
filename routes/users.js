@@ -33,6 +33,8 @@ router.post('/login', authController.userLogin);
 router.get('/logout',authController.logout);
 router.get('/login-by-wallet',authController.loginByWallet);
 router.post('/save-order',orderController.saveOrder);
+router.post('/update-profile',authController.upload,authController.updateProfile);
+
 
 /* content creater  */
 router.post('/contentCreater-login', contentCreaterControllers.login);
@@ -73,6 +75,7 @@ router.get('/kyc-list',kycController.kycList);
 
 router.get('/view-kyc',kycController.viewKyc);
 router.get('/approve-kyc',kycController.updateKycStatus);
+router.get('/profile',authController.userProfile);
 
 
 module.exports = router;
