@@ -60,10 +60,20 @@ const contentDetail=async(req,res)=>{
     res.render('nft-detail',{layout:'layouts/front/layout',details,creater,name:req.session.re_usr_name});
 }
 
+const author=async(req,res)=>{
+    let author_id=req.query.id.trim();
+
+    let content=await paintingServices.autherContent(author_id);
+    let user=await userServices.checkUserId(author_id);
+    console.log(content);
+    res.render('author',{ layout: 'layouts/front/layout',name:req.session.re_usr_name,content:content,user:user});
+}
+
 module.exports = {
     explore,
     exploreContent,
     model,
     contentDetail,
-    index
+    index,
+    author
 };

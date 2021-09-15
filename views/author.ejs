@@ -1,0 +1,91 @@
+<!-- content begin -->
+<div class="no-bottom no-top" id="content">
+    <div id="top"></div>
+    
+     <!-- section begin -->
+    <section id="subheader" class="text-light">
+            <div class="center-y relative text-center">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-md-12 text-center">
+                            <h1>Model</h1>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- section close -->
+    
+
+    <section aria-label="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                   
+                </div>
+
+                <div class="col-md-12">
+                    <div class="de_tab">
+
+                        <!-- <ul class="de_nav">
+                            <li class="active"><span>On Sale</span></li>
+                            <li><span>Created</span></li>
+                            <li><span>Liked</span></li>
+                        </ul> -->
+                        
+                        <div class="de_tab_content">
+                            
+                            <div class="tab-1">
+                                <div class="row">
+                                        <!-- nft item begin -->
+                                        <% content.forEach(function(content,index){%>
+                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="nft__item">
+                                                <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
+                                                <div class="author_list_pp">
+                                                    <a href="/author?id=<%=user._id %>">                                    
+                                                        <img class="lazy" src="/uploadFile/<%=user.image %>" alt="">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="nft__item_wrap">
+                                                    <a href="/item-details?id=<%=content._id %>">
+                                                        <img src="/uploadFile/<%=content.image %>" class="lazy nft__item_preview" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="nft__item_info">
+                                                    <a href="item-details.php">
+                                                        <h4><%=content.title %></h4>
+                                                    </a>
+                                                    <div class="nft__item_price">
+                                                        0.08 ETH<span>1/20</span>
+                                                    </div>
+                                                    <div class="nft__item_action">
+                                                        <a href="#">Buy Now</a>
+                                                    </div>
+                                                    <div class="nft__item_like">
+                                                        <i class="fa fa-heart"></i><span>50</span>
+                                                    </div>                            
+                                                </div> 
+                                            </div>
+                                        </div> 
+
+                                       <% }) %>
+                                    </div>
+                            </div>
+                            
+                          
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+</div>
+<!-- content close -->

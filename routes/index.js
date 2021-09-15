@@ -12,7 +12,7 @@ router.get('/defi', function(req, res, next) {
 });
 
 router.get('/model',HomeController.model);
-
+router.get('/author',HomeController.author);
 router.get('/contact', function(req, res, next) {
   res.render('contactus',{ layout: 'layouts/front/layout',name: req.session.re_usr_name });
 });

@@ -120,13 +120,59 @@ const paintingList = async (created_by,category,basic_price)=>{
           if(sortby=="lh")
             {
 
-            painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:1 } );
+           // painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:1 } );
+           
+             painting=await PaintingInfo.aggregate([
+              { "$match": {'status':'approved', $or: [ {'category':query},{'basic_price':query},{'title':{$regex:query }},{'meta_tag':{$regex:query }} ] } },
+              { "$sort": { "basic_price": 1 } },
+              { "$limit": 20 }, 
+              { "$lookup": {
+                "localField": "created_by",
+                "from": "users",
+                "foreignField": "_id",
+                "as": "userinfo"
+              } },
+              { "$unwind": "$userinfo" },
+              { "$project": {
+                "title":1,
+                "image":1,
+                 "media_type":1,
+                "_id":1,
+                "userinfo._id": 1,
+                "userinfo.name": 1,
+                "userinfo.image": 1
+              } }
+            ]);  
 
            }
            else
             {
 
-              painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:-1 } );
+              //painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:-1 } );
+                 
+              painting=await PaintingInfo.aggregate([
+                { "$match": {'status':'approved', $or: [ {'category':query},{'basic_price':query},{'title':{$regex:query }},{'meta_tag':{$regex:query }} ] } },
+                { "$sort": { "basic_price": -1 } },
+                { "$limit": 20 }, 
+                { "$lookup": {
+                  "localField": "created_by",
+                  "from": "users",
+                  "foreignField": "_id",
+                  "as": "userinfo"
+                } },
+                { "$unwind": "$userinfo" },
+                { "$project": {
+                  "title":1,
+                  "image":1,
+                  "media_type":1,
+                  "_id":1,
+                  "userinfo._id": 1,
+                  "userinfo.name": 1,
+                  "userinfo.image": 1
+                } }
+               
+              ]);  
+
 
            }
   
@@ -136,11 +182,57 @@ const paintingList = async (created_by,category,basic_price)=>{
   
           if(sortby=="lh")
            {
-            painting=await PaintingInfo.find({'status':'approved'}).sort( {basic_price:1 } );
+            //painting=await PaintingInfo.find({'status':'approved'}).sort( {basic_price:1 } );
+
+
+            painting=await PaintingInfo.aggregate([
+              { "$match": {'status':'approved' } },
+              { "$sort": { "basic_price": 1 } },
+              { "$limit": 20 }, 
+              { "$lookup": {
+                "localField": "created_by",
+                "from": "users",
+                "foreignField": "_id",
+                "as": "userinfo"
+              } },
+              { "$unwind": "$userinfo" },
+              { "$project": {
+                "title":1,
+                "image":1,
+                "media_type":1,
+                "_id":1,
+                "userinfo._id": 1,
+                "userinfo.name": 1,
+                "userinfo.image": 1
+              } }
+            ]);  
 
            }else
              {
-              painting=await PaintingInfo.find({'status':'approved'}).sort( {basic_price:-1 } );
+              //painting=await PaintingInfo.find({'status':'approved'}).sort( {basic_price:-1 } );
+               
+              painting=await PaintingInfo.aggregate([
+                { "$match": {'status':'approved' } },
+                { "$sort": { "basic_price": -1 } },
+                { "$limit": 20 }, 
+                { "$lookup": {
+                  "localField": "created_by",
+                  "from": "users",
+                  "foreignField": "_id",
+                  "as": "userinfo"
+                } },
+                { "$unwind": "$userinfo" },
+                { "$project": {
+                  "title":1,
+                  "image":1,
+                  "media_type":1,
+                  "_id":1,
+                  "userinfo._id": 1,
+                  "userinfo.name": 1,
+                  "userinfo.image": 1
+                } }
+              ]);  
+
 
              }
   
@@ -165,7 +257,18 @@ const paintingList = async (created_by,category,basic_price)=>{
 
       }
 
-  }    
+  }  
+  
+  
+
+  const autherContent=async (author_id)=>{
+     console.log(author_id)
+    let painting=await PaintingInfo.find({'status':'approved','created_by':author_id});
+      
+    
+    console.log(painting)
+      return painting;
+  } 
 
   const checkPainting=async (title)=>{
       let painting=await PaintingInfo.findOne({'title':title});
@@ -366,7 +469,8 @@ module.exports = {
     getContentDetail,
     getpaintingList,
     saveContentMedia,
-    getContentMedia
+    getContentMedia,
+    autherContent
 
   
   };

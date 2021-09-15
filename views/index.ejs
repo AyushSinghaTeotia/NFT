@@ -118,8 +118,8 @@
                                           <div class="nft__item">
                                              
                                               <div class="author_list_pp">
-                                                  <a href="/model">                                    
-                                                      <img class="lazy" src="/images/author/author-1.jpg" alt="">
+                                                  <a href="/author?id=<%=content.userinfo._id %>">                                    
+                                                      <img class="lazy" src="/uploadFile/<%=content.userinfo.image %>" alt="">
                                                       <i class="fa fa-check"></i>
                                                   </a>
                                               </div>
@@ -195,7 +195,8 @@
                                                              <%} %>
                                                   </div>
                                                   <div class="nft_coll_pp">
-                                                      <a href="/model"><img class="lazy" src="/images/author/author-1.jpg" alt=""></a>
+                                                      <a href="/author?id=<%=content.userinfo._id %>">
+                                                        <img class="lazy" src="/uploadFile/<%=content.userinfo.image %>" alt=""></a>
                                                       <i class="fa fa-check"></i>
                                                   </div>
                                                   <div class="nft_coll_info">
