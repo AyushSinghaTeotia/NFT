@@ -89,16 +89,16 @@ const paintingList = async (created_by,category,basic_price)=>{
     let painting="";
       if(category){
 
-        painting=await PaintingInfo.find({'category':{$in:category }});
+        painting=await PaintingInfo.find({'category':{$in:category }}).sort( {_id:-1 } );
 
       }
       else if(basic_price){
-        painting=await PaintingInfo.find({'basic_price':{$in:basic_price }});
+        painting=await PaintingInfo.find({'basic_price':{$in:basic_price }}).sort( {_id:-1 } );
        }
       else
       {
 
-         painting=await PaintingInfo.find({});
+         painting=await PaintingInfo.find({}).sort( {_id:-1 } );
 
        }
       if(painting){
@@ -112,24 +112,58 @@ const paintingList = async (created_by,category,basic_price)=>{
 
   }
 
-    const getpaintingList = async (query)=>{
+    const getpaintingList = async (query,sortby)=>{
       let painting="";
         if(query){
-  
-          painting=await PaintingInfo.find({'status':'approved','category':{$in:query }});
+             
+          if(sortby=="lh"){
+
+            painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }}]}).sort( {basic_price:1 } );
+
+          }else
+            {
+
+              painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }}]}).sort( {basic_price:-1 } );
+
+           
+            }
   
         }
         else
         {
   
-           painting=await PaintingInfo.find({'status':'approved'});
+          if(sortby=="lh")
+           {
+            painting=await PaintingInfo.find({'status':'approved'}).sort( {basic_price:1 } );
+
+           }else
+             {
+              painting=await PaintingInfo.find({'status':'approved'}).sort( {basic_price:-1 } );
+
+             }
   
          }
-        if(painting){
-          return painting;
-        }
+        if(painting)
+         {
+           return painting;
+         }
       }
 
+  const search=(query)=>{
+
+    let content="";
+     if(query)
+      {
+        content=PaintingInfo.find({$or:[{title:{$regex:query}},{basic_price:query},{status:query}]});
+      }
+      else
+      {
+       
+        content=PaintingInfo.find({});
+
+      }
+
+  }    
 
   const checkPainting=async (title)=>{
       let painting=await PaintingInfo.findOne({'title':title});

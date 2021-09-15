@@ -40,8 +40,9 @@ const index=async(req,res)=>{
 }
 const exploreContent=async(req,res)=>{
     let query=req.query.category;
-    console.log(query);
-    let content = await paintingServices.getpaintingList(query);
+    let sortby=req.query.sortby;
+    console.log(query); console.log(sortby);
+    let content = await paintingServices.getpaintingList(query,sortby);
 
     res.send(content);
 

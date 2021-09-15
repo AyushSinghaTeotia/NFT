@@ -27,7 +27,7 @@
                     <div class="items_filter">
                         <form action="https://www.designesia.com/themes/gigaland/blank.php" class="row form-dark" id="form_quick_search" method="post" name="form_quick_search">
                             <div class="col text-center">
-                                <input class="form-control" id="name_1" name="name_1" placeholder="search item here..." type="text" /> <a href="#" id="btn-submit"><i class="fa fa-search bg-color-secondary"></i></a>
+                                <input class="form-control" id="name_1" name="name_1" onkeyup="searchContent(value)" placeholder="search item here..." type="text" /> <a href="#" id="btn-submit"><i class="fa fa-search bg-color-secondary"></i></a>
                                 <div class="clearfix"></div>
                             </div>
                         </form>
@@ -36,9 +36,9 @@
                             <a href="#" class="btn-selector">All categories</a>
                             <ul>
                                 <li class="active"><span>All categories</span></li>
-                                <li><span>Art</span></li>
-                                <li><span>Music</span></li>
-                                <li><span>Domain Names</span></li>
+                                <li onclick="searchContent('Age')"><span>Age</span></li>
+                                <li onclick="searchContent('Art')"><span>Art</span></li>
+                                <li onclick="searchContent('Music')"><span>Music</span></li>
                                 <li><span>Virtual World</span></li>
                                 <li><span>Trading Cards</span></li>
                                 <li><span>Collectibles</span></li>
@@ -59,8 +59,8 @@
                         <div id="items_type" class="dropdown">
                             <a href="#" class="btn-selector">Sort By Price</a>
                             <ul>
-                                <li class="active"><span>High to Low</span></li>
-                                <li><span>Low to High</span></li>
+                                <li class="active"onclick="sortContent('hl')"><span>High to Low</span></li>
+                                <li onclick="sortContent('lh')"><span>Low to High</span></li>
                                 <li><span>Discount</span></li>
                             </ul>
                         </div>
@@ -68,9 +68,12 @@
                     </div>
                 </div>                     
                 <!-- nft item begin -->
-               <div class="row" id="explore-list">
-
-               </div>                
+              
+                <div class="row" id="explore-list">
+                     
+                </div> 
+               
+                 
 
                 <div class="col-md-12 text-center">
                     <a href="#" id="loadmore" class="btn-main wow fadeInUp lead">Load more</a>
@@ -98,9 +101,9 @@
   function fetchData(query){   console.log(query)
     $.ajax({type:"get",
            url:"/search",
-           data:{category:query},
+           data:query,
            success:function(res)
-           {
+           { console.log(res);
 
             if(res.length>0)
               {               
@@ -112,7 +115,7 @@
                      let html="";
                     if(content.media_type[0]=="video"){
 
-                         html=`<div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                         html=`<div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"style="display:block">
                     <div class="nft__item">
                         <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
                         <div class="author_list_pp">
@@ -124,7 +127,7 @@
                         <div class="nft__item_wrap">
                             <a href="/item-details?id=`+content._id+`">
 
-                              <video width="250">
+                              <video width="100%" height="249">
                               <source src="/uploadFile/`+content.image+`" type="video/`+content.media_type[1]+`">
                               </video>                           
                            
@@ -151,7 +154,7 @@
                       else
                        {
 
-                         html=`<div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                         html=`<div class="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"style="display:block">
                     <div class="nft__item">
                         <div class="de_countdown" data-year="2021" data-month="8" data-day="16" data-hour="8"></div>
                         <div class="author_list_pp">
@@ -186,7 +189,8 @@
                       
                         
 
-                  document.getElementById('explore-list').innerHTML+=html;  
+                  document.getElementById('explore-list').innerHTML+=html;
+                    
                 });
               
          //$("#content-list").html(html); 
@@ -220,10 +224,27 @@ function CheckboxValues(name) {
     const urlParams = new URLSearchParams(queryString);
 
      const category = urlParams.get('category')
+     const sortby = urlParams.get('sortby');
+        console.log(sortby);
      if(category!="undefine"||category!=null)
       {
-         return category;
+         return {category:category,sortby:'lh'};
+      }
+      else if(sortby!="" && category!=""){
+
+        return {category:category,sortby:sortby};
+
       }
     console.log(category);
+ }
+
+ function searchContent(value){
+     let obj={category:value,sortby:""}
+     fetchData(obj);
+ }
+
+ function sortContent(value){
+     let obj={category:"",sortby:value}
+     fetchData(obj);
  }
 </script>
