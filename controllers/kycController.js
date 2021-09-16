@@ -59,7 +59,7 @@ const saveKyc=async (req,res)=>{
     let image=req.file.filename;
     try
      {
-        let userKyc=await userServices.saveKyc(image,user_id);
+        let userKyc=await userServices.saveKyc(image,user_id,req.body);
         
         req.flash('err_msg', 'Document Uploaded Successfully.');
 
@@ -141,7 +141,19 @@ try{
       console.log(err);
     }
 }
+const rejectKycStatus=async(req,res)=>{
+  let id=req.query.id.trim();
+  let status="rejected";
+  
+try{
+   let  kyc=await userServices.updateKycStatus(id,status);
+    res.redirect('/users/kyc-list');
+  }catch(err)
+   {
+     console.log(err);
+   }
 
+}
 
 module.exports = {
     upload,
@@ -149,5 +161,6 @@ module.exports = {
     saveKyc,
     kycList,
     viewKyc,
-    updateKycStatus
+    updateKycStatus,
+    rejectKycStatus
 };

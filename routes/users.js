@@ -75,6 +75,8 @@ router.get('/kyc-list',kycController.kycList);
 
 router.get('/view-kyc',kycController.viewKyc);
 router.get('/approve-kyc',kycController.updateKycStatus);
+router.get('/reject-kyc',kycController.rejectKycStatus);
+
 router.get('/profile',authController.userProfile);
 
 

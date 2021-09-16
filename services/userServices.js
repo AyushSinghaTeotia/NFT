@@ -94,8 +94,14 @@ const checkUserPass = async (email, password) => {
   }
 };
 
-const saveKyc=async (filename,user_id)=>{
-    let kycData={user_id:user_id,image:filename};
+const saveKyc=async (filename,user_id,data)=>{
+    let kycData={user_id:user_id,
+                 image:filename,
+                 fullname:data.fullname,
+                 dob:data.dob,
+                 document_type:data.document_type,
+                 document_number:data.document_number,
+                 country:data.country };
     try{
       let kyc= new KycInfo(kycData);
       await kyc.save();
@@ -278,7 +284,13 @@ const updateKycStatus = async(id,status)=> {
     let kycdata= await KycInfo.findOne({ '_id':id });
     if (kycdata) {
       await KycInfo.updateOne({ '_id':id }, { $set: {'status':status} });
-      await UserInfo.updateOne({ '_id': kycdata.user_id }, { $set: { isApproved:"Approved"} });
+      if(status=="rejected"){
+        await UserInfo.updateOne({ '_id': kycdata.user_id }, { $set: { isApproved:"Rejected"} });
+
+       }else{
+         await UserInfo.updateOne({ '_id': kycdata.user_id }, { $set: { isApproved:"Approved"} });
+
+        }
       return true;
     }
     else {

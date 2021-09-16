@@ -16,7 +16,10 @@
                   <th width="10%" class="border-top-0">S.No</th>
                   <th width="15%" class="border-top-0">Document</th>
                   <th width="15%" class="border-top-0">Full Name</th>
-                 
+                  <th width="15%" class="border-top-0">Document Type</th>
+                  
+                  <th width="15%" class="border-top-0">Document Number</th>
+
                    <th width="10%" class="border-top-0">Status</th> 
                    
                    <th width="10%" class="border-top-0">Action</th>    
@@ -33,11 +36,15 @@
                                 </td>
                                 <td width="15%"><%=user.name%></td>
                                 
-                              
-                                <td width="10%"><span class="green-text"><%=kyc.status %></span></td>
+                                <td width="15%"><%=kyc.document_type%></td>
+                                <td width="15%"><%=kyc.document_number %></td>
+
+                                <td width="10%"><span class="white-text"><%=kyc.status %></span></td>
                                  <td>
                                    <%if(kyc.status!="approved"){%>
-                                      <a href="/users/approve-kyc?id=<%=kyc._id %>">approve</a>
+                                      <a href="/users/approve-kyc?id=<%=kyc._id %>">Approve</a>
+                                      <a href="/users/reject-kyc?id=<%=kyc._id %>">Reject</a>
+
                                      <% } %>
                                     </td>
                               </tr>

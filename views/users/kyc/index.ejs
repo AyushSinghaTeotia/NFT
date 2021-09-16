@@ -15,7 +15,10 @@
                 <tr>
                   <th width="10%" class="border-top-0">S.No</th>
                   <th width="15%" class="border-top-0">Document</th>
-                 
+                  <th width="15%" class="border-top-0">Document Type</th>
+                  <th width="15%" class="border-top-0">Document Number</th>
+                  <th width="15%" class="border-top-0">Date Of Birth</th>
+
                    <th width="10%" class="border-top-0">Status</th>    
                   </tr>
             </thead>
@@ -30,7 +33,10 @@
                                     <img src="/uploadFile/<%=kyc.image%>">
                                   </div>
                                 </td>
-                                
+                                <td width="10%"><span class="green-text"><%=kyc.document_type %></span></td>
+                                <td width="10%"><span class="green-text"><%=kyc.document_number %></span></td>
+                                <td width="10%"><span class="green-text"><%=kyc.dob %></span></td>
+
                                 <td width="10%"><span class="green-text"><%=kyc.status %></span></td>
                                
                               </tr>
