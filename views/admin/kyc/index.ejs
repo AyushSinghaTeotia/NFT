@@ -32,7 +32,7 @@
             <tbody>
            <% userKyc.forEach(function(user,index){
              
-              if(user.user_role!="admin"&& user.image){%>
+              if(user.user_role!="admin"&& user.kycinfo.image){%>
                
               <tr>
                 <td><%- index+1 %></td>
@@ -42,7 +42,7 @@
                 <td></td>
                 <td></td>
 
-                <td class="success-color"><%- user.isApproved %></td>
+                <td class="success-color"><%- user.kycinfo.status %></td>
                 
                  
                 <td>

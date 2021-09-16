@@ -130,13 +130,21 @@ const getKycList=async(req,res)=>{
          from: 'kycs',
          localField:'_id',
          foreignField:'user_id',
-         as: 'kyc_info'
+         as: 'kycinfo'
        }
      },
-     {
-      $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$kyc_info", 0 ] }, "$$ROOT" ] } }
-   },
-   { $project: { kyc_info: 0 } }
+     { "$unwind": "$kycinfo" },
+                { "$project": {
+                  "name":1,
+                  "image":1,
+                  "status":1,
+                  "email":1,
+                  "_id":1,
+                  "kycinfo._id": 1,
+                  "kycinfo.user_id": 1,
+                  "kycinfo.image": 1,
+                  "kycinfo.status":1
+                } }
     ]);
   console.log(users);
     return users;
@@ -269,7 +277,8 @@ const updateKycStatus = async(id,status)=> {
   try {
     let kycdata= await KycInfo.findOne({ '_id':id });
     if (kycdata) {
-      await KycInfo.update({ '_id':id }, { $set: {'status':status} });
+      await KycInfo.updateOne({ '_id':id }, { $set: {'status':status} });
+      await UserInfo.updateOne({ '_id': kycdata.user_id }, { $set: { isApproved:"Approved"} });
       return true;
     }
     else {
