@@ -322,6 +322,10 @@ const sendNewPasswordMail = async function (req, otp, user_id) {
   }
 
 }
+ const totalCreators=async()=>{
+     let total=await UserInfo.find({"user_role":"creater"}).count();
+     return total;
+ }
 
 module.exports = {
   addUser,
@@ -347,5 +351,6 @@ module.exports = {
   getKycDetails,
   updateKycStatus,
   checkUserByWallet,
-  addUserByWallet
+  addUserByWallet,
+  totalCreators
 };

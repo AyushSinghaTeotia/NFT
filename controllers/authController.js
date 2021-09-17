@@ -265,10 +265,11 @@ const dashboard=async (req,res)=>{
     let total= await paintingServices.totalContent(user_id,role);
     let total_for_sale=await paintingServices.totalContentForSale(user_id,role);
     let total_pending=await paintingServices.totalPendingContent(user_id,role);
+    let total_creater=await userServices.totalCreators();
     console.log(req.session)
     if(role=="admin")
       {
-        res.render('admin/dashboard/',{title:"Dashboard",role:req.session.role,name:req.session.re_usr_name,total,total_for_sale,total_pending});
+        res.render('admin/dashboard/',{title:"Dashboard",role:req.session.role,name:req.session.re_usr_name,total,total_for_sale,total_pending,total_creater});
       }
      else
      {
