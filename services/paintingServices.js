@@ -123,7 +123,7 @@ const paintingList = async (created_by,category,basic_price)=>{
            // painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:1 } );
            
              painting=await PaintingInfo.aggregate([
-              { "$match": {'status':'approved', $or: [ {'category':query},{'basic_price':query},{'title':{$regex:'/'+query+'/' }},{'meta_tag':{$regex:query }} ] } },
+              { "$match": {'status':'approved', $or: [ {'category':query},{'basic_price':query},{'title':{$regex:query}},{'meta_tag':{$regex:query }} ] } },
               { "$sort": { "basic_price": 1 } },
               { "$limit": 20 }, 
               { "$lookup": {
@@ -151,7 +151,7 @@ const paintingList = async (created_by,category,basic_price)=>{
               //painting=await PaintingInfo.find({'status':'approved',$or:[{'category':{$in:query }},{'basic_price':{$in:query }},{'title':{$regex:query }},{'meta_tag':{$regex:query }}]}).sort( {basic_price:-1 } );
                  
               painting=await PaintingInfo.aggregate([
-                { "$match": {'status':'approved', $or: [ {'category':query},{'basic_price':query},{'title':{$regex:'/'+query+'/' }},{'meta_tag':{$regex:query }} ] } },
+                { "$match": {'status':'approved', $or: [ {'category':query},{'basic_price':query},{'title':{$regex:query }},{'meta_tag':{$regex:query }} ] } },
                 { "$sort": { "basic_price": -1 } },
                 { "$limit": 20 }, 
                 { "$lookup": {
