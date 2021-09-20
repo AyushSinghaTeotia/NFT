@@ -83,12 +83,12 @@ const userLogin = async (req, res) => {
             else 
             {
                 req.flash('err_msg', 'Your account is not verified.');
-                res.redirect('/login')
+                res.redirect('/users/login')
             }
         }
         else {
             req.flash('err_msg', 'The username or password is incorrect.');
-            res.redirect('/login');
+            res.redirect('/users/login');
            
         }
     }
@@ -141,48 +141,57 @@ const logout = async (req, res) => {
 const loginByWallet=async(req,res)=>{
     let address=req.query.account;
     console.log(address);
-    let user=await userServices.checkUserByWallet(address);
-    console.log("user account",user);
-    if(user){
+    if(address=="undefined"||address==""||address==null){
+       
+        res.send(false);
+  
+     }else{
+        
 
-        req.session.success = true;
-        req.session.re_us_id = user._id;
-        req.session.re_usr_name = user.name;
-        req.session.re_usr_email = user.email;
-        req.session.is_user_logged_in = true;
-        req.session.role=user.user_role;
-        console.log(req.session);
-        res.send(user);
-    }else
-      {
-        let email=address+"@gmail.com";
-         let mystr = await contentCreaterServices.createCipher("123456");
-         let created = await contentCreaterServices.createAtTimer();
-          userOBJ={ name:address,
-                   email:re_usr_email,
-                   password:mystr,
-                   username:"metamask",
-                   mobile:"1234567898",
-                   wallet_address:address,
-                   user_role:"user",
-                   created_at:created  
-                   }
-                 
-         
-         let newuser = await userServices.addUserByWallet(userOBJ);
          let user=await userServices.checkUserByWallet(address);
-
-
-         req.session.success = true;
-         req.session.re_us_id = user._id;
-         req.session.re_usr_name = user.name;
-         req.session.re_usr_email = user.email;
-         req.session.is_user_logged_in = true;
-         req.session.role=user.user_role;
-         console.log(req.session);
-
-         res.send(user);
-      }
+         console.log("user account",user);
+         if(user){
+     
+             req.session.success = true;
+             req.session.re_us_id = user._id;
+             req.session.re_usr_name = user.name;
+             req.session.re_usr_email = user.email;
+             req.session.is_user_logged_in = true;
+             req.session.role=user.user_role;
+             console.log(req.session);
+             res.send(user);
+         }else
+           {
+             let email=address+"@gmail.com";
+              let mystr = await contentCreaterServices.createCipher("123456");
+              let created = await contentCreaterServices.createAtTimer();
+               userOBJ={ name:address,
+                        email:email,
+                        password:mystr,
+                        username:"metamask",
+                        mobile:"1234567898",
+                        wallet_address:address,
+                        user_role:"user",
+                        created_at:created  
+                        }
+                      
+              
+              let newuser = await userServices.addUserByWallet(userOBJ);
+              let user=await userServices.checkUserByWallet(address);
+     
+     
+              req.session.success = true;
+              req.session.re_us_id = user._id;
+              req.session.re_usr_name = user.name;
+              req.session.re_usr_email = user.email;
+              req.session.is_user_logged_in = true;
+              req.session.role=user.user_role;
+              console.log(req.session);
+     
+              res.send(user);
+           }
+     }
+    
 }
 
 const updateProfile=async(req,res)=>{

@@ -14,7 +14,7 @@ const { mail } = require('../helper/mailer');
 const { calculateHours } = require('../helper/userHelper');
 const { balanceMainBNB, coinBalanceBNB } = require('../helper/bscHelper');
 const { balanceMainETH } = require('../helper/ethHelper');
-
+const mintServices=require('../services/mintServices');
 
 const Storage = multer.diskStorage({
     destination:'./public/uploadFile',
@@ -150,8 +150,16 @@ const savePainting = async (req, res) => {
 const updateContentStatus=async (req,res)=>{
     const id=req.query.id.trim();
     let status="approved";
+    let tokenUrl="http://3.19.129.187/item-details?id=6141bd0c315ccb0e5b20ea76";
+
     let content=await paintingServices.updateContentStatus(id,status);
+    
+    let contentDetail=await paintingServices.getContentDetail(id);
+
+    //let UserwalletData = await blockchainServices.findUserWallet(contentDetail.created_by);
+
     if(content){
+          // await mintServices.mintNFT(id,UserwalletData.wallet_address,contentDetail.copy_for_sale);
          res.redirect('/users/dashboard');
      }
 

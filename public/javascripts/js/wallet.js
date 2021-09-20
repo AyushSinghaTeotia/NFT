@@ -1,55 +1,7 @@
 
-// Script connect wallet
-
- // Unpkg imports
-const Web3Modal = window.Web3Modal.default;
-const WalletConnectProvider = window.WalletConnectProvider.default;
-const EvmChains = window.EvmChains;
-const Fortmatic = window.Fortmatic;
-
-// Web3modal instance
-let web3Modal
-
-// Chosen wallet provider given by the dialog window
-let provider;
 
 
-// Address of the selected account
-let selectedAccount;
-
-
-/**
- * Setup the orchestra
- */
-function init() {
-
-    console.log("Initializing example");
-    console.log("WalletConnectProvider is", WalletConnectProvider);
-    // console.log("Fortmatic is", Fortmatic);
-
-    // Tell Web3modal what providers we have available.
-    // Built-in web browser provider (only one can exist as a time)
-    // like MetaMask, Brave or Opera is added automatically by Web3modal
-    const providerOptions = {
-        walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-                rpc: {
-                    56: 'https://bsc-dataseed.binance.org/',
-                },
-                network: 'binance',
-                chainId: 56,
-                // infuraId: "bnb1a5cae5d9hp0we9cx9v02n9hvmt94nnuguv0fav",
-            },
-        },
-    };
-
-    web3Modal = new Web3Modal({
-        cacheProvider: false, // optional
-        providerOptions, // required
-    });
-}
-async function fetchAccountData() {
+async function BuyContent() {
         // Get a Web3 instance for the wallet
         const web3 = new Web3(provider);
 
@@ -96,13 +48,45 @@ async function fetchAccountData() {
                 console.log(err); 
             } else {
                 console.log(transactionHash);
+                var content_id = getContentId(); //document.getElementById('content_id').value;
+                console.log(content_id);
+                finalprice =getBasicPrice();
+                // // obj.value = txHash;
+                $.ajax({
+                   dataType: "json",
+                   type: 'post',
+                   url: '/users/save-order',
+                    data: {
+                          tx_id:transactionHash,
+                          content_id:content_id,
+                          address:selectedAccount,
+                         // qty: document.getElementById("copies").value,
+                            amount: finalprice,
+               //         currency: currency,
+               //         currencyRate: currencyRate
+                         },
+                    success: function(data) {
+                        swal({
+                             type: 'success',
+                              text: 'Transaction completed successfully.',
+                              timer: 3000,
+                              onOpen: function() {
+                                swal.showLoading()
+                            }
+                        }).then(function() {
+                            location.reload();
+                       });
+                                  location.reload();
+                   }
+                });
+           
             }
         });
     }
 
 
-async function refreshAccountData() {        
-    await fetchAccountData(provider);        
+async function resetAccountData() {        
+    await BuyContent(provider);        
 }
 
 /**
@@ -120,21 +104,19 @@ async function onConnect() {
 
     // Subscribe to accounts change
     provider.on("accountsChanged", (accounts) => {
-        fetchAccountData();
+        BuyContent();
     });
 
     // Subscribe to chainId change
     provider.on("chainChanged", (chainId) => {
-        fetchAccountData();
+        BuyContent();
     });
 
-    // Subscribe to networkId change
-    provider.on("networkChanged", (networkId) => {
-        fetchAccountData();
-    });
-
-    await refreshAccountData();
+    await resetAccountData();
 }
-init();
+
+
 
 // Script connect wallet
+
+

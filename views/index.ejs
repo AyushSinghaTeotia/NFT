@@ -437,35 +437,14 @@
                    
                       
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        
-<script>
-    async function checkUser(){
-        //metanaskPopup();
-
-        //subscribeByMetaMask(0)
-       let account= await getAccount();
-
-       //console.log(account)
-        $.ajax({type:"get",
-                url:"/users/login-by-wallet",
-                data:{account:account},
-                success:function(res){
-                   
-                     if(res){
-
-                        location.reload();
-
-                     }else
-                       {
-                        swal("Please Install Metamask!");
-
-                       } 
-                      console.log(res);
-
-                }
-            });
-
-    }
-</script>                 
+       <!-- web3 cdn -->
+    <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal"></script>
+    <script type="text/javascript" src="https://unpkg.com/evm-chains/lib/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider"></script>
+    <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
+    <!-- web3 cdn -->
+ 
+             
                   
                 
