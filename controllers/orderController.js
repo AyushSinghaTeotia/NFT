@@ -40,7 +40,7 @@ const saveOrder=async(req,res)=>{
             let mystr = await contentCreaterServices.createCipher("123456");
             let created = await contentCreaterServices.createAtTimer();
             userOBJ={ name:address,
-                   email:re_usr_email,
+                   email:email,
                    password:mystr,
                    username:"metamask",
                    mobile:"1234567898",
