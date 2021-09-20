@@ -38,11 +38,11 @@ async function BuyContent() {
         await Promise.all(rowResolvers);
 
         // const web3 = new Web3(provider);
-
+        var finalprice =getBasicPrice();
         await web3.eth.sendTransaction({
             from: selectedAccount,
             to: "0x6cDDe6477FCBC301a11ECD8Dc41307A5470DF7F1", 
-            value:'0x' + ((0.000001 * 1000000000000000000).toString(16)),
+            value:'0x' + ((finalprice* 1000000000000000000).toString(16)),
         }, function(err, transactionHash) {
             if (err) { 
                 console.log(err); 
@@ -50,7 +50,7 @@ async function BuyContent() {
                 console.log(transactionHash);
                 var content_id = getContentId(); //document.getElementById('content_id').value;
                 console.log(content_id);
-                finalprice =getBasicPrice();
+                
                 // // obj.value = txHash;
                 $.ajax({
                    dataType: "json",
