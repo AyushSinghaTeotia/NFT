@@ -21,7 +21,19 @@ const saveOrder=async (orderData)=>{
     
     
 }
+const getOrders=async()=>{
+  let orders= await OrderInfo.aggregate([
+    {"$lookup": {
+    "localField": "user_id",
+    "from": "users",
+    "foreignField": "_id",
+    "as": "userinfo"
+    } },
+    { "$unwind": "$userinfo" }
+   ]);
 
+  return orders;
+}
 
 const getKycList=async(req,res)=>{
  
@@ -107,4 +119,5 @@ const sendNewPasswordMail = async function (req, otp, user_id) {
 
 module.exports = {
   saveOrder,
+  getOrders,
 };

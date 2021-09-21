@@ -16,7 +16,8 @@
                         <!-- logo close -->
                     </div>
                     <div class="de-flex-col">
-                        <input id="quick_search" class="xs-hide" name="quick_search" placeholder="search item here..." type="text" />
+                        <input id="quick_search" onkeyup="searchData(value)" class="xs-hide" name="quick_search" placeholder="search item here..." type="text" />
+                        <span id="search-tab-content"></span>
                     </div>
                 </div>
                 <div class="de-flex-col header-col-mid">
@@ -97,3 +98,66 @@
 
     }
 </script>
+
+<script>
+
+    function searchData(query){   
+        let data={category:query,
+                  title:query,
+                  basic_price:query,
+                  meta_tag:query
+                };
+      $.ajax({type:"get",
+             url:"/search",
+             data:data,
+             success:function(res)
+             { 
+                console.log(res);
+                document.getElementById('search-tab-content').innerHTML="";  
+
+              if(res.length>0)
+                {               
+                                   
+                  res.forEach(function(content,index)
+                   {
+                     let html=`<ul class="search-list">
+                              <li>
+                               <a href="/item-details?id=`+content._id+`">`+content.title+`</a>
+                              </li>
+                              </ul>`;
+                   
+                      
+                       document.getElementById('search-tab-content').innerHTML+=html;
+                    
+                  });
+              
+
+                }  
+               else
+                 {
+                    let html=`<ul class="search-list">
+                              <li>
+                                <p>Not Found</p>
+                              </li>
+                              </ul>`;
+                    document.getElementById('search-tab-content').innerHTML+=html;  
+ 
+                 }
+  
+  
+             },
+         
+      });
+    }
+  
+     </script>  
+     
+     <style>
+         ul.search-list {
+    background: #ffff;
+    display: block;
+    list-style: none;
+    margin-left: 30px;
+    border-radius: 5px;
+}
+     </style>

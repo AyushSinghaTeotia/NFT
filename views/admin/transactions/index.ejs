@@ -67,18 +67,22 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
+              
+                <% orders.forEach(function(order,index) {%> 
+                <tr>
+                  <td><%=index+1 %></td>
                
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>test</td>
-                <td>03/01/2021</td>
-                
-                 
-                
-              </tr>
+                  <td><%=order.userinfo.name %></td>
+                  <td><%=order.total %></td>
+                  <td>test</td>
+                  <td><%=order.total %></td>
+                  <td><%=order.created_at %></td>
+                  
+                   
+                  
+                </tr>
+                <% }) %>
+               
 
               
             </tbody>

@@ -14,6 +14,7 @@ const { calculateHours } = require('../helper/userHelper');
 const { balanceMainBNB, coinBalanceBNB } = require('../helper/bscHelper');
 const { balanceMainETH } = require('../helper/ethHelper');
 const { activationTokens } = require('../models/contact');
+const orderServices=require('../services/orderServices');
 
 
 
@@ -49,7 +50,9 @@ const manageKYC=async (req,res)=>{
 }
 
 const manageTransaction=async (req,res)=>{
-    res.render('admin/transactions/',{role:req.session.role,name:req.session.re_usr_name});
+     let orders=await orderServices.getOrders();
+     console.log(orders);
+    res.render('admin/transactions/',{role:req.session.role,name:req.session.re_usr_name,orders:orders});
     
 }
 
