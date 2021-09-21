@@ -14,22 +14,34 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(API_URL);
 
 const abi = require("../artifacts/contracts/MyNFT.json");
-const contractAddress = "0x12881C056C7083276a9999A577e7d288e2D12Ea9";
+const contractAddress = "0x261F36d7429AA66336D7532C23484998251a856e";
 const nftContract = new web3.eth.Contract(abi, contractAddress);
 
 
- const mintNFT=async(id,address_to,quantity) =>{
+ const mintNFT=async(copy_for_sale,tokenUrl,title,basic_price) =>{
     const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, 'latest'); //get latest nonce
-     console.log(nftContract);
     //the transaction
-    const tx = {
-      'from': PUBLIC_KEY,
-      'to': contractAddress,
-      'nonce': nonce,
-      'gas': 500000,
-      'maxPriorityFeePerGas': 1999999987,
-      'data': nftContract.methods.mintFungible(id,address_to,quantity).encodeABI()
-    };
+    console.log(copy_for_sale);
+    console.log(basic_price);
+    let for_sale=BigInt(copy_for_sale);
+    let price=BigInt(basic_price);
+
+    var tx="";
+    try
+     {
+       tx = {
+        'from': PUBLIC_KEY,
+        'to': contractAddress,
+        'nonce': nonce,
+        'gas': 500000,
+        'maxPriorityFeePerGas': 1999999987,
+        'data': nftContract.methods.mintNFT(for_sale,tokenUrl,title,price).encodeABI()
+      };
+       
+     }catch(err){
+      console.log(err);
+    }
+   
   
     const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY);
     signPromise.then((signedTx) => {
