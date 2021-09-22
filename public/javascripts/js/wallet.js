@@ -37,13 +37,13 @@ async function BuyContent() {
         // until data for all accounts is loaded
         await Promise.all(rowResolvers);
 
-        var code = "92655f7237f805673a2a810ed0badd228445bf8fe38a43c0f65fd2616fff25b7";
+        //var code = "92655f7237f805673a2a810ed0badd228445bf8fe38a43c0f65fd2616fff25b7";
 
         // const web3 = new Web3(provider);
         var finalprice =getBasicPrice();
         await web3.eth.sendTransaction({
             from: selectedAccount,
-            data: code,
+           // data: code,
             to: "0x6cDDe6477FCBC301a11ECD8Dc41307A5470DF7F1", 
             value:'0x' + ((finalprice* 1000000000000000000).toString(16)),
         }, function(err, transactionHash) {
