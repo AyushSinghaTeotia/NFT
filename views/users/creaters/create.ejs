@@ -353,7 +353,8 @@ function attribute_cloning_add(){
         function checkForSale(value){
 
            let  total_copy=$("#total_copy").val();
-           if(value>total_copy){
+           let total=parseInt(total_copy);
+           if(value>total){
              alert("No.Of copy For Sale Should not be greater then Total Copy");
              $("#copy_for_sale").val("");
            }
