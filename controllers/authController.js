@@ -32,9 +32,10 @@ const upload = multer({
 
 const loginPage = async (req, res) => {
        let err_msg = req.flash('err_msg');
+       let success_msg=req.flash('success_msg');
     //let success_msg = req.flash('success_msg');
 
-        res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg ,name: req.session.re_usr_name});
+        res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg ,name: req.session.re_usr_name,success_msg:success_msg});
     
 }
 
@@ -123,7 +124,7 @@ const submitSignup = async (req, res) => {
                 let user = await userServices.checkUser(req.body.email);
                 //let activationmail = await userServices.sendActivationMail(user, req)
                 console.log(user);
-                req.flash('success_msg', 'Content Creater registered. Please verify to continue.');
+                req.flash('success_msg', 'You are registered successfully. Please login to continue.');
               res.redirect('/users/login');
             }
         
