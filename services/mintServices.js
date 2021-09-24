@@ -54,14 +54,19 @@ const nftContract = new web3.eth.Contract(abi, contractAddress);
          {
           console.log("The hash of your transaction is: ", hash, "\nCheck Alchemy's Mempool to view the status of your transaction!"); 
           // nftContract.methods.get(hash);
-            mintdetail={content_id:content_id,
-                       trx_hash:hash,
-                       wallet_address:address,
-                       token_id:"",
-                       token_url:tokenUrl
+           
+            
+                    mintdetail={content_id:content_id,
+                      trx_hash:hash,
+                      wallet_address:address,
+                      token_id:"",
+                      token_url:tokenUrl
                       }
-             let mintData=new MintInfo(mintdetail);
-              mintData.save();         
+    
+                     let mintData=new MintInfo(mintdetail);
+                     mintData.save(); 
+                  
+                 
 
         } else {
           console.log("Something went wrong when submitting your transaction:", err)
@@ -86,6 +91,23 @@ const nftContract = new web3.eth.Contract(abi, contractAddress);
     
 
   }
+
+
+  const getTokenOwned=async(address)=>{
+  
+    try{
+        let details=await nftContract.methods.tokensOwned(address).call({
+         from :"0x023bAdcc83AFDa40Ad602e33EEE993a872589C71"
+       });
+        return details;
+     }
+     catch(err){
+       console.log(err)
+     }
+   
+
+ }
+
 
   const transferNFT=async(address_from,address_to,tokenId,tokenUrl,private_key)=>{
     
@@ -174,6 +196,7 @@ module.exports = {
     mintNFT,
     getTokens,
     transferNFT,
-    findMintDetail
+    findMintDetail,
+    getTokenOwned
 
 };

@@ -91,22 +91,25 @@ const confirmOrder=async(req,res)=>{
   let content=await paintingServices.getContentDetail(orderdetail.content_id);
   console.log(content);
   let tokenUrl=base_url+'/uploadFile/'+content.image;
-  let nftDetail=await mintServices.getTokens(tokenUrl);
+  let tokenId="";
   let user=await userServices.checkUserByID(content.created_by);
     try
      { 
        let mintData=await mintServices.findMintDetail(content._id);
-       console.log(mintData);
-       let tokenId="";
+      
+       let nftDetail=await mintServices.getTokenOwned(mintData.wallet_address);
+
+       console.log("mint data",mintData);
+       console.log(nftDetail)
         for(let i=0;i<content.copy_for_sale;i++){
               let j=i+1;
-              if(nftDetail[1][i]==mintData.wallet_address){
+              if(nftDetail[1][i]==tokenUrl){
                  tokenId=nftDetail[0][i];
                  break;
                 }
        }
 
-      await mintServices.transferNFT(nftDetail[1][0],orderdetail.user_wallet_address,tokenId,tokenUrl,user.private_key);
+      await mintServices.transferNFT(mintData.wallet_address,orderdetail.user_wallet_address,tokenId,tokenUrl,user.private_key);
     
     }catch(err){
         console.log(err);
