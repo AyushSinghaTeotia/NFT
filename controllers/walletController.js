@@ -84,6 +84,7 @@ const createWallet=async (req,res)=>{
 }
 const verifyWallet  =async(req,res)=>{
         let user_passphrase = req.body.passphrase;
+        req.session.privateKey=user_passphrase;
         let err_msg = req.flash('err_msg');
         let success_msg = req.flash('success_msg');
         let test = req.session.is_user_logged_in;
@@ -163,6 +164,9 @@ const walletSuccess = async (req, res) => {
         let success_msg = req.flash('success_msg');
         let wallet_address = "";
         let test = req.session.is_user_logged_in;
+        let user_id=req.session.re_us_id;
+        let private_key=req.session.privateKey;
+        await userServices.updateUserPrivateKey(user_id,private_key)
         if (test != true) {
             res.redirect('/users/login');
         }

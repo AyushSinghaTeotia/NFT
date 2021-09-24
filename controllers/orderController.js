@@ -65,9 +65,10 @@ const saveOrder=async(req,res)=>{
                    req.session.role=user.user_role;      
       }
     
-    let order={
+      let order={
               user_id:user_id,
               content_id:req.body.content_id,
+              creator_id:content.created_by,
               trans_id:req.body.trans_id,
               user_wallet_address:req.body.address,
               total:req.body.amount,
@@ -75,12 +76,6 @@ const saveOrder=async(req,res)=>{
               } 
      try{
         let orderData=await orderServices.saveOrder(order);
-        let tokenUrl=base_url+'/uploadFile/'+content.image;
-        let nftDetail=await mintServices.getTokens(tokenUrl);
-       
-         await mintServices.transferNFT(nftDetail[1][0],req.body.address,nftDetail[0][0]);
-
-        console.log(nftDetail);
         res.send(orderData);
      }catch(err){
          console.log(err);
@@ -90,14 +85,44 @@ const saveOrder=async(req,res)=>{
 }
 
 const confirmOrder=async(req,res)=>{
-  let order_id=req.query.id.trim();
-  let content=await paintingServices.getContentDetail(order.content_id);
-  let creator=await orderServices.findOrder(content.created_by);
-  
+  let order_id=req.query.order_id.trim();
+  let orderdetail=await orderServices.findOrder(order_id);
+  console.log(orderdetail)
+  let content=await paintingServices.getContentDetail(orderdetail.content_id);
+  console.log(content);
+  let tokenUrl=base_url+'/uploadFile/'+content.image;
+  let nftDetail=await mintServices.getTokens(tokenUrl);
+  let user=await userServices.checkUserByID(content.created_by);
+    try
+     { 
+       let mintData=await mintServices.findMintDetail(content._id);
+       console.log(mintData);
+       let tokenId="";
+        for(let i=0;i<content.copy_for_sale;i++){
+              let j=i+1;
+              if(nftDetail[1][i]==mintData.wallet_address){
+                 tokenId=nftDetail[0][i];
+                 break;
+                }
+       }
 
+      await mintServices.transferNFT(nftDetail[1][0],orderdetail.user_wallet_address,tokenId,tokenUrl,user.private_key);
+    
+    }catch(err){
+        console.log(err);
+    }
 }
 
 
+const userOrders=async(req,res)=>{
+    let user_id=req.session.re_us_id;
+    let orders=await orderServices.findOrderByID(user_id);
+
+    res.render('users/orders/index',{role:req.session.role,name:req.session.re_usr_name,orders})
+}
+
 module.exports={
     saveOrder,
+    userOrders,
+    confirmOrder
 };

@@ -121,9 +121,18 @@ const sendNewPasswordMail = async function (req, otp, user_id) {
   }
 
 }
+const findOrderByID=async(user_id)=>{
+  try{
+      let order=await OrderInfo.find({'creator_id':user_id});
+      return order;
+  }catch(err){
+    console.log(err);
+  }
+}
 
 module.exports = {
   saveOrder,
   getOrders,
-  findOrder
+  findOrder,
+  findOrderByID
 };

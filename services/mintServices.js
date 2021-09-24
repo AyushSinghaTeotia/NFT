@@ -87,19 +87,53 @@ const nftContract = new web3.eth.Contract(abi, contractAddress);
 
   }
 
-  const transferNFT=async(address_from,address_to,tokenId,tokenUrl)=>{
+  const transferNFT=async(address_from,address_to,tokenId,tokenUrl,private_key)=>{
     
-      try{
-        let trxNft= await nftContract.methods.safeTransferFrom(
-          address_from,
-          address_to,
-          tokenId,
-          tokenUrl
-        );
-       console.log(trxNft);
-      }catch(err){
-        console.log(err);
-      }
+    const nonce = await web3.eth.getTransactionCount(address_from,'latest'); //get latest nonce
+    console.log(address_from);
+    console.log(address_to);
+    console.log(tokenId);
+    console.log(tokenUrl);
+    console.log("counce",nonce);
+     var tx="";
+     try
+      {
+       tx = {
+        'from':address_from,
+        'to': contractAddress,
+        'nonce': nonce,
+        'gas': 500000,
+        'maxPriorityFeePerGas': 1999999987,
+        'data': nftContract.methods.safeTransferFrom(
+              address_from,
+              address_to,
+              tokenId,
+              tokenUrl
+             ).encodeABI()
+      };
+       
+     }catch(err){
+      console.log(err);
+    }
+   
+  
+    const signPromise = web3.eth.accounts.signTransaction(tx,private_key);
+    signPromise.then((signedTx) => {
+  
+      web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(err, hash) {
+        if (!err) 
+         {
+          console.log("The hash of your transaction is: ", hash, "\nCheck Alchemy's Mempool to view the status of your transaction!"); 
+          // nftContract.methods.get(hash);       
+
+        } else {
+          console.log("Something went wrong when submitting your transaction:", err)
+        }
+      });
+    }).catch((err) => {
+      console.log("Promise failed:", err);
+    });
+    
 
   }
 
@@ -121,12 +155,25 @@ const createAtTimer = async () => {
 };
 
 
+const findMintDetail=async(content_id)=>{
 
+  try
+   {
+      let details=await MintInfo.findOne({"content_id":content_id});
+
+       return details;
+   }
+   catch(err)
+    {
+
+   }
+}
 
 
 module.exports = {
     mintNFT,
     getTokens,
-    transferNFT
+    transferNFT,
+    findMintDetail
 
 };

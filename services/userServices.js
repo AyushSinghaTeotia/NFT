@@ -278,6 +278,23 @@ const updateUserStatus = async function (user_id) {
   }
 }
 
+const updateUserPrivateKey=async(user_id,private_key)=>{
+
+  try {
+    let user = await UserInfo.findOne({ '_id': user_id });
+    if (user) {
+      await UserInfo.update({ '_id': user_id }, { $set: {private_key:private_key } });
+      return true;
+    }
+    else {
+      return false;
+    }
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+
+}
 
 const updateKycStatus = async(id,status)=> {
   try {
@@ -352,5 +369,6 @@ module.exports = {
   updateKycStatus,
   checkUserByWallet,
   addUserByWallet,
-  totalCreators
+  totalCreators,
+  updateUserPrivateKey,
 };

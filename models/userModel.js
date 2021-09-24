@@ -46,7 +46,10 @@ var UserSchema =  new moongoose.Schema({
         type:String,
         required:true
     },
-
+    private_key:{
+       type:String,
+       default:null,
+      },
     created_at: { 
                     type: String,
                     default: new Date()

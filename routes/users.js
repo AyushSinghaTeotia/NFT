@@ -34,8 +34,8 @@ router.get('/logout',authController.logout);
 router.get('/login-by-wallet',authController.loginByWallet);
 router.post('/save-order',orderController.saveOrder);
 router.post('/update-profile',authController.upload,authController.updateProfile);
-
-
+router.get('/orders',orderController.userOrders);
+router.get('/confirm-order',orderController.confirmOrder);
 /* content creater  */
 router.post('/contentCreater-login', contentCreaterControllers.login);
 //router.post('/contentCreater-signup', contentCreaterControllers.upload, contentCreaterControllers.submitContentCreater);
