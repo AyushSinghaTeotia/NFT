@@ -125,13 +125,9 @@ const submitSignup = async (req, res) => {
                 //let activationmail = await userServices.sendActivationMail(user, req)
                 console.log(user);
                 let otp="";
-                let subject = 'OTP for your new account on The Abu Bakar website';
-                let text = 'Hello '+ req.body.name + ',<br><br>\n\nCongratulations on signing up with The Abu Bakar website!<br><br>\n\n' +
-                'Your one-time password (OTP) for signing up is: <strong>' + otp +  '</strong>. This would be valid only for the next 10 minutes.' +
-                '<br><br>\n\nOnce you enter the OTP and create a new wallet, we will credit it by 10 $EBT (worth US$10)  as a limited-time joining bonus.<br><br>\n\n' + 
-                'Moreover, you can earn more by referring your friends and earn US$5 equivalent $EBT tokens every time your friend joins by using your referral code. Your friend will also get US$5 equivalent $EBT tokens for using your referral code !<br><br>\n\n' +
-                'Time: ' + created + '<br><br>\n\n'
-                'If this withdrawal attempt was not made by you it means someone visited your account. It may be an indication you have been the target of a phishing attempt and might want to consider moving your funds to a new wallet.' + '<br><br>\n\n' + 'Regards,<br>\nTeam The Abu Bakar<br>\nhttps://ebtico.com';
+                let subject = 'Taboo NFT Signup';
+                let text = 'Hello '+ req.body.name + ',<br><br>\n\nCongratulations on signing up with The Taboo NFT website!<br><br>\n\n' +
+                'If this withdrawal attempt was not made by you it means someone visited your account. It may be an indication you have been the target of a phishing attempt and might want to consider moving your funds to a new wallet.' + '<br><br>\n\n' + 'Regards,<br>\nTeam The Taboo NFT';
                 await mail(req.body.email, subject, text);
 
 

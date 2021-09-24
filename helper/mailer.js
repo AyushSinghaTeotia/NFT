@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 async function mail(to_mail, mail_subject, mail_content) {
 
     const mailOptions = {
-        from: 'ebticoglt@gmail.com',//'noreply@justyours.me',
+        from: 'fsdevelopersg@gmail.com',//'noreply@justyours.me',
         to: to_mail,
         subject: mail_subject,
         html: mail_content
@@ -16,8 +16,8 @@ async function mail(to_mail, mail_subject, mail_content) {
         port: 443,
         secure:true,
         auth: {
-            user: 'ebticoglt@gmail.com',
-            pass: 'bitebitco'
+            user: 'fsdevelopersg@gmail.com',
+            pass: 'fsdeveloper21'
            // user: 'noreply@justyours.me', //'lokeshmaheshwari@questglt.com',
             //pass: 'Login90%' //'Login90%'      
         }
