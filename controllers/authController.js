@@ -128,7 +128,12 @@ const submitSignup = async (req, res) => {
                 let subject = 'Taboo NFT Signup';
                 let text = 'Hello '+ req.body.name + ',<br><br>\n\nCongratulations on signing up with The Taboo NFT website!<br><br>\n\n' +
                 'If this withdrawal attempt was not made by you it means someone visited your account. It may be an indication you have been the target of a phishing attempt and might want to consider moving your funds to a new wallet.' + '<br><br>\n\n' + 'Regards,<br>\nTeam The Taboo NFT';
-                await mail(req.body.email, subject, text);
+               
+                try{
+                    await mail(req.body.email, subject, text);
+                }catch(err){
+                    console.log(err);
+                }
 
 
                 req.flash('success_msg', 'You are registered successfully. Please login to continue.');
