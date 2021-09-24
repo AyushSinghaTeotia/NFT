@@ -86,6 +86,7 @@ const saveOrder=async(req,res)=>{
 
 const confirmOrder=async(req,res)=>{
   let order_id=req.query.order_id.trim();
+
   let orderdetail=await orderServices.findOrder(order_id);
   console.log(orderdetail)
   let content=await paintingServices.getContentDetail(orderdetail.content_id);
@@ -110,7 +111,9 @@ const confirmOrder=async(req,res)=>{
        }
 
       await mintServices.transferNFT(mintData.wallet_address,orderdetail.user_wallet_address,tokenId,tokenUrl,user.private_key);
-    
+      
+      await orderServices.updateOrder(order_id);
+      res.send(true);
     }catch(err){
         console.log(err);
     }

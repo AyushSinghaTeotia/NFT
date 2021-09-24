@@ -130,9 +130,15 @@ const findOrderByID=async(user_id)=>{
   }
 }
 
+const updateOrder=async(order_id)=>{
+  let order=await OrderInfo.updateOne({ '_id':order_id}, { $set: { status:"confirmed" } });
+  
+
+}
 module.exports = {
   saveOrder,
   getOrders,
   findOrder,
-  findOrderByID
+  findOrderByID,
+  updateOrder
 };

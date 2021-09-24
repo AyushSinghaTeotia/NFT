@@ -38,13 +38,14 @@
                 <td><%- order.content_id %></td>
                
 
-                <td class="success-color"> </td>
+                <td class="success-color"> <%- order.status %> </td>
                 
                  
                 <td>
                   <div>
+                    <% if(order.status=="success"){%>
                     <a  href="#" onclick=" confirmOrder('<%=order._id %>')">Confirm</a>
-                   
+                     <% } %>
                   </div>
                 </td>
                
@@ -105,7 +106,7 @@ async function confirmOrder(order_id){
                      order_id:order_id,
                      address: user_accounts
                  },
-                 success: function(data) {
+                 success: function(data) {  location.reload();
                      swal({
                          type: 'success',
                          text: 'Transaction completed successfully.',
@@ -116,7 +117,7 @@ async function confirmOrder(order_id){
                      }).then(function() {
                          location.reload();
                      });
-                                    location.reload();
+                                   
                  }
              });
         });
