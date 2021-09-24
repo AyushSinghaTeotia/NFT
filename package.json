@@ -24,6 +24,7 @@
     "express-validator": "^6.12.1",
     "fs-extra": "^10.0.0",
     "http-errors": "~1.6.3",
+    "ipfs-mini": "^1.1.5",
     "jsonwebtoken": "^8.5.1",
     "localStorage": "^1.0.4",
     "moment": "^2.29.1",

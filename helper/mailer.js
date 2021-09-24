@@ -3,17 +3,23 @@ const nodemailer = require("nodemailer");
 async function mail(to_mail, mail_subject, mail_content) {
 
     const mailOptions = {
-        from: 'noreply@justyours.me',//'noreply@justyours.me',
+        from: 'ebticoglt@gmail.com',//'noreply@justyours.me',
         to: to_mail,
         subject: mail_subject,
         html: mail_content
     };
 
     const smtpTransport = nodemailer.createTransport({
+        
         service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 443,
+        secure:true,
         auth: {
-            user: 'noreply@justyours.me', //'lokeshmaheshwari@questglt.com',
-            pass: 'Login90%' //'Login90%'      
+            user: 'ebticoglt@gmail.com',
+            pass: 'bitebitco'
+           // user: 'noreply@justyours.me', //'lokeshmaheshwari@questglt.com',
+            //pass: 'Login90%' //'Login90%'      
         }
     });
     //'noreply@justyours.me'

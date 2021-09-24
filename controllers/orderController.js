@@ -9,6 +9,10 @@ const { mail } = require('../helper/mailer');
 const orderServices=require('../services/orderServices');
 const userServices = require('../services/userServices')
 const contentCreaterServices=require('../services/contentCreaterServices');
+const paintingServices = require("../services/paintingServices");
+const mintServices=require('../services/mintServices');
+const base_url = process.env.BASE_URL;
+
 const Storage = multer.diskStorage({
     destination:'./public/uploadFile',
     filename:(req,file,cb)=>{
@@ -24,6 +28,7 @@ const upload = multer({
 const saveOrder=async(req,res)=>{
     let address=req.body.address;
     let user=await userServices.checkUserByWallet(address);
+    let content=await paintingServices.getContentDetail(req.body.content_id);
     let user_id="";
     if(user){
         user_id=user._id;
@@ -70,11 +75,25 @@ const saveOrder=async(req,res)=>{
               } 
      try{
         let orderData=await orderServices.saveOrder(order);
+        let tokenUrl=base_url+'/uploadFile/'+content.image;
+        let nftDetail=await mintServices.getTokens(tokenUrl);
+       
+         await mintServices.transferNFT(nftDetail[1][0],req.body.address,nftDetail[0][0]);
+
+        console.log(nftDetail);
         res.send(orderData);
      }catch(err){
          console.log(err);
      }
     
+
+}
+
+const confirmOrder=async(req,res)=>{
+  let order_id=req.query.id.trim();
+  let content=await paintingServices.getContentDetail(order.content_id);
+  let creator=await orderServices.findOrder(content.created_by);
+  
 
 }
 

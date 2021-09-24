@@ -5,6 +5,8 @@ const { generateCode, generateActivationToken } = require('../helper/userHelper'
 const { Registration, Userwallet, Importwallet, Tokensettings, Tokendetails, OrderDetails, RefCode, FAQ, ContactInfo, activationTokens } = require('../models/contact');
 const {  UserInfo } = require('../models/userModel');
 const { OrderInfo } =require('../models/orderModel');
+const { MintInfo } =require('../models/mintDetail');
+
 const { mail } = require('../helper/mailer');
 const API_URL = process.env.API_URL;
 const PUBLIC_KEY = process.env.PUBLIC_KEY;
@@ -14,13 +16,14 @@ const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(API_URL);
 
 const abi = require("../artifacts/contracts/MyNFT.json");
-const contractAddress = "0x261F36d7429AA66336D7532C23484998251a856e";
+const contractAddress = "0x023bAdcc83AFDa40Ad602e33EEE993a872589C71";
 const nftContract = new web3.eth.Contract(abi, contractAddress);
 
 
- const mintNFT=async(copy_for_sale,tokenUrl,title,basic_price) =>{
+ const mintNFT=async(address,content_id,copy_for_sale,tokenUrl,title,basic_price) =>{
     const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, 'latest'); //get latest nonce
     //the transaction
+    //console.log(nftContract)
     console.log(copy_for_sale);
     console.log(basic_price);
     let for_sale=BigInt(copy_for_sale);
@@ -33,9 +36,9 @@ const nftContract = new web3.eth.Contract(abi, contractAddress);
         'from': PUBLIC_KEY,
         'to': contractAddress,
         'nonce': nonce,
-        'gas': 500000,
+        'gas': 5000000,
         'maxPriorityFeePerGas': 1999999987,
-        'data': nftContract.methods.mintNFT(for_sale,tokenUrl,title,price).encodeABI()
+        'data': nftContract.methods.mintNFT(address,for_sale,tokenUrl,price,title).encodeABI()
       };
        
      }catch(err){
@@ -47,8 +50,19 @@ const nftContract = new web3.eth.Contract(abi, contractAddress);
     signPromise.then((signedTx) => {
   
       web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(err, hash) {
-        if (!err) {
+        if (!err) 
+         {
           console.log("The hash of your transaction is: ", hash, "\nCheck Alchemy's Mempool to view the status of your transaction!"); 
+          // nftContract.methods.get(hash);
+            mintdetail={content_id:content_id,
+                       trx_hash:hash,
+                       wallet_address:address,
+                       token_id:"",
+                       token_url:tokenUrl
+                      }
+             let mintData=new MintInfo(mintdetail);
+              mintData.save();         
+
         } else {
           console.log("Something went wrong when submitting your transaction:", err)
         }
@@ -57,6 +71,38 @@ const nftContract = new web3.eth.Contract(abi, contractAddress);
       console.log("Promise failed:", err);
     });
   }
+
+  const getTokens=async(tokenUrl)=>{
+  
+     try{
+         let details=await nftContract.methods.uriId(tokenUrl).call({
+          from :"0x023bAdcc83AFDa40Ad602e33EEE993a872589C71"
+        });
+         return details;
+      }
+      catch(err){
+        console.log(err)
+      }
+    
+
+  }
+
+  const transferNFT=async(address_from,address_to,tokenId,tokenUrl)=>{
+    
+      try{
+        let trxNft= await nftContract.methods.safeTransferFrom(
+          address_from,
+          address_to,
+          tokenId,
+          tokenUrl
+        );
+       console.log(trxNft);
+      }catch(err){
+        console.log(err);
+      }
+
+  }
+
 
 
 
@@ -80,4 +126,7 @@ const createAtTimer = async () => {
 
 module.exports = {
     mintNFT,
+    getTokens,
+    transferNFT
+
 };

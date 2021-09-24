@@ -15,6 +15,7 @@ const { calculateHours } = require('../helper/userHelper');
 const { balanceMainBNB, coinBalanceBNB } = require('../helper/bscHelper');
 const { balanceMainETH } = require('../helper/ethHelper');
 const mintServices=require('../services/mintServices');
+const ipfsSevices=require('../services/ipfsServices');
 const base_url = process.env.BASE_URL;
 
 const Storage = multer.diskStorage({
@@ -156,16 +157,21 @@ const updateContentStatus=async (req,res)=>{
     
     let contentDetail=await paintingServices.getContentDetail(id);
 
-     //let UserwalletData = await blockchainServices.findUserWallet(contentDetail.created_by);
+     let UserwalletData = await blockchainServices.findUserWallet(contentDetail.created_by);
    console.log("paiting data",content);
     if(content){
+
         let content=await paintingServices.getContentDetail(id);
 
+         //let imageUrl=base_url+'/uploadFile/'+content.image;
+         // let data={"title":content.title,"image":imageUrl};
+          
+            //let tokenUrl=await ipfsSevices.addIPFS(data)
+            //base_url+'/uploadFile/'+content.image;
+        
+          let tokenUrl=base_url+'/uploadFile/'+content.image;
 
-            //let base_url=location.hostname;
-            let tokenUrl=base_url+'/uploadFile/'+content.image;
-
-           await mintServices.mintNFT(content.copy_for_sale,tokenUrl,content.title,content.basic_price);
+           await mintServices.mintNFT(UserwalletData.wallet_address,content._id,content.copy_for_sale,tokenUrl,content.title,content.basic_price);
          
            res.redirect('/users/dashboard');
      }

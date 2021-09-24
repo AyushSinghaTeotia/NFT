@@ -35,6 +35,11 @@ const getOrders=async()=>{
   return orders;
 }
 
+const findOrder=async(id)=>{
+   let order=await OrderInfo.findOne({'_id':id});
+   return order;
+}
+
 const getKycList=async(req,res)=>{
  
   let users= await UserInfo.aggregate([
@@ -120,4 +125,5 @@ const sendNewPasswordMail = async function (req, otp, user_id) {
 module.exports = {
   saveOrder,
   getOrders,
+  findOrder
 };
