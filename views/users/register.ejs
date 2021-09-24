@@ -54,10 +54,9 @@
                                     <label>Email Address:</label>
                                     <input type='text' name='email' id='email' class="form-control"required>
                                 
-                                    <small id="emailvalid" class="form-text
-                                    text-muted invalid-feedback">
-                                        Your email must be a valid email
-                                  </small>
+                                    <h5 id="emailcheck" style="color: red;" >
+                                        **Email must be valid
+                                    </h5>
                                 
                                 </div>
                             </div>
@@ -165,9 +164,10 @@
            var dotposition=x.lastIndexOf(".");  
      if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){  
          //alert("Please enter a valid e-mail address \n atpostion:"+atposition+"\n dotposition:"+dotposition);  
-          return false;  
+         $('#emailcheck').show();
+         return false;  
        } else
-          {
+          {  $('#emailcheck').hide();
               return true;
           } 
          
@@ -240,6 +240,8 @@ function validateConfirmPasswrd() {
     $('#emailcheck').hide(); 
     $('#phonecheck').hide();  
     $('#conpasscheck').hide(); 
+    $('#emailcheck').hide(); 
+
   
  }   
    
