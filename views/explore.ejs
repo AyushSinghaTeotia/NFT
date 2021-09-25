@@ -97,6 +97,8 @@
         fetchData("");
      }
 
+     checkLogin("<%=name %>");
+
   };
   function fetchData(query){   console.log(query)
     $.ajax({type:"get",
@@ -247,4 +249,6 @@ function CheckboxValues(name) {
      let obj={category:"",sortby:value}
      fetchData(obj);
  }
+
+ 
 </script>

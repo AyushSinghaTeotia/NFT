@@ -34,15 +34,51 @@ const loginPage = async (req, res) => {
        let err_msg = req.flash('err_msg');
        let success_msg=req.flash('success_msg');
     //let success_msg = req.flash('success_msg');
+       let user_id=req.session.re_us_id;
+       let role=req.session.role;
 
-        res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg ,name: req.session.re_usr_name,success_msg:success_msg});
+        if(user_id)
+        {
+            if(role=="user"){
+                res.redirect('/');
+            }else
+              {
+                  res.redirect('/users/dashboard');
+              }
+          
+        }
+        else
+        {
+            res.render('users/login', { layout: 'layouts/front/layout',err_msg:err_msg ,name: req.session.re_usr_name,success_msg:success_msg});
+
+        }
     
 }
 
 const signup= async (req,res)=> {
     let err_msg = req.flash('err_msg');
+    
+       let user_id=req.session.re_us_id;
+       let role=req.session.role;
 
-    res.render('users/register', { layout: 'layouts/front/layout',name: req.session.re_usr_name,err_msg});
+        if(user_id)
+        {
+            if(role=="user"){
+                res.redirect('/');
+            }else
+              {
+                  res.redirect('/users/dashboard');
+              }
+          
+        }
+        else
+        {
+
+            res.render('users/register', { layout: 'layouts/front/layout',name: req.session.re_usr_name,err_msg});
+
+        }
+
+
 
 }
 
@@ -106,10 +142,10 @@ const submitSignup = async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
     let mobile = req.body.mobile;
-    let username = req.body.username;
+   // let username = req.body.username;
     
       console.log(req.body);
-        if(name && email && password && username && mobile){
+        if(name && email && password && mobile){
             let user = await userServices.checkUser(req.body.email);
             console.log(user);
             if (user) 

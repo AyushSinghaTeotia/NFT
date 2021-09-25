@@ -15,7 +15,6 @@ const addUser = async (userDetails, pass, created) => {
     password: pass,
     created_at: created,
     mobile: userDetails.mobile,
-    username: userDetails.username
   };
   try {
     const user = new UserInfo(userObject);

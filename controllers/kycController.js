@@ -75,7 +75,9 @@ const saveKyc=async (req,res)=>{
 const kycList=async(req,res)=>{
 
     let userKyc=await userServices.getKycList();
-
+    if(req.session.role!="admin"){
+      res.redirect('/users/dashboard');
+    }
     if(userKyc.length>0)
       {
           console.log(userKyc);
@@ -92,6 +94,10 @@ const viewKyc=async(req,res)=>{
   let user=await userServices.checkUserId(id);
   console.log(user);
   console.log(kyc);
+  if(req.session.role!="admin"){
+    res.redirect('/users/dashboard');
+  }
+
   if(user)
     {
       res.render('admin/kyc/view',{title:'view kyc',user,kyc,role:req.session.role,name:req.session.re_usr_name});

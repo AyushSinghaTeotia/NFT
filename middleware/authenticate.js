@@ -8,6 +8,14 @@ function authenticate(req, res, next) {
         res.redirect('/users/login');
         //next(err);
        }
+       else
+       {
+         if(req.session.role=="user"){
+
+            res.redirect('/');
+              
+           }
+       }
     next();
 }
 

@@ -373,7 +373,7 @@
   window.onload = function() { //alert("hello")
      fetchData("");
     
-
+     checkLogin("<%=name %>");
   };
   function fetchData(query){   console.log(query)
     $.ajax({type:"get",
@@ -485,6 +485,7 @@ function CheckboxValues(name) {
    console.log(values);
    fetchData(values);
  }   
+
 
  
 </script>

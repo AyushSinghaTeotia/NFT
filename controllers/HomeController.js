@@ -17,6 +17,20 @@ const { balanceMainETH } = require('../helper/ethHelper');
 const { UserInfo } = require("../models/userModel");
 
 
+function authuser(req, res, next) {
+    if (req.session&&req.session.role) 
+      {
+        if(req.session.role!="user")
+        {
+            res.redirect('/users/dashboard');
+
+        }
+      }
+      
+    next();
+}
+
+
 const Storage = multer.diskStorage({
     destination:'./public/uploadFile',
     filename:(req,file,cb)=>{
@@ -75,5 +89,6 @@ module.exports = {
     model,
     contentDetail,
     index,
-    author
+    author,
+    authuser
 };
